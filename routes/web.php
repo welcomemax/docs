@@ -15,7 +15,3 @@ Route::get('/', function () {
     return view('app');
 });
 
-Route::get('/api/items/{id?}', 'ItemController@index');
-Route::post('/api/items', 'ItemController@create');
-Route::post('/api/items/{id}', 'ItemController@update');
-Route::delete('/api/items/{id}', 'ItemController@destroy');

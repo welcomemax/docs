@@ -16,3 +16,16 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(
+    [
+        'prefix' => '/items',
+//        'middleware' => 'cors'
+    ],
+    function () {
+        Route::get('/{id?}/', 'ItemController@index');
+        Route::post('/{id?}/', 'ItemController@save');
+        Route::delete('/{id}/', 'ItemController@destroy');
+    }
+);
+

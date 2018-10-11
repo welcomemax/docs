@@ -16,104 +16,38 @@ class ItemController extends Controller
     public function index($id = null)
     {
         if ($id == null) {
-            return Item::orderBy('id', 'asc')->get();
+            $items = Item::orderBy('id', 'asc')->get();
+
+            return [
+                'status' => 1,
+                'data' => $items
+            ];
         } else {
-            return $this->show($id);
+            return [
+                'status' => 1,
+                'data' => Item::find($id)
+            ];
         }
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        $item = new Item;
-
-        $item->title = $request->input('title');
-
-        if ($request->input('description'))
-            $item->description = $request->input('description');
-        else
-            $item->description = '';
-
-        if ($request->input('price'))
-            $item->price = $request->input('price');
-        else
-            $item->price = 0;
-
-        $image = $request->file('image');
-
-        if ($image) {
-            $name = $image->getClientOriginalName();
-
-            $image->move('uploads', $name);
-
-            $item->image = '/uploads/'.$name;
-            $addMess = ". File ". $name ." upload";
-        } else {
-            $item->image = '';
-            $addMess = '';
-        }
-
-        $item->save();
-
-        return "Success updating item #" . $item->id . $addMess;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return Item::find($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Save the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function save(Request $request, $id = null)
     {
-        $item = Item::find($id);
+        $data = input();
+        $data->id = $id;
 
-        $item->title = $request->input('title');
+        Item::updateOrCreate($data);
 
-        if ($request->input('description'))
-            $item->description = $request->input('description');
-        else
-            $item->description = '';
-
-        if ($request->input('price'))
-            $item->price = $request->input('price');
-        else
-            $item->price = 0;
-
-        $image = $request->file('image');
-
-        if ($image) {
-            $name = $image->getClientOriginalName();
-
-            $image->move('uploads', $name);
-
-            $item->image = '/uploads/'.$name;
-            $addMess = ". File ". $name ." upload";
-        } else {
-            $item->image = Item::find($id)->image;
-            $addMess = '';
-        }
-
-        $item->save();
-
-        return "Success updating item #" . $item->id . $addMess;
+        return [
+            'status' => 1,
+            'message' => "Success updating item #" . $id
+        ];
     }
 
     /**
@@ -125,11 +59,12 @@ class ItemController extends Controller
     public function destroy($id)
     {
         if ($id) {
-            $item = Item::find($id);
+            Item::find($id)->delete();
 
-            $item->delete();
-
-            return "Item record successfully deleted #" . $id;
+            return [
+                'status' => 1,
+                'message' => "Item record successfully deleted #" . $id
+            ];
         }
     }
 }
