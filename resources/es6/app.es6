@@ -13,32 +13,42 @@ import apiService from './services/api.es6';
 import itemsListController from './controllers/items-list.es6';
 import itemDetailController from './controllers/item-detail.es6';
 
+// directives
+import tagsDirective from './directives/tags.es6';
+import aceEditorDirective from './directives/editor.es6';
+
+// templates
+import listTemplate from './../html/list.html';
+import detailTemplate from './../html/detail.html';
+
 angular.module('items', ['ngRoute'])
     .factory('api', apiService)
     .controller('itemsListController', itemsListController)
     .controller('itemDetailController', itemDetailController)
+    .directive('tags', tagsDirective)
+    .directive('aceEditor', aceEditorDirective)
     .filter('startFromFilter', startFromFilter)
     .filter('rawHtmlFilter', rawHtmlFilter)
     .config(function($routeProvider) {
         $routeProvider
             .when('/', {
                 controller: 'itemsListController',
-                templateUrl: '../templates/list.html',
+                template: listTemplate,
                 resolve: {
                     itemsObj: function (api) {
                         return api.call('items');
                     },
-                    // appsObj: function (api) {
-                    //     return api.call('apps');
-                    // },
-                    // typesObj: function (api) {
-                    //     return api.call('types');
-                    // }
+                    productsObj: function (api) {
+                        return api.call('products');
+                    },
+                    typesObj: function (api) {
+                        return api.call('types');
+                    }
                 }
             })
             .when('/detail/:id', {
                 controller: 'itemDetailController',
-                templateUrl: '../templates/detail.html',
+                template: detailTemplate,
                 resolve: {
                     itemObj: function ($route, api) {
                         return api.call('items/' + $route.current.params.id);

@@ -5,41 +5,27 @@ namespace App\Http\Controllers;
 use App\Item;
 use Illuminate\Http\Request;
 
+// @TODO ItemController extends ApiController extends Controller
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function index($id = null)
     {
-        if ($id == null) {
-            $items = Item::orderBy('id', 'asc')->get();
+        $itemsQuery = $id ? Item::where('id', $id) : Item::orderBy('id', 'asc');
+        $items = $itemsQuery->with(['product', 'type'])->get();
 
-            return [
-                'status' => 1,
-                'data' => $items
-            ];
-        } else {
-            return [
-                'status' => 1,
-                'data' => Item::find($id)
-            ];
+        foreach($items as $item) {
+
         }
+
+        return [
+            'status' => 1,
+            'data' => $items
+        ];
     }
 
-    /**
-     * Save the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function save(Request $request, $id = null)
     {
-        $data = input();
+        $data = $request->input();
         $data->id = $id;
 
         Item::updateOrCreate($data);
@@ -50,12 +36,6 @@ class ItemController extends Controller
         ];
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         if ($id) {

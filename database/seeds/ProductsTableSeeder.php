@@ -1,9 +1,9 @@
 <?php
 
-use App\Type;
+use App\Product;
 use Illuminate\Database\Seeder;
 
-class TypesTableSeeder extends Seeder
+class ProductsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,13 +13,13 @@ class TypesTableSeeder extends Seeder
     public function run()
     {
         $types_data = [[
-            'name' => 'css'
+            'name' => 'Instagram Feed'
         ], [
-            'name' => 'js'
+            'name' => 'YouTube Gallery'
         ]];
 
         foreach ($types_data as $index => $type) {
-            Type::updateOrCreate(
+            Product::updateOrCreate(
                 $type
             );
         }

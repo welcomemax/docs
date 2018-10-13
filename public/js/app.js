@@ -68,7 +68,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);
-module.exports = __webpack_require__(7);
+module.exports = __webpack_require__(16);
 
 
 /***/ }),
@@ -81,11 +81,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_route__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_route___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular_route__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters_raw_html_es6__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filters_start_from_es6__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_api_es6__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__controllers_items_list_es6__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controllers_item_detail_es6__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters_raw_html_es6__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filters_start_from_es6__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_api_es6__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__controllers_items_list_es6__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controllers_item_detail_es6__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__directives_tags_es6__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__directives_editor_es6__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__html_list_html__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__html_list_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__html_list_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__html_detail_html__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__html_detail_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__html_detail_html__);
 // vendors
 
 
@@ -101,32 +107,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+// directives
+
+
+
+// templates
+
+
+
 angular.module('items', ['ngRoute'])
     .factory('api', __WEBPACK_IMPORTED_MODULE_4__services_api_es6__["a" /* default */])
     .controller('itemsListController', __WEBPACK_IMPORTED_MODULE_5__controllers_items_list_es6__["a" /* default */])
     .controller('itemDetailController', __WEBPACK_IMPORTED_MODULE_6__controllers_item_detail_es6__["a" /* default */])
+    .directive('tags', __WEBPACK_IMPORTED_MODULE_7__directives_tags_es6__["a" /* default */])
+    .directive('aceEditor', __WEBPACK_IMPORTED_MODULE_8__directives_editor_es6__["a" /* default */])
     .filter('startFromFilter', __WEBPACK_IMPORTED_MODULE_3__filters_start_from_es6__["a" /* default */])
     .filter('rawHtmlFilter', __WEBPACK_IMPORTED_MODULE_2__filters_raw_html_es6__["a" /* default */])
     .config(function($routeProvider) {
         $routeProvider
             .when('/', {
                 controller: 'itemsListController',
-                templateUrl: '../templates/list.html',
+                template: __WEBPACK_IMPORTED_MODULE_9__html_list_html___default.a,
                 resolve: {
                     itemsObj: function (api) {
                         return api.call('items');
                     },
-                    // appsObj: function (api) {
-                    //     return api.call('apps');
-                    // },
-                    // typesObj: function (api) {
-                    //     return api.call('types');
-                    // }
+                    productsObj: function (api) {
+                        return api.call('products');
+                    },
+                    typesObj: function (api) {
+                        return api.call('types');
+                    }
                 }
             })
             .when('/detail/:id', {
                 controller: 'itemDetailController',
-                templateUrl: '../templates/detail.html',
+                template: __WEBPACK_IMPORTED_MODULE_10__html_detail_html___default.a,
                 resolve: {
                     itemObj: function ($route, api) {
                         return api.call('items/' + $route.current.params.id);
@@ -37670,6 +37686,36 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function ($sce) {
+    return (html) => {
+        return $sce.trustAsHtml(html);
+    }
+});
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+    return (input, start) => {
+        if (!input || !input.length) {
+            return
+        }
+
+        start = +start;
+
+        return input.slice(start);
+    }
+});
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony default export */ __webpack_exports__["a"] = (function($injector) {
     class Api{
         constructor($injector) {
@@ -37763,52 +37809,31 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function ($sce) {
-    return (html) => {
-        return $sce.trustAsHtml(html);
-    }
-});
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-    return (input, start) => {
-        if (!input || !input.length) {
-            return
-        }
-
-        start = +start;
-
-        return input.slice(start);
-    }
-});
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (itemsObj, $scope, $filter) {
+/* harmony default export */ __webpack_exports__["a"] = (function (itemsObj, productsObj, typesObj, $scope, $filter) {
     $scope.items = itemsObj.data;
+
+    productsObj.data.forEach((product) => {
+        $scope.products = $scope.products || [];
+
+        $scope.products.push(product.name)
+    });
+
+    typesObj.data.forEach((type) => {
+        $scope.types = $scope.types || [];
+
+        $scope.types.push(type.name)
+    });
+
+    $scope.items.forEach((item) => {
+        item.tags = item.tags || [];
+
+        item.tags.push(item.type.name);
+        item.tags.push(item.product.name);
+    });
 
     $scope.sortType = 'id';
     $scope.sortReverse = false;
@@ -37871,12 +37896,14 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 
 /***/ }),
-/* 15 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = (function (itemObj, api, $scope, $routeParams, $location) {
-    $scope.item = itemObj.data;
+    $scope.item = $routeParams.id ? itemObj.data[0] : {};
+
+    console.log($scope)
 
     $scope.save = function() {
         let fd = new FormData();
@@ -37904,6 +37931,129 @@ function ngViewFillContentFactory($compile, $controller, $route) {
     // };
 });
 
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_tags_html__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_tags_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__html_tags_html__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = (function() {
+    return {
+        scope: {
+            tags: '=',
+            ngModel: '=',
+        },
+        template: __WEBPACK_IMPORTED_MODULE_0__html_tags_html___default.a,
+        replace: false,
+        link: function($scope, $element) {
+            console.log($scope)
+        },
+        controller: /** @ngInject */ function($scope) {
+
+        }
+    }
+});
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = "<ul class=\"tags\">\n    <li class=\"tags-item\" ng-repeat=\"tag in tags\">{{ tag }}</li>\n</ul>\n";
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function() {
+    if (angular.isUndefined(window.ace)) {
+        throw new Error('Ace required');
+    }
+
+    return {
+        restrict: 'EA',
+        require: '?ngModel',
+        link: function (scope, element, attributes, ngModel) {
+            let editor = window.ace.edit(element[0]),
+                session = editor.getSession(),
+                options = scope.$eval(attributes.aceEditor);
+
+            scope.fitEditorHeight = function() {
+                let height = session.getScreenLength() * editor.renderer.lineHeight + editor.renderer.scrollBar.getWidth();
+
+                element.css('height', height.toString() + "px");
+            };
+
+            editor.setOption('useWorker', false);
+
+            editor.commands.addCommand({
+                name: 'save',
+                bindKey: {
+                    win: 'Ctrl-S',
+                    mac: 'Command-S'
+                },
+                exec: function() {
+                    // @TODO init save preferences from parent
+                }
+            });
+
+            if (options.mode){
+                session.setMode("ace/mode/"+options.mode);
+            }
+
+            if (options.theme) {
+                editor.setTheme("ace/theme/"+options.theme);
+            }
+
+            scope.fitEditorHeight();
+
+            element.on('$destroy', function () {
+                editor.session.$stopWorker();
+                editor.destroy();
+            });
+
+            scope.$watch(function() {
+                return [element[0].offsetWidth, element[0].offsetHeight];
+            }, function() {
+                editor.resize();
+                editor.renderer.updateFull();
+            }, true);
+
+            session.on('change', function(){
+                scope.fitEditorHeight();
+                ngModel.$setViewValue(session.getValue());
+            });
+
+            ngModel.$render = function(){
+                session.setValue(ngModel.$viewValue);
+            };
+        }
+    }
+});
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"content\">\n    <div class=\"list\">\n        <div class=\"item\" ng-repeat=\"item in filterItems | startFromFilter: startingItem() | limitTo: itemsPerPage | filter: search | orderBy:sortType:sortReverse\">\n            <a class=\"item-open\" href=\"#/detail/{{ item.id }}\"></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h3>{{ item.title }}</h3>\n                    <p>{{ item.caption }}</p>\n                </div>\n            </div>\n\n            <div class=\"item-body\">{{ item.data }}</div>\n\n            <div class=\"item-footer\">\n                <div class=\"item-header-tags\" tags=\"item.tags\"></div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"pagination\">\n    <button class=\"pagination-button pagination-button-prev\" ng-disabled=\"firstPage()\" ng-click=\"pageBack()\"></button>\n    <span class=\"pagination-pages\"><b>{{ currentPage+1 }}</b>/<b>{{ numberOfPages() }}</b></span>\n    <button class=\"pagination-button pagination-button-next\" ng-disabled=\"lastPage()\" ng-click=\"pageForward()\"></button>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-search\">\n            <div class=\"sidebar-group-header\">Search</div>\n            <div class=\"sidebar-group-body\">\n\n                <div class=\"search\">\n                    <label class=\"search-icon\"></label>\n                    <input class=\"search-input\" ng-model=\"search\" type=\"text\" placeholder=\"whatever\">\n                </div>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-apps\">\n            <div class=\"sidebar-group-header\">Apps</div>\n            <div class=\"sidebar-group-body\">\n                <div class=\"\" tags=\"products\"></div>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-types\">\n            <div class=\"sidebar-group-header\">Tags</div>\n            <div class=\"sidebar-group-body\">\n                <div class=\"\" tags=\"types\"></div>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-top\">\n            <div class=\"sidebar-group-header\">Top</div>\n            <div class=\"sidebar-group-body\">\n\n            </div>\n        </div>\n    </div>\n    <div class=\"sidebar-footer\">\n        <a class=\"button\" href=\"/#/new\">Create New</a>\n    </div>\n</div>\n";
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"content\">\n    <div class=\"detail\">\n        <div class=\"item\">\n            <a class=\"item-close\" href=\"/#\"></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h2><input ng-model=\"item.title\" ng-if=\"false\">{{ item.title }}</h2>\n                    <p><input ng-model=\"item.caption\" ng-if=\"false\">{{ item.caption }}</p>\n                </div>\n                <div class=\"item-header-tags\">\n                    <span ng-repeat=\"tag in item.tags\"></span>\n                </div>\n            </div>\n\n            <div class=\"item-body\">{{ item.data }}</div>\n\n            <div class=\"item-footer\">\n                <button class=\"item-footer-button\" ng-if=\"false\"\n                        ng-click=\"save()\">\n                    Create\n                </button>\n                <button class=\"item-footer-button\" ng-if=\"false\"\n                        ng-click=\"save()\">\n                    Edit\n                </button>\n                <button class=\"item-footer-button\" ng-if=\"false\"\n                        ng-click=\"save()\" ng-disabled=\"myForm.$invalid\">\n                    Update\n                </button>\n                <button class=\"item-footer-button\" ng-if=\"false\"\n                        ng-click=\"save()\">\n                    Cancel\n                </button>\n                <a class=\"item-footer-button\" href=\"#/\">\n                    Back\n                </a>\n                <span class=\"item-footer-date\">Last update: <b>{{ item.updated_at }}</b></span>\n            </div>\n        </div>\n    </div>\n</div>\n";
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

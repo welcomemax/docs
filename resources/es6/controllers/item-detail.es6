@@ -1,5 +1,7 @@
 export default /** @ngInject */ function (itemObj, api, $scope, $routeParams, $location) {
-    $scope.item = itemObj.data;
+    $scope.item = $routeParams.id ? itemObj.data[0] : {};
+
+    console.log($scope)
 
     $scope.save = function() {
         let fd = new FormData();

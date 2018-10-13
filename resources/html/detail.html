@@ -1,7 +1,7 @@
 <div class="content">
-    <div class="detail item">
-        <form name="myForm">
-            <a class="item-close" href="#/">X</a>
+    <div class="detail">
+        <div class="item">
+            <a class="item-close" href="/#"></a>
 
             <div class="item-header">
                 <div class="item-header-info">
@@ -13,9 +13,7 @@
                 </div>
             </div>
 
-            <div class="item-body">
-                {{ item.data }}
-            </div>
+            <div class="item-body">{{ item.data }}</div>
 
             <div class="item-footer">
                 <button class="item-footer-button" ng-if="false"
@@ -39,6 +37,6 @@
                 </a>
                 <span class="item-footer-date">Last update: <b>{{ item.updated_at }}</b></span>
             </div>
-        </form>
+        </div>
     </div>
 </div>

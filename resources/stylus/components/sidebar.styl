@@ -1,0 +1,75 @@
+.sidebar
+    position absolute
+    width 200px
+    right -200px
+    top 0
+    display flex
+    flex-direction column
+    height 100%
+    justify-content space-between
+
+    &-divider
+        height 1px
+        width 100%
+        background #38393a
+
+    &-body
+        height 100%
+
+    &-group
+        padding 20px
+
+        &-header
+            font-size 13px
+            text-transform uppercase
+            margin-bottom 8px
+
+    &-footer
+        padding 20px
+
+.search
+    position relative
+
+    &-icon
+        color #38393a
+        position absolute
+        right 4px
+        top 4px
+        width 12px
+        height 12px
+        border solid 1px currentColor
+        border-radius 100%
+        transform rotate(-45deg)
+        transition opacity .3s
+        opacity .6
+
+        .search-input:focus
+            opacity 1
+            color red
+
+        &:before
+            content ''
+            position absolute
+            top 12px
+            left 5px
+            height 6px
+            width 1px
+            background-color currentColor
+
+    &-input
+        border 0
+        border-bottom 1px solid #38393a
+        outline 0
+        padding 4px 0
+        font-size 15px
+        background transparent
+        width 100%
+
+        &::placeholder
+            opacity .8
+            font-size 15px
+            transition opacity .3s
+
+        &:focus
+            &::placeholder
+                opacity 0

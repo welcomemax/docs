@@ -1,0 +1,49 @@
+.pagination
+    display flex
+    justify-content center
+    align-items center
+    position absolute
+    left 50%
+    bottom -35px
+    transform translateX(-50%)
+    min-height 28px
+
+    &-pages
+        display inline-block
+        font-size 15px
+        margin 0 8px
+
+    &-button
+        position relative
+        width 28px
+        height 28px
+        border none
+        outline none
+        padding 0
+        background transparent
+        cursor pointer
+        transition transform .3s
+
+        &:before
+            content ''
+            position absolute
+            left 50%
+            top 50%
+            margin-top -6px
+            margin-left -6px
+            width 12px
+            height 12px
+            border-top solid 1px currentColor
+            border-right solid 1px currentColor
+
+        &-prev
+            &:before
+                transform rotate(-135deg)
+            &:hover
+                transform translateX(-2px)
+
+        &-next
+            &:before
+                transform rotate(45deg)
+            &:hover
+                transform translateX(2px)

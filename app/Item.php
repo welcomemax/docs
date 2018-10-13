@@ -21,6 +21,14 @@ class Item extends Model
         'updated_at'
     ];
 
+    protected $hidden = [
+        'created_at'
+    ];
+
+    protected $casts = [
+        'updated_at' => 'datetime:d.m.y H:00',
+    ];
+
     public function type() {
         return $this->belongsTo('App\Type');
     }

@@ -17,15 +17,29 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
 Route::group(
     [
         'prefix' => '/items',
-//        'middleware' => 'cors'
+//        'middleware' => ''
     ],
     function () {
-        Route::get('/{id?}/', 'ItemController@index');
         Route::post('/{id?}/', 'ItemController@save');
         Route::delete('/{id}/', 'ItemController@destroy');
     }
 );
+
+Route::group(['prefix' => '/items'], function () {
+    Route::get('/{id?}/', 'ItemController@index');
+});
+
+
+Route::group(['prefix' => '/types'], function () {
+    Route::get('/{id?}/', 'TypeController@index');
+});
+
+Route::group(['prefix' => '/products'], function () {
+    Route::get('/{id?}/', 'ProductController@index');
+});
 

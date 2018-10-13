@@ -1,0 +1,82 @@
+.item
+    position relative
+    display flex
+    flex-direction column
+    justify-content space-between
+    padding 20px
+    box-sizing border-box
+    border-radius 3px 3px 0 0
+    box-shadow 0 0 1px 1px rgba(0,0,0,.05)
+
+    &:after
+        content ""
+        position absolute
+        bottom 0
+        left 0
+        height 3px
+        width 100%
+        transition background .3s
+
+    &-close
+    &-open
+        right 20px
+        top 20px
+        position absolute
+        width 32px
+        height 32px
+        text-decoration none
+        cursor pointer
+        display inline-block
+        z-index 1
+
+        &:before
+            content ''
+            position absolute
+            left 50%
+            top 50%
+            margin-top -8px
+            margin-left -8px
+            width 16px
+            height 16px
+            border-top solid 1px currentColor
+            border-right solid 1px currentColor
+            transition transform .3s
+
+    &-close
+        color #E91E63
+
+        &:before
+            transform rotate(-45deg)
+
+    &-open
+        color #38393a
+
+        &:before
+            margin-top -16px
+            transform rotate(135deg)
+
+    &-header
+        &-info
+            h2
+            h3
+                margin 0
+                margin-bottom 8px
+                font-size 18px
+            p
+                margin 0
+                font-size 15px
+                color #868686
+
+    &-body
+        font-size 16px
+        white-space pre
+        margin 12px 0
+
+    &-footer
+        display flex
+        align-items center
+        justify-content space-between
+
+        &-date
+            font-size 13px
+            color #868686

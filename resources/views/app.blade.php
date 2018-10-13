@@ -9,8 +9,8 @@
 
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
-<body class="body">
-    <div class="body-container">
+<body class="">
+    <div class="container">
         <header class="header">
             <h1 class="header-title">Elfsight Docs</h1>
             <p class="header-caption">Database of customizations and hacks for Elfsight applications</p>

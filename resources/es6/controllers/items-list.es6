@@ -1,5 +1,24 @@
-export default /** @ngInject */ function (itemsObj, $scope, $filter) {
+export default /** @ngInject */ function (itemsObj, productsObj, typesObj, $scope, $filter) {
     $scope.items = itemsObj.data;
+
+    productsObj.data.forEach((product) => {
+        $scope.products = $scope.products || [];
+
+        $scope.products.push(product.name)
+    });
+
+    typesObj.data.forEach((type) => {
+        $scope.types = $scope.types || [];
+
+        $scope.types.push(type.name)
+    });
+
+    $scope.items.forEach((item) => {
+        item.tags = item.tags || [];
+
+        item.tags.push(item.type.name);
+        item.tags.push(item.product.name);
+    });
 
     $scope.sortType = 'id';
     $scope.sortReverse = false;
