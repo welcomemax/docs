@@ -15,7 +15,7 @@ import itemDetailController from './controllers/item-detail.es6';
 
 // directives
 import tagsDirective from './directives/tags.es6';
-import aceEditorDirective from './directives/editor.es6';
+import editorDirective from './directives/editor.es6';
 
 // templates
 import listTemplate from './../html/list.html';
@@ -26,7 +26,7 @@ angular.module('items', ['ngRoute'])
     .controller('itemsListController', itemsListController)
     .controller('itemDetailController', itemDetailController)
     .directive('tags', tagsDirective)
-    .directive('aceEditor', aceEditorDirective)
+    .directive('editor', editorDirective)
     .filter('startFromFilter', startFromFilter)
     .filter('rawHtmlFilter', rawHtmlFilter)
     .config(function($routeProvider) {

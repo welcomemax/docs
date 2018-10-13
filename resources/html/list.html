@@ -10,10 +10,12 @@
                 </div>
             </div>
 
-            <div class="item-body">{{ item.data }}</div>
+            <div class="item-body">
+                <pre>{{ item.data }}</pre>
+            </div>
 
             <div class="item-footer">
-                <div class="item-header-tags" tags="item.tags"></div>
+                <tags class="item-header-tags" icon="true" ng-model="item.tags"></tags>
             </div>
         </div>
     </div>
@@ -42,14 +44,14 @@
         <div class="sidebar-group sidebar-group-active sidebar-group-apps">
             <div class="sidebar-group-header">Apps</div>
             <div class="sidebar-group-body">
-                <div class="" tags="products"></div>
+                <tags class="sidebar-tags" icon="false" ng-model="products"></tags>
             </div>
         </div>
 
         <div class="sidebar-group sidebar-group-active sidebar-group-types">
             <div class="sidebar-group-header">Tags</div>
             <div class="sidebar-group-body">
-                <div class="" tags="types"></div>
+                <tags class="sidebar-tags" icon="false" ng-model="types"></tags>
             </div>
         </div>
 

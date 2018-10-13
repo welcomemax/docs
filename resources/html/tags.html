@@ -1,3 +1,4 @@
 <ul class="tags">
-    <li class="tags-item" ng-repeat="tag in tags">{{ tag }}</li>
+    <span class="icon icon-tag" ng-if="icon"></span>
+    <li class="tags-item" ng-repeat="tag in ngModel">{{ tag }}</li>
 </ul>

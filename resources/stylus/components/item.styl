@@ -1,3 +1,5 @@
+@import '~jodit/build/jodit.min.css'
+
 .item
     position relative
     display flex
@@ -68,9 +70,38 @@
                 color #868686
 
     &-body
-        font-size 16px
-        white-space pre
+        height 100%
         margin 12px 0
+
+        pre
+        textarea
+            font 12px/normal monospace
+            border-radius 3px
+            padding 12px
+            background #38393a
+            color #fff
+            width 100%
+            border none
+            outline none
+            margin 0
+            box-sizing border-box
+
+        pre
+            max-height 100px
+            overflow-y auto
+
+            &::-webkit-scrollbar-track
+                background-color #f0f0f0
+
+            &::-webkit-scrollbar
+                width 6px
+
+            &::-webkit-scrollbar-thumb
+                background-color #888
+
+        textarea
+            min-height 100px
+            resize none
 
     &-footer
         display flex

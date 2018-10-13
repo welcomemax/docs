@@ -11,3 +11,44 @@
 
     &:hover
         transform translateY(-2px)
+
+.icon
+    &:before
+    &:after
+        content ''
+        position absolute
+
+    &-tag
+        color #38393a
+        opacity .6
+        display inline-block
+        position relative
+        margin-right 8px
+        top -3px
+        width 7px
+        height 7px
+        border-radius 1px 1px 1px 0
+        border-left solid 1px currentColor
+        border-top solid 1px currentColor
+        background-color currentColor
+
+        &:before
+            left 1px
+            top 1px
+            width 9px
+            height 10px
+            border-radius 1px
+            border-left solid 1px currentColor
+            border-right solid 1px currentColor
+            border-bottom solid 1px currentColor
+            background-color currentColor
+            transform rotate(-45deg)
+
+        &:after
+            left 3px
+            top 3px
+            width 2px
+            height 2px
+            border-radius 50%
+            color white
+            background-color currentColor

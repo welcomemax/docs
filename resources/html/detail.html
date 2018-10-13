@@ -13,7 +13,7 @@
                 </div>
             </div>
 
-            <div class="item-body">{{ item.data }}</div>
+            <div class="item-body"><editor ng-model="item.data"></editor></div>
 
             <div class="item-footer">
                 <button class="item-footer-button" ng-if="false"
@@ -32,11 +32,50 @@
                         ng-click="save()">
                     Cancel
                 </button>
-                <a class="item-footer-button" href="#/">
-                    Back
-                </a>
+
+                <tags class="item-header-tags" icon="true" ng-model="item.tags"></tags>
                 <span class="item-footer-date">Last update: <b>{{ item.updated_at }}</b></span>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="sidebar">
+    <div class="sidebar-header"></div>
+    <div class="sidebar-body">
+        <div class="sidebar-group sidebar-group-active sidebar-group-search">
+            <div class="sidebar-group-header">Search</div>
+            <div class="sidebar-group-body">
+
+                <div class="search">
+                    <label class="search-icon"></label>
+                    <input class="search-input" ng-model="search" type="text" placeholder="whatever">
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-group sidebar-group-active sidebar-group-apps">
+            <div class="sidebar-group-header">Apps</div>
+            <div class="sidebar-group-body">
+                <tags class="sidebar-tags" icon="false" ng-model="products"></tags>
+            </div>
+        </div>
+
+        <div class="sidebar-group sidebar-group-active sidebar-group-types">
+            <div class="sidebar-group-header">Tags</div>
+            <div class="sidebar-group-body">
+                <tags class="sidebar-tags" icon="false" ng-model="types"></tags>
+            </div>
+        </div>
+
+        <div class="sidebar-group sidebar-group-top">
+            <div class="sidebar-group-header">Top</div>
+            <div class="sidebar-group-body">
+
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-footer">
+        <a class="button" href="/#/new">Create New</a>
     </div>
 </div>
