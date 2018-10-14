@@ -6,11 +6,32 @@
     padding 4px 12px
     border-radius 2px
     border 1px solid #dedede
+    outline none
     cursor pointer
     transition transform .3s
 
     &:hover
         transform translateY(-2px)
+
+.clipboard
+    text-decoration none
+    border none
+    border-radius 2px
+    outline none
+    font-size 12px
+    color #38393a
+    background #ffffff
+    padding 2px 6px
+    position absolute
+    right 16px
+    top 12px
+    cursor pointer
+    z-index 1
+    opacity .4
+    transition opacity .3s
+
+    &:hover
+        opacity 1
 
 .icon
     &:before

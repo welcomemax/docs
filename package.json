@@ -15,6 +15,7 @@
     "cross-env": "^5.0.1",
     "jodit": "^3.2.10",
     "laravel-mix": "^2.0",
+    "ngclipboard": "^2.0.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2"
   },

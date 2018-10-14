@@ -10,8 +10,9 @@
                 </div>
             </div>
 
-            <div class="item-body">
+            <div class="item-body" ngclipboard data-clipboard-text="{{ item.data }}" ngclipboard-success="copied(e)">
                 <pre>{{ item.data }}</pre>
+                <button class="clipboard">Copy</button>
             </div>
 
             <div class="item-footer">

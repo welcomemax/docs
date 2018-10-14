@@ -1,6 +1,7 @@
 // vendors
 import 'angular';
 import 'angular-route';
+import 'ngclipboard';
 
 // filters
 import rawHtmlFilter from './filters/raw-html.es6';
@@ -21,7 +22,7 @@ import editorDirective from './directives/editor.es6';
 import listTemplate from './../html/list.html';
 import detailTemplate from './../html/detail.html';
 
-angular.module('items', ['ngRoute'])
+angular.module('items', ['ngRoute', 'ngclipboard'])
     .factory('api', apiService)
     .controller('itemsListController', itemsListController)
     .controller('itemDetailController', itemDetailController)

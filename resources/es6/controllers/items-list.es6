@@ -71,6 +71,21 @@ export default /** @ngInject */ function (itemsObj, productsObj, typesObj, $scop
         $scope.currentPage = $scope.currentPage + 1;
     };
 
+    $scope.copied = function(e) {
+        let btn;
+
+        if (e.trigger.tagName === 'BUTTON') {
+            btn = angular.element(e.trigger);
+        } else {
+            btn = angular.element(e.trigger).find('button');
+        }
+
+        btn.text('Copied');
+        setTimeout(() => {
+            btn.text('Copy');
+        }, 5000)
+    };
+
     $scope.$watch('search', function(newValue, oldValue) {
         if (oldValue != newValue) {
             $scope.currentPage = 0;
