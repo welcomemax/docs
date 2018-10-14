@@ -8,7 +8,6 @@
     padding 20px
     box-sizing border-box
     border-radius 3px 3px 0 0
-    box-shadow 0 0 1px 1px rgba(0,0,0,.05)
 
     &:after
         content ""
@@ -21,41 +20,21 @@
 
     &-close
     &-open
+        cursor pointer
         right 20px
         top 20px
         position absolute
-        width 32px
-        height 32px
-        text-decoration none
-        cursor pointer
-        display inline-block
         z-index 1
 
-        &:before
-            content ''
-            position absolute
-            left 50%
-            top 50%
-            margin-top -8px
-            margin-left -8px
-            width 16px
-            height 16px
-            border-top solid 1px currentColor
-            border-right solid 1px currentColor
-            transition transform .3s
+        .icon
+            width 32px
+            height 32px
 
     &-close
         color #E91E63
 
-        &:before
-            transform rotate(-45deg)
-
     &-open
         color #38393a
-
-        &:before
-            margin-top -16px
-            transform rotate(135deg)
 
     &-header
         &-info
@@ -107,6 +86,27 @@
         textarea
             min-height 100px
             resize none
+
+
+        &-clipboard
+            text-decoration none
+            border none
+            border-radius 2px
+            outline none
+            font-size 12px
+            color #38393a
+            background #ffffff
+            padding 2px 6px
+            position absolute
+            right 16px
+            top 12px
+            cursor pointer
+            z-index 1
+            opacity .4
+            transition opacity .3s
+
+            &:hover
+                opacity 1
 
     &-footer
         display flex

@@ -1,7 +1,7 @@
 <div class="content">
     <div class="list">
         <div class="item" ng-repeat="item in filterItems | startFromFilter: startingItem() | limitTo: itemsPerPage | filter: search | orderBy:sortType:sortReverse">
-            <a class="item-open" href="#/detail/{{ item.id }}"></a>
+            <a class="item-open" href="#/detail/{{ item.id }}"><i class="icon icon-arrow icon-arrow-down"></i></a>
 
             <div class="item-header">
                 <div class="item-header-info">
@@ -12,7 +12,7 @@
 
             <div class="item-body" ngclipboard data-clipboard-text="{{ item.data }}" ngclipboard-success="copied(e)">
                 <pre>{{ item.data }}</pre>
-                <button class="clipboard">Copy</button>
+                <button class="item-body-clipboard">Copy</button>
             </div>
 
             <div class="item-footer">
@@ -23,9 +23,9 @@
 </div>
 
 <div class="pagination">
-    <button class="pagination-button pagination-button-prev" ng-disabled="firstPage()" ng-click="pageBack()"></button>
+    <button class="pagination-button pagination-button-prev" ng-disabled="firstPage()" ng-click="pageBack()"><i class="icon icon-arrow icon-arrow-left"></i></button>
     <span class="pagination-pages"><b>{{ currentPage+1 }}</b>/<b>{{ numberOfPages() }}</b></span>
-    <button class="pagination-button pagination-button-next" ng-disabled="lastPage()" ng-click="pageForward()"></button>
+    <button class="pagination-button pagination-button-next" ng-disabled="lastPage()" ng-click="pageForward()"><i class="icon icon-arrow icon-arrow-right"></i></button>
 </div>
 
 <div class="sidebar">
@@ -50,20 +50,32 @@
         </div>
 
         <div class="sidebar-group sidebar-group-active sidebar-group-types">
-            <div class="sidebar-group-header">Tags</div>
+            <div class="sidebar-group-header">Types</div>
             <div class="sidebar-group-body">
                 <tags class="sidebar-tags" icon="false" ng-model="types"></tags>
             </div>
         </div>
 
-        <div class="sidebar-group sidebar-group-top">
+        <div class="sidebar-group sidebar-group-active" ng-if="false">
+            <div class="sidebar-group-header">Tags</div>
+            <div class="sidebar-group-body">
+                <tags class="sidebar-tags" icon="false" ng-model="tags"></tags>
+            </div>
+        </div>
+
+        <div class="sidebar-group sidebar-group-top" ng-if="false">
             <div class="sidebar-group-header">Top</div>
             <div class="sidebar-group-body">
 
             </div>
         </div>
+
+        <div class="sidebar-group sidebar-group-controls">
+            <div class="sidebar-group-header"></div>
+            <div class="sidebar-group-body">
+                <a class="button button-new" href="/#/edit/">Add new</a>
+            </div>
+        </div>
     </div>
-    <div class="sidebar-footer">
-        <a class="button" href="/#/new">Create New</a>
-    </div>
+    <div class="sidebar-footer"></div>
 </div>

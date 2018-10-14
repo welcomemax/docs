@@ -1,4 +1,3 @@
-
 body
 html
     height 100%
@@ -6,7 +5,9 @@ html
 body
     font-family "Helvetica Neue", Helvetica, Arial, sans-serif
     color #212121
-    background #f1f2f3
+    background-color #E4E4E1
+    background-image radial-gradient(at top center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.03) 100%), linear-gradient(to top, rgba(255,255,255,0.1) 0%, rgba(143,152,157,0.60) 100%)
+    background-blend-mode normal, multiply
     margin 0
 
 .container
@@ -19,6 +20,7 @@ body
     box-sizing border-box
     margin 0 auto
     background #fff
+    box-shadow 0 0 1px 1px rgba(0,0,0,.05)
 
 main
     height 100%
@@ -70,7 +72,9 @@ main
 
 .header
     padding 20px
-    background #38393a
+    background #232526
+    background linear-gradient(to top, #414345, #232526)
+
     color #fff
 
     h1&-title

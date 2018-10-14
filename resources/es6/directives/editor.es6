@@ -7,6 +7,7 @@ export default /** @ngInject */  function() {
         require: '?ngModel',
         scope: {
             ngModel: '=',
+            type: '='
         },
         template: template,
         replace: false,
@@ -14,14 +15,22 @@ export default /** @ngInject */  function() {
 
         },
         controller: function($scope, $element) {
-            $scope.editor = new Jodit($element.find('textarea')[0], {
-                "sourceEditorNativeOptions": {
-                    "mode": "ace/mode/css"
-                },
-                "toolbar": false,
-                "disablePlugins": "xpath,stat",
-                "defaultMode": Jodit.MODE_SOURCE
-            });
+            let type = typeof $scope.type === 'string' ? $scope.type : $scope.type.name;
+            type = type.toLowerCase();
+
+            if (['css', 'js'].includes(type)) {
+                $scope.editor = new Jodit($element.find('textarea')[0], {
+                    "sourceEditorNativeOptions": {
+                        "mode": "ace/mode/" + type
+                    },
+                    "toolbar": false,
+                    "disablePlugins": "xpath,stat",
+                    "defaultMode": Jodit.MODE_SOURCE
+                });
+            } else {
+
+            }
+
 
             $scope.editor.events.on('afterInit', function () {
                 $scope.editor.value = $scope.ngModel || '';

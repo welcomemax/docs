@@ -94,14 +94,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filters_raw_html_es6__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filters_start_from_es6__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_api_es6__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controllers_items_list_es6__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__controllers_item_detail_es6__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__directives_tags_es6__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__directives_editor_es6__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__html_list_html__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__html_list_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__html_list_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__html_detail_html__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__html_detail_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__html_detail_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controllers_list_es6__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__controllers_detail_es6__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__controllers_edit_es6__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__directives_tags_es6__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__directives_editor_es6__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__html_list_html__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__html_list_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__html_list_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__html_detail_html__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__html_detail_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__html_detail_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__html_edit_html__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__html_edit_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__html_edit_html__);
 // vendors
 
 
@@ -118,6 +121,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
 // directives
 
 
@@ -126,19 +130,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
 angular.module('items', ['ngRoute', 'ngclipboard'])
     .factory('api', __WEBPACK_IMPORTED_MODULE_5__services_api_es6__["a" /* default */])
-    .controller('itemsListController', __WEBPACK_IMPORTED_MODULE_6__controllers_items_list_es6__["a" /* default */])
-    .controller('itemDetailController', __WEBPACK_IMPORTED_MODULE_7__controllers_item_detail_es6__["a" /* default */])
-    .directive('tags', __WEBPACK_IMPORTED_MODULE_8__directives_tags_es6__["a" /* default */])
-    .directive('editor', __WEBPACK_IMPORTED_MODULE_9__directives_editor_es6__["a" /* default */])
+    .controller('listController', __WEBPACK_IMPORTED_MODULE_6__controllers_list_es6__["a" /* default */])
+    .controller('detailController', __WEBPACK_IMPORTED_MODULE_7__controllers_detail_es6__["a" /* default */])
+    .controller('editController', __WEBPACK_IMPORTED_MODULE_8__controllers_edit_es6__["a" /* default */])
+    .directive('tags', __WEBPACK_IMPORTED_MODULE_9__directives_tags_es6__["a" /* default */])
+    .directive('editor', __WEBPACK_IMPORTED_MODULE_10__directives_editor_es6__["a" /* default */])
     .filter('startFromFilter', __WEBPACK_IMPORTED_MODULE_4__filters_start_from_es6__["a" /* default */])
     .filter('rawHtmlFilter', __WEBPACK_IMPORTED_MODULE_3__filters_raw_html_es6__["a" /* default */])
     .config(function($routeProvider) {
         $routeProvider
             .when('/', {
-                controller: 'itemsListController',
-                template: __WEBPACK_IMPORTED_MODULE_10__html_list_html___default.a,
+                controller: 'listController',
+                template: __WEBPACK_IMPORTED_MODULE_11__html_list_html___default.a,
                 resolve: {
                     itemsObj: function (api) {
                         return api.call('items');
@@ -152,17 +158,24 @@ angular.module('items', ['ngRoute', 'ngclipboard'])
                 }
             })
             .when('/detail/:id', {
-                controller: 'itemDetailController',
-                template: __WEBPACK_IMPORTED_MODULE_11__html_detail_html___default.a,
+                controller: 'detailController',
+                template: __WEBPACK_IMPORTED_MODULE_12__html_detail_html___default.a,
                 resolve: {
                     itemObj: function ($route, api) {
-                        return api.call('items/' + $route.current.params.id);
+                        let id = $route.current.params.id;
+                        return api.call(`items/${id}`);
                     }
                 }
             })
-            .when('/new', {
-                controller: 'itemDetailController',
-                templateUrl: '../templates/detail.html'
+            .when('/edit/:id', {
+                controller: 'editController',
+                templateUrl: __WEBPACK_IMPORTED_MODULE_13__html_edit_html___default.a,
+                resolve: {
+                    itemObj: function ($route, api) {
+                        let id = $route.current.params.id;
+                        return id ? api.call(`items/${id}`) : null
+                    }
+                }
             })
             .otherwise({
                 redirectTo: '/'
@@ -38815,162 +38828,8 @@ module.exports = select;
 
 
 /***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (itemsObj, productsObj, typesObj, $scope, $filter) {
-    $scope.items = itemsObj.data;
-
-    productsObj.data.forEach((product) => {
-        $scope.products = $scope.products || [];
-
-        $scope.products.push(product.name)
-    });
-
-    typesObj.data.forEach((type) => {
-        $scope.types = $scope.types || [];
-
-        $scope.types.push(type.name)
-    });
-
-    $scope.items.forEach((item) => {
-        item.tags = item.tags || [];
-
-        item.tags.push(item.type.name);
-        item.tags.push(item.product.name);
-    });
-
-    $scope.sortType = 'id';
-    $scope.sortReverse = false;
-
-    $scope.filterItems = $scope.items;
-    $scope.currentPage = 0;
-    $scope.itemsPerPage = 5;
-    $scope.search = '';
-
-    $scope.toggleSort = function ($event) {
-        $scope.sortType = angular.element($event.currentTarget).attr("data-sort");
-        $scope.sortReverse = !$scope.sortReverse;
-
-        angular.element(document.querySelectorAll('.sort')).removeClass('asc desc');
-
-        angular.element($event.currentTarget)
-            .addClass(['asc','desc'][+ $scope.sortReverse])
-            .removeClass(['asc','desc'][+ !$scope.sortReverse]);
-
-        $scope.filterItems = $filter('orderBy')($scope.items, $scope.sortType, $scope.sortReverse);
-        console.log($scope.filterItems)
-    };
-
-    $scope.firstPage = function() {
-        return $scope.currentPage == 0;
-    };
-
-    $scope.lastPage = function() {
-        let lastPageNum = Math.ceil($scope.filterItems.length / $scope.itemsPerPage - 1);
-        return $scope.currentPage == lastPageNum;
-    };
-
-    $scope.getFilterItems = function() {
-        return $filter('filter')($scope.filterItems, $scope.search)
-    };
-
-    $scope.numberOfPages = function() {
-        return Math.ceil($scope.getFilterItems().length / $scope.itemsPerPage);
-    };
-
-    $scope.startingItem = function() {
-        return $scope.currentPage * $scope.itemsPerPage;
-    };
-
-    $scope.pageBack = function() {
-        $scope.currentPage = $scope.currentPage - 1;
-    };
-
-    $scope.pageForward = function() {
-        $scope.currentPage = $scope.currentPage + 1;
-    };
-
-    $scope.copied = function(e) {
-        let btn;
-
-        if (e.trigger.tagName === 'BUTTON') {
-            btn = angular.element(e.trigger);
-        } else {
-            btn = angular.element(e.trigger).find('button');
-        }
-
-        btn.text('Copied');
-        setTimeout(() => {
-            btn.text('Copy');
-        }, 5000)
-    };
-
-    $scope.$watch('search', function(newValue, oldValue) {
-        if (oldValue != newValue) {
-            $scope.currentPage = 0;
-            $scope.filterItems = $filter('filter')($scope.items, $scope.search);
-        }
-    }, true);
-});
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (itemObj, api, $scope, $routeParams, $location) {
-    $scope.item = $routeParams.id ? itemObj.data[0] : {};
-
-    $scope.item.tags = $scope.item.tags || [];
-    $scope.item.tags.push($scope.item.type.name);
-    $scope.item.tags.push($scope.item.product.name);
-
-    $scope.save = function() {
-        let fd = new FormData();
-
-        fd.append('title', $scope.item.title);
-        fd.append('caption', $scope.item.caption || '');
-        fd.append('data', $scope.item.data || '');
-
-        api('items/' + $routeParams.id, 'post', fd).then(function(response) {
-            console.log(response);
-            $location.path('/');
-        });
-    };
-
-    $scope.copied = function(e) {
-        let btn;
-
-        if (e.trigger.tagName === 'BUTTON') {
-            btn = angular.element(e.trigger);
-        } else {
-            btn = angular.element(e.trigger).find('button');
-        }
-
-        btn.text('Copied');
-        setTimeout(() => {
-            btn.text('Copy');
-        }, 5000)
-    };
-
-    // $scope.delete = function() {
-    //     if (confirm('Уверены?')) {
-    //         $http({
-    //             method: 'DELETE',
-    //             url: url
-    //         }).then(function(response) {
-    //             console.log(response);
-    //             $location.path('/');
-    //         });
-    //     }
-    // };
-});
-
-
-/***/ }),
+/* 11 */,
+/* 12 */,
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -39001,7 +38860,7 @@ module.exports = select;
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = "<ul class=\"tags\">\n    <span class=\"icon icon-tag\" ng-if=\"icon\"></span>\n    <li class=\"tags-item\" ng-repeat=\"tag in ngModel\">{{ tag }}</li>\n</ul>\n";
+module.exports = "<ul class=\"tags\">\n    <i class=\"icon icon-tag\" ng-if=\"icon\"></i>\n    <li class=\"tags-item\" ng-repeat=\"tag in ngModel\">{{ tag }}</li>\n</ul>\n";
 
 /***/ }),
 /* 15 */
@@ -39021,6 +38880,7 @@ module.exports = "<ul class=\"tags\">\n    <span class=\"icon icon-tag\" ng-if=\
         require: '?ngModel',
         scope: {
             ngModel: '=',
+            type: '='
         },
         template: __WEBPACK_IMPORTED_MODULE_1__html_editor_html___default.a,
         replace: false,
@@ -39028,14 +38888,22 @@ module.exports = "<ul class=\"tags\">\n    <span class=\"icon icon-tag\" ng-if=\
 
         },
         controller: function($scope, $element) {
-            $scope.editor = new __WEBPACK_IMPORTED_MODULE_0_jodit___default.a($element.find('textarea')[0], {
-                "sourceEditorNativeOptions": {
-                    "mode": "ace/mode/css"
-                },
-                "toolbar": false,
-                "disablePlugins": "xpath,stat",
-                "defaultMode": __WEBPACK_IMPORTED_MODULE_0_jodit___default.a.MODE_SOURCE
-            });
+            let type = typeof $scope.type === 'string' ? $scope.type : $scope.type.name;
+            type = type.toLowerCase();
+
+            if (['css', 'js'].includes(type)) {
+                $scope.editor = new __WEBPACK_IMPORTED_MODULE_0_jodit___default.a($element.find('textarea')[0], {
+                    "sourceEditorNativeOptions": {
+                        "mode": "ace/mode/" + type
+                    },
+                    "toolbar": false,
+                    "disablePlugins": "xpath,stat",
+                    "defaultMode": __WEBPACK_IMPORTED_MODULE_0_jodit___default.a.MODE_SOURCE
+                });
+            } else {
+
+            }
+
 
             $scope.editor.events.on('afterInit', function () {
                 $scope.editor.value = $scope.ngModel || '';
@@ -39265,19 +39133,189 @@ module.exports = "<div><textarea ng-model=\"ngModel\" ng-model-options=\"{ debou
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content\">\n    <div class=\"list\">\n        <div class=\"item\" ng-repeat=\"item in filterItems | startFromFilter: startingItem() | limitTo: itemsPerPage | filter: search | orderBy:sortType:sortReverse\">\n            <a class=\"item-open\" href=\"#/detail/{{ item.id }}\"></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h3>{{ item.title }}</h3>\n                    <p>{{ item.caption }}</p>\n                </div>\n            </div>\n\n            <div class=\"item-body\" ngclipboard data-clipboard-text=\"{{ item.data }}\" ngclipboard-success=\"copied(e)\">\n                <pre>{{ item.data }}</pre>\n                <button class=\"clipboard\">Copy</button>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"pagination\">\n    <button class=\"pagination-button pagination-button-prev\" ng-disabled=\"firstPage()\" ng-click=\"pageBack()\"></button>\n    <span class=\"pagination-pages\"><b>{{ currentPage+1 }}</b>/<b>{{ numberOfPages() }}</b></span>\n    <button class=\"pagination-button pagination-button-next\" ng-disabled=\"lastPage()\" ng-click=\"pageForward()\"></button>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-search\">\n            <div class=\"sidebar-group-header\">Search</div>\n            <div class=\"sidebar-group-body\">\n\n                <div class=\"search\">\n                    <label class=\"search-icon\"></label>\n                    <input class=\"search-input\" ng-model=\"search\" type=\"text\" placeholder=\"whatever\">\n                </div>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-apps\">\n            <div class=\"sidebar-group-header\">Apps</div>\n            <div class=\"sidebar-group-body\">\n                <tags class=\"sidebar-tags\" icon=\"false\" ng-model=\"products\"></tags>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-types\">\n            <div class=\"sidebar-group-header\">Tags</div>\n            <div class=\"sidebar-group-body\">\n                <tags class=\"sidebar-tags\" icon=\"false\" ng-model=\"types\"></tags>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-top\">\n            <div class=\"sidebar-group-header\">Top</div>\n            <div class=\"sidebar-group-body\">\n\n            </div>\n        </div>\n    </div>\n    <div class=\"sidebar-footer\">\n        <a class=\"button\" href=\"/#/new\">Create New</a>\n    </div>\n</div>\n";
+module.exports = "<div class=\"content\">\n    <div class=\"list\">\n        <div class=\"item\" ng-repeat=\"item in filterItems | startFromFilter: startingItem() | limitTo: itemsPerPage | filter: search | orderBy:sortType:sortReverse\">\n            <a class=\"item-open\" href=\"#/detail/{{ item.id }}\"><i class=\"icon icon-arrow icon-arrow-down\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h3>{{ item.title }}</h3>\n                    <p>{{ item.caption }}</p>\n                </div>\n            </div>\n\n            <div class=\"item-body\" ngclipboard data-clipboard-text=\"{{ item.data }}\" ngclipboard-success=\"copied(e)\">\n                <pre>{{ item.data }}</pre>\n                <button class=\"item-body-clipboard\">Copy</button>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"pagination\">\n    <button class=\"pagination-button pagination-button-prev\" ng-disabled=\"firstPage()\" ng-click=\"pageBack()\"><i class=\"icon icon-arrow icon-arrow-left\"></i></button>\n    <span class=\"pagination-pages\"><b>{{ currentPage+1 }}</b>/<b>{{ numberOfPages() }}</b></span>\n    <button class=\"pagination-button pagination-button-next\" ng-disabled=\"lastPage()\" ng-click=\"pageForward()\"><i class=\"icon icon-arrow icon-arrow-right\"></i></button>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-search\">\n            <div class=\"sidebar-group-header\">Search</div>\n            <div class=\"sidebar-group-body\">\n\n                <div class=\"search\">\n                    <label class=\"search-icon\"></label>\n                    <input class=\"search-input\" ng-model=\"search\" type=\"text\" placeholder=\"whatever\">\n                </div>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-apps\">\n            <div class=\"sidebar-group-header\">Apps</div>\n            <div class=\"sidebar-group-body\">\n                <tags class=\"sidebar-tags\" icon=\"false\" ng-model=\"products\"></tags>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-types\">\n            <div class=\"sidebar-group-header\">Types</div>\n            <div class=\"sidebar-group-body\">\n                <tags class=\"sidebar-tags\" icon=\"false\" ng-model=\"types\"></tags>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active\" ng-if=\"false\">\n            <div class=\"sidebar-group-header\">Tags</div>\n            <div class=\"sidebar-group-body\">\n                <tags class=\"sidebar-tags\" icon=\"false\" ng-model=\"tags\"></tags>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-top\" ng-if=\"false\">\n            <div class=\"sidebar-group-header\">Top</div>\n            <div class=\"sidebar-group-body\">\n\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-controls\">\n            <div class=\"sidebar-group-header\"></div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-new\" href=\"/#/edit/\">Add new</a>\n            </div>\n        </div>\n    </div>\n    <div class=\"sidebar-footer\"></div>\n</div>\n";
 
 /***/ }),
 /* 20 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content\">\n    <div class=\"detail\">\n        <div class=\"item\">\n            <a class=\"item-close\" href=\"/#\"></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h2><input ng-model=\"item.title\" ng-if=\"false\">{{ item.title }}</h2>\n                    <p><input ng-model=\"item.caption\" ng-if=\"false\">{{ item.caption }}</p>\n                </div>\n                <div class=\"item-header-tags\">\n                    <span ng-repeat=\"tag in item.tags\"></span>\n                </div>\n            </div>\n\n            <div class=\"item-body\">\n                <editor ng-model=\"item.data\"></editor>\n                <button class=\"clipboard\" ngclipboard data-clipboard-text=\"{{ item.data }}\" ngclipboard-success=\"copied(e)\">Copy</button>\n            </div>\n\n            <div class=\"item-footer\">\n                <button class=\"item-footer-button\" ng-if=\"false\"\n                        ng-click=\"save()\">\n                    Create\n                </button>\n                <button class=\"item-footer-button\" ng-if=\"false\"\n                        ng-click=\"save()\">\n                    Edit\n                </button>\n                <button class=\"item-footer-button\" ng-if=\"false\"\n                        ng-click=\"save()\" ng-disabled=\"myForm.$invalid\">\n                    Update\n                </button>\n                <button class=\"item-footer-button\" ng-if=\"false\"\n                        ng-click=\"save()\">\n                    Cancel\n                </button>\n\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n                <span class=\"item-footer-date\">Last update: <b>{{ item.updated_at }}</b></span>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n\n            </div>\n        </div>\n    </div>\n    <div class=\"sidebar-footer\">\n        <a class=\"button\" href=\"/#/new\">Create New</a>\n    </div>\n</div>\n";
+module.exports = "<div class=\"content\">\n    <div class=\"detail\">\n        <div class=\"item\">\n            <a class=\"item-close\" href=\"/#\"><i class=\"icon icon-arrow icon-arrow-up\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h2>{{ item.title }}</h2>\n                    <p>{{ item.caption }}</p>\n                </div>\n                <div class=\"item-header-tags\">\n                    <span ng-repeat=\"tag in item.tags\"></span>\n                </div>\n            </div>\n\n            <div class=\"item-body\">\n                <editor ng-model=\"item.data\" type=\"item.type\"></editor>\n                <button class=\"item-body-clipboard\" ngclipboard data-clipboard-text=\"{{ item.data }}\" ngclipboard-success=\"copied(e)\">Copy</button>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n                <span class=\"item-footer-date\">Last update: <b>{{ item.updated_at }}</b></span>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-edit\" href=\"/#/edit/{{ item.id }}\">Edit</a>\n                <a class=\"button button-new\" href=\"/#/edit/\">Add new</a>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ }),
 /* 21 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function (itemsObj, productsObj, typesObj, $scope, $filter) {
+    $scope.items = itemsObj.data;
+
+    productsObj.data.forEach((product) => {
+        $scope.products = $scope.products || [];
+
+        $scope.products.push(product.name)
+    });
+
+    typesObj.data.forEach((type) => {
+        $scope.types = $scope.types || [];
+
+        $scope.types.push(type.name)
+    });
+
+    $scope.items.forEach((item) => {
+        item.tags = item.tags || [];
+
+        item.tags.push(item.type.name);
+        item.tags.push(item.product.name);
+    });
+
+    $scope.sortType = 'id';
+    $scope.sortReverse = false;
+
+    $scope.filterItems = $scope.items;
+    $scope.currentPage = 0;
+    $scope.itemsPerPage = 5;
+    $scope.search = '';
+
+    $scope.toggleSort = function ($event) {
+        $scope.sortType = angular.element($event.currentTarget).attr("data-sort");
+        $scope.sortReverse = !$scope.sortReverse;
+
+        angular.element(document.querySelectorAll('.sort')).removeClass('asc desc');
+
+        angular.element($event.currentTarget)
+            .addClass(['asc','desc'][+ $scope.sortReverse])
+            .removeClass(['asc','desc'][+ !$scope.sortReverse]);
+
+        $scope.filterItems = $filter('orderBy')($scope.items, $scope.sortType, $scope.sortReverse);
+        console.log($scope.filterItems)
+    };
+
+    $scope.firstPage = function() {
+        return $scope.currentPage == 0;
+    };
+
+    $scope.lastPage = function() {
+        let lastPageNum = Math.ceil($scope.filterItems.length / $scope.itemsPerPage - 1);
+        return $scope.currentPage == lastPageNum;
+    };
+
+    $scope.getFilterItems = function() {
+        return $filter('filter')($scope.filterItems, $scope.search)
+    };
+
+    $scope.numberOfPages = function() {
+        return Math.ceil($scope.getFilterItems().length / $scope.itemsPerPage);
+    };
+
+    $scope.startingItem = function() {
+        return $scope.currentPage * $scope.itemsPerPage;
+    };
+
+    $scope.pageBack = function() {
+        $scope.currentPage = $scope.currentPage - 1;
+    };
+
+    $scope.pageForward = function() {
+        $scope.currentPage = $scope.currentPage + 1;
+    };
+
+    $scope.copied = function(e) {
+        let btn;
+
+        if (e.trigger.tagName === 'BUTTON') {
+            btn = angular.element(e.trigger);
+        } else {
+            btn = angular.element(e.trigger).find('button');
+        }
+
+        btn.text('Copied');
+        setTimeout(() => {
+            btn.text('Copy');
+        }, 5000)
+    };
+
+    $scope.$watch('search', function(newValue, oldValue) {
+        if (oldValue != newValue) {
+            $scope.currentPage = 0;
+            $scope.filterItems = $filter('filter')($scope.items, $scope.search);
+        }
+    }, true);
+});
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function (itemObj, api, $scope, $routeParams) {
+    $scope.id = $routeParams.id;
+    $scope.item = itemObj.data[0];
+
+    $scope.item.tags = $scope.item.tags || [];
+    $scope.item.tags.push($scope.item.type.name);
+    $scope.item.tags.push($scope.item.product.name);
+
+    $scope.copied = function(e) {
+        let btn;
+
+        if (e.trigger.tagName === 'BUTTON') {
+            btn = angular.element(e.trigger);
+        } else {
+            btn = angular.element(e.trigger).find('button');
+        }
+
+        btn.text('Copied');
+        setTimeout(() => {
+            btn.text('Copy');
+        }, 5000)
+    };
+});
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function (itemObj, api, $scope, $routeParams, $location) {
+    $scope.id = $routeParams.id;
+    $scope.item = id ? itemObj.data[0] : {};
+
+    $scope.save = function() {
+        api(`items/${id}`, 'post', $scope.item).then(function(response) {
+            console.log(response);
+            $location.path(`/detail/${id}`);
+        });
+    };
+
+    $scope.delete = function() {
+        if (confirm('Are you sure?')) {
+            api(`items/${id}`, 'delete').then(function(response) {
+                console.log(response);
+                $location.path('/');
+            });
+        }
+    };
+});
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"content\">\n    <div class=\"edit\">\n        <div class=\"item\">\n            <a class=\"item-close\" href=\"/#/detail/{{ item.id }}\"><i class=\"icon icon-arrow icon-arrow-up\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <label><input ng-model=\"item.title\">{{ item.title }}</label>\n                    <label><input ng-model=\"item.caption\">{{ item.caption }}</label>\n                </div>\n                <div class=\"item-header-tags\">\n                    <span ng-repeat=\"tag in item.tags\"></span>\n                </div>\n            </div>\n\n            <div class=\"item-body\">\n                <editor ng-model=\"item.data\" type=\"item.type\"></editor>\n                <button class=\"item-body-clipboard\" ngclipboard data-clipboard-text=\"{{ item.data }}\" ngclipboard-success=\"copied(e)\">Copy</button>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n                <span class=\"item-footer-date\">Last update: <b>{{ item.updated_at }}</b></span>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <button class=\"button button-save\" href=\"/#/detail/{{ item.id }}\">Save</button>\n                <button class=\"button button-save-new\" href=\"/#/edit/\">Save and add new</button>\n                <button class=\"button button-delete\" href=\"/\">Delete</button>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ })
 /******/ ]);
