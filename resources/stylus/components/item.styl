@@ -4,7 +4,6 @@
     position relative
     display flex
     flex-direction column
-    justify-content space-between
     padding 20px
     box-sizing border-box
     border-radius 3px 3px 0 0
@@ -45,11 +44,10 @@
                 font-size 18px
             p
                 margin 0
-                font-size 15px
+                font-size 14px
                 color #868686
 
     &-body
-        height 100%
         margin 12px 0
         position relative
 
@@ -108,10 +106,57 @@
             &:hover
                 opacity 1
 
+    &-preview
+        display flex
+        flex-direction column
+        position relative
+        min-height 110px
+        max-height 110px
+        height 600px
+        margin 12px -20px 12px -20px
+        background #dedede
+        transition max-height .3s, background .3s
+        overflow hidden
+
+        &.item-preview-active
+            background url('data:image/png;base64,/9j/4AAQSkZJRgABAgAAZABkAAD/7AARRHVja3kAAQAEAAAAUAAA/+4AJkFkb2JlAGTAAAAAAQMAFQQDBgoNAAABpgAAAccAAAIDAAACMP/bAIQAAgICAgICAgICAgMCAgIDBAMCAgMEBQQEBAQEBQYFBQUFBQUGBgcHCAcHBgkJCgoJCQwMDAwMDAwMDAwMDAwMDAEDAwMFBAUJBgYJDQsJCw0PDg4ODg8PDAwMDAwPDwwMDAwMDA8MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8IAEQgAFAAUAwERAAIRAQMRAf/EAH8AAAMBAQAAAAAAAAAAAAAAAAIDBAEIAQEAAAAAAAAAAAAAAAAAAAAAEAACAwEAAAAAAAAAAAAAAAAAATARMRARAQAAAAAAAAAAAAAAAAAAADASAQAAAAAAAAAAAAAAAAAAADATAAEEAwEAAAAAAAAAAAAAAAEAEDAx8BGxYf/aAAwDAQACEQMRAAAB7kHhgCzCgnBP/9oACAEBAAEFAhYUjC3x6f/aAAgBAgABBQKH/9oACAEDAAEFAof/2gAIAQICBj8CH//aAAgBAwIGPwIf/9oACAEBAQY/Ah//2gAIAQEDAT8hVTeSJJaFL2a5v//aAAgBAgMBPyGH/9oACAEDAwE/IYf/2gAMAwEAAhEDEQAAEBBJBB//2gAIAQEDAT8QXV1sRKOD6CgsQDcXG//aAAgBAgMBPxCH/9oACAEDAwE/EIf/2Q==')
+            max-height 600px
+
+        &-button
+            top 40px
+            right 50%
+            position absolute
+            width 40px
+            margin-right -20px
+            transition all .3s
+
+            & .icon
+                color #fff
+
+            .item-preview-active &
+                margin-right 0
+                top 20px
+                right 20px
+
+        &-iframe
+            width 100%
+            height 100%
+
+        &-icon
+            width 88px
+            height 88px
+            position absolute
+            bottom -16px
+            right -16px
+
+            & svg
+                fill #fff
+
     &-footer
         display flex
         align-items center
         justify-content space-between
+        margin-top auto
 
         &-date
             font-size 13px

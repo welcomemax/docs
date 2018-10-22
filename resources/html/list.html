@@ -1,12 +1,12 @@
 <div class="content">
     <div class="list">
         <div class="item" ng-repeat="item in filterItems | startFromFilter: startingItem() | limitTo: itemsPerPage | filter: search | orderBy:sortType:sortReverse">
-            <a class="item-open" href="#/detail/{{ item.id }}"><i class="icon icon-arrow icon-arrow-down"></i></a>
+            <a class="item-open" href="#/detail/{{ item.id }}" title="Open detail"><i class="icon icon-arrow icon-arrow-down"></i></a>
 
             <div class="item-header">
                 <div class="item-header-info">
-                    <h3>{{ item.title }}</h3>
-                    <p>{{ item.caption }}</p>
+                    <h3 ng-if="item.title">{{ item.title }}</h3>
+                    <p ng-if="item.caption">{{ item.caption }}</p>
                 </div>
             </div>
 
@@ -34,10 +34,9 @@
         <div class="sidebar-group sidebar-group-active sidebar-group-search">
             <div class="sidebar-group-header">Search</div>
             <div class="sidebar-group-body">
-
                 <div class="search">
-                    <label class="search-icon"></label>
                     <input class="search-input" ng-model="search" type="text" placeholder="whatever">
+                    <label class="search-icon"><i class="icon icon-search"></i></label>
                 </div>
             </div>
         </div>
@@ -45,14 +44,28 @@
         <div class="sidebar-group sidebar-group-active sidebar-group-apps">
             <div class="sidebar-group-header">Apps</div>
             <div class="sidebar-group-body">
-                <tags class="sidebar-tags" icon="false" ng-model="products"></tags>
+                <ul class="tags">
+                    <li class="tags-item" ng-repeat="product in products">
+                        <a ng-click="filterTag($event, product, 'product')">
+                            {{ product }}
+                            <i class="icon icon-cross tags-item-icon"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
 
         <div class="sidebar-group sidebar-group-active sidebar-group-types">
             <div class="sidebar-group-header">Types</div>
             <div class="sidebar-group-body">
-                <tags class="sidebar-tags" icon="false" ng-model="types"></tags>
+                <ul class="tags">
+                    <li class="tags-item" ng-repeat="type in types">
+                        <a ng-click="filterTag($event, type, 'type')">
+                            {{ type }}
+                            <i class="icon icon-cross tags-item-icon"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -66,12 +79,19 @@
         <div class="sidebar-group sidebar-group-top" ng-if="false">
             <div class="sidebar-group-header">Top</div>
             <div class="sidebar-group-body">
+                <div class="">
+            </div>
+        </div>
 
+        <div class="sidebar-group sidebar-group-view">
+            <div class="sidebar-group-header">Controls</div>
+            <div class="sidebar-group-body">
+                <a class="button button-new" href="/#/edit/">Cards</a>
             </div>
         </div>
 
         <div class="sidebar-group sidebar-group-controls">
-            <div class="sidebar-group-header"></div>
+            <div class="sidebar-group-header">Controls</div>
             <div class="sidebar-group-body">
                 <a class="button button-new" href="/#/edit/">Add new</a>
             </div>

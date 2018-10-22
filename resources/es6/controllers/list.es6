@@ -23,12 +23,14 @@ export default /** @ngInject */ function (itemsObj, productsObj, typesObj, $scop
     $scope.sortType = 'id';
     $scope.sortReverse = false;
 
+    $scope.current = {};
+    $scope.filterTags = {};
     $scope.filterItems = $scope.items;
     $scope.currentPage = 0;
     $scope.itemsPerPage = 5;
     $scope.search = '';
 
-    $scope.toggleSort = function ($event) {
+    $scope.toggleSort = ($event) => {
         $scope.sortType = angular.element($event.currentTarget).attr("data-sort");
         $scope.sortReverse = !$scope.sortReverse;
 
@@ -42,43 +44,55 @@ export default /** @ngInject */ function (itemsObj, productsObj, typesObj, $scop
         console.log($scope.filterItems)
     };
 
-    $scope.firstPage = function() {
+    $scope.firstPage = () => {
         return $scope.currentPage == 0;
     };
 
-    $scope.lastPage = function() {
+    $scope.lastPage = () => {
         let lastPageNum = Math.ceil($scope.filterItems.length / $scope.itemsPerPage - 1);
         return $scope.currentPage == lastPageNum;
     };
 
-    $scope.getFilterItems = function() {
+    $scope.getFilterItems = () => {
         return $filter('filter')($scope.filterItems, $scope.search)
     };
 
-    $scope.numberOfPages = function() {
+    $scope.numberOfPages = () => {
         return Math.ceil($scope.getFilterItems().length / $scope.itemsPerPage);
     };
 
-    $scope.startingItem = function() {
+    $scope.startingItem = () => {
         return $scope.currentPage * $scope.itemsPerPage;
     };
 
-    $scope.pageBack = function() {
-        $scope.currentPage = $scope.currentPage - 1;
+    $scope.pageBack = () => {
+        $scope.currentPage -= $scope.currentPage;
     };
 
-    $scope.pageForward = function() {
-        $scope.currentPage = $scope.currentPage + 1;
+    $scope.pageForward = () => {
+        $scope.currentPage += $scope.currentPage;
     };
 
-    $scope.copied = function(e) {
-        let btn;
+    $scope.filterTag = ($event, tag, type) => {
+        $scope.filterTags[tag] = !$scope.filterTags[tag];
 
-        if (e.trigger.tagName === 'BUTTON') {
-            btn = angular.element(e.trigger);
-        } else {
-            btn = angular.element(e.trigger).find('button');
+        if (type === 'product' || type === 'type') {
+            $scope.filterTags[$scope.current[type]] = false;
+            angular.element($event.currentTarget).parent().parent().find('li').removeClass('tags-item-active');
+
+            $scope.current[type] = tag;
         }
+
+        angular.element($event.currentTarget).parent().toggleClass('tags-item-active');
+
+        $scope.filterItems = $scope.items.filter((item) => {
+            return $scope.filterTags[tag] ? item.tags.includes(tag) : true;
+        })
+    };
+
+    $scope.copied = (e) => {
+        let isBtn = e.trigger.tagName === 'BUTTON';
+        let btn = isBtn ? angular.element(e.trigger) : angular.element(e.trigger).find('button');
 
         btn.text('Copied');
         setTimeout(() => {
@@ -86,10 +100,20 @@ export default /** @ngInject */ function (itemsObj, productsObj, typesObj, $scop
         }, 5000)
     };
 
-    $scope.$watch('search', function(newValue, oldValue) {
-        if (oldValue != newValue) {
+    $scope.$watch('search', (newValue, oldValue) => {
+        if (oldValue !== newValue) {
             $scope.currentPage = 0;
-            $scope.filterItems = $filter('filter')($scope.items, $scope.search);
+
+            $scope.filterItems = $scope.items.filter((item) => {
+                if ($scope.search === '') {
+                    return true;
+                }
+
+                // @TODO separate words search (any order)
+                return $scope.search.split(' ').every((word) => {
+                    return !![item.title, item.caption, item.data].indexOf(word);
+                })
+            });
         }
     }, true);
 }

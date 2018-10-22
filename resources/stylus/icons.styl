@@ -1,0 +1,150 @@
+.icon
+    position relative
+    display inline-block
+    color #212121
+
+    &:before
+    &:after
+        content ''
+        position absolute
+
+    &-tag
+        color #38393a
+        opacity .8
+        margin-right 8px
+        top -3px
+        width 7px
+        height 7px
+        border-radius 1px 1px 1px 0
+        border-left solid 1px currentColor
+        border-top solid 1px currentColor
+        background-color currentColor
+
+        &:before
+            left 1px
+            top 1px
+            width 9px
+            height 10px
+            border-radius 1px
+            border-left solid 1px currentColor
+            border-right solid 1px currentColor
+            border-bottom solid 1px currentColor
+            background-color currentColor
+            transform rotate(-45deg)
+
+        &:after
+            left 3px
+            top 3px
+            width 2px
+            height 2px
+            border-radius 50%
+            color white
+            background-color currentColor
+
+    &-arrow
+        &:before
+            content ''
+            position absolute
+            left 50%
+            top 50%
+            margin-top -25%
+            margin-left -25%
+            width 50%
+            height 50%
+            border-top solid 1px currentColor
+            border-right solid 1px currentColor
+            transition transform .3s
+
+        &-up
+            &:before
+                transform rotate(-45deg)
+
+        &-down
+            &:before
+                margin-top -16px
+                transform rotate(135deg)
+
+        &-left
+            &:before
+                transform rotate(-135deg)
+
+        &-right
+            &:before
+                transform rotate(45deg)
+
+    &-eye
+        margin-top 3px
+        width 12px
+        height 12px
+        border-radius 70% 15%
+        border solid 1px currentColor
+        transform rotate(45deg)
+
+        &:before
+            left 3px
+            top 3px
+            width 6px
+            height 6px
+            border-radius 50%
+            background-color currentColor
+
+    &-focus
+        margin-left 2px
+        margin-top 2px
+        width 15px
+        height 15px
+        border-radius 1px
+        border solid 1px currentColor
+
+        &:before
+            left 3px
+            top -2px
+            width 9px
+            height 19px
+            color white
+            background-color currentColor
+            transform-origin center
+
+
+        &:after
+            left 3px
+            top -2px
+            width 9px
+            height 19px
+            color white
+            background-color currentColor
+            transform-origin center
+            transform rotate(90deg)
+
+    &-search
+        color #38393a
+        width 9px
+        height 9px
+        border solid 1px currentColor
+        border-radius 100%
+        transform rotate(-45deg)
+        transition opacity .3s
+
+        &:before
+            content ''
+            position absolute
+            top 11px
+            left 4px
+            height 6px
+            width 1px
+            background-color currentColor
+
+    &-cross
+        &:before
+            top 50%
+            width 100%
+            height 1px
+            background-color currentColor
+            transform rotate(-45deg)
+
+        &:after
+            top 50%
+            width 100%
+            height 1px
+            background-color currentColor
+            transform rotate(45deg)
