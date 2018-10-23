@@ -38832,7 +38832,7 @@ module.exports = select;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (itemsObj, productsObj, typesObj, $scope, $filter) {
+/* harmony default export */ __webpack_exports__["a"] = (function (itemsObj, productsObj, typesObj, $scope, $filter, $window) {
     $scope.items = itemsObj.data;
 
     productsObj.data.forEach((product) => {
@@ -38858,12 +38858,13 @@ module.exports = select;
     $scope.sortReverse = false;
 
     $scope.current = {};
-    $scope.filterTags = {};
+    $scope.filterTags = new Set();
     $scope.filterItems = $scope.items;
     $scope.currentPage = 0;
     $scope.itemsPerPage = 5;
     $scope.search = '';
 
+    // @TODO render sorter (rating, views)
     $scope.toggleSort = ($event) => {
         $scope.sortType = angular.element($event.currentTarget).attr("data-sort");
         $scope.sortReverse = !$scope.sortReverse;
@@ -38875,7 +38876,16 @@ module.exports = select;
             .removeClass(['asc','desc'][+ !$scope.sortReverse]);
 
         $scope.filterItems = $filter('orderBy')($scope.items, $scope.sortType, $scope.sortReverse);
-        console.log($scope.filterItems)
+    };
+
+    // its used somewhere?
+    $scope.getFilterItems = () => {
+        return $filter('filter')($scope.filterItems, $scope.search)
+    };
+
+    // @TODO make smart object or factory for paginate
+    $scope.paginate = () => {
+        this.page = 0;
     };
 
     $scope.firstPage = () => {
@@ -38885,10 +38895,6 @@ module.exports = select;
     $scope.lastPage = () => {
         let lastPageNum = Math.ceil($scope.filterItems.length / $scope.itemsPerPage - 1);
         return $scope.currentPage == lastPageNum;
-    };
-
-    $scope.getFilterItems = () => {
-        return $filter('filter')($scope.filterItems, $scope.search)
     };
 
     $scope.numberOfPages = () => {
@@ -38907,23 +38913,6 @@ module.exports = select;
         $scope.currentPage += $scope.currentPage;
     };
 
-    $scope.filterTag = ($event, tag, type) => {
-        $scope.filterTags[tag] = !$scope.filterTags[tag];
-
-        if (type === 'product' || type === 'type') {
-            $scope.filterTags[$scope.current[type]] = false;
-            angular.element($event.currentTarget).parent().parent().find('li').removeClass('tags-item-active');
-
-            $scope.current[type] = tag;
-        }
-
-        angular.element($event.currentTarget).parent().toggleClass('tags-item-active');
-
-        $scope.filterItems = $scope.items.filter((item) => {
-            return $scope.filterTags[tag] ? item.tags.includes(tag) : true;
-        })
-    };
-
     $scope.copied = (e) => {
         let isBtn = e.trigger.tagName === 'BUTTON';
         let btn = isBtn ? angular.element(e.trigger) : angular.element(e.trigger).find('button');
@@ -38934,22 +38923,65 @@ module.exports = select;
         }, 5000)
     };
 
+    $scope.filterTag = ($event, tag, type) => {
+        let $tagItem = angular.element($event.currentTarget).parent();
+
+        if (type === 'product' || type === 'type') {
+            if (type in $scope.current && $scope.current[type] !== tag && $scope.filterTags.has($scope.current[type])) {
+                $scope.filterTags.delete($scope.current[type]);
+            }
+
+            $tagItem.parent().find('li').removeClass('tags-item-active');
+        }
+
+        $scope.filterTags.has(tag) ? $scope.filterTags.delete(tag) : $scope.filterTags.add(tag);
+
+        if (type === 'product' || type === 'type') {
+            if ($scope.current[type] !== tag) {
+                $scope.current[type] = tag;
+                $tagItem.addClass('tags-item-active');
+            } else {
+                delete $scope.current[type];
+            }
+        } else {
+            $tagItem.toggleClass('tags-item-active');
+        }
+
+        let filterTagsArray = Array.from($scope.filterTags);
+
+        return $scope.filterItems = $scope.items.filter((item) => {
+            return filterTagsArray.every((filterTag) => {
+                return !!filterTag ? item.tags.includes(filterTag) : false;
+            });
+        })
+    };
+
     $scope.$watch('search', (newValue, oldValue) => {
         if (oldValue !== newValue) {
             $scope.currentPage = 0;
 
-            $scope.filterItems = $scope.items.filter((item) => {
-                if ($scope.search === '') {
-                    return true;
-                }
+            if ($scope.search === '') {
+                return $scope.filterItems = $scope.items;
+            }
 
-                // @TODO separate words search (any order)
-                return $scope.search.split(' ').every((word) => {
+            // @FIXME drop filters or attach filterTag
+            // $scope.cleanFilters();
+
+            return $scope.filterItems = $scope.items.filter((item) => {
+                // @FIXME separate words search (any order)
+                return $scope.search.split(' ').some((word) => {
+                    // @TODO replace with Array.includes
                     return !![item.title, item.caption, item.data].indexOf(word);
                 })
             });
         }
     }, true);
+
+    $scope.cleanFilters = () => {
+        $scope.current = {};
+        $scope.filterTags = new Set();
+
+    }
 });
 
 
