@@ -81,4 +81,7 @@ angular.module('items', ['ngRoute', 'ngclipboard'])
         ['$qProvider', function ($qProvider) {
             $qProvider.errorOnUnhandledRejections(false);
         }]
-    );
+    )
+    .run(/** @ngInject */ function($rootScope) {
+        $rootScope.loaded = true;
+    });

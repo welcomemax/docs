@@ -9,11 +9,13 @@
 
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
-<body class="">
-    <div class="container">
+<body>
+    <div class="container" ng-app="items">
+        <div class="loader" ng-class="{'loader-visible': !loaded}"><div class="loader-inner"></div></div>
+
         <header class="header">
             <h1 class="header-title">Elfsight Docs</h1>
-            <p class="header-caption">Database of customizations and hacks for Elfsight applications</p>
+            <p class="header-caption">DB of customizations and hacks for Elfsight applications</p>
         </header>
 
         <main class="main" ng-view></main>
