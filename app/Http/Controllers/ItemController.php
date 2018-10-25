@@ -11,10 +11,10 @@ class ItemController extends Controller
     public function index($id = null)
     {
         $itemsQuery = $id ? Item::where('id', $id) : Item::orderBy('id', 'asc');
-        $items = $itemsQuery->with(['product', 'type'])->get();
+        $items = $itemsQuery->with(['type', 'products', 'tags'])->get();
 
         foreach($items as $item) {
-
+            // @TODO format products, tags and type
         }
 
         return [

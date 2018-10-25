@@ -47,6 +47,9 @@ angular.module('items', ['ngRoute', 'ngclipboard'])
                     },
                     typesObj: function (api) {
                         return api.call('types');
+                    },
+                    tagsObj: function (api) {
+                        return api.call('tags');
                     }
                 }
             })
@@ -62,7 +65,7 @@ angular.module('items', ['ngRoute', 'ngclipboard'])
             })
             .when('/edit/:id', {
                 controller: 'editController',
-                templateUrl: editTemplate,
+                template: editTemplate,
                 resolve: {
                     itemObj: function ($route, api) {
                         let id = $route.current.params.id;

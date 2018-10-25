@@ -154,6 +154,9 @@ angular.module('items', ['ngRoute', 'ngclipboard'])
                     },
                     typesObj: function (api) {
                         return api.call('types');
+                    },
+                    tagsObj: function (api) {
+                        return api.call('tags');
                     }
                 }
             })
@@ -169,7 +172,7 @@ angular.module('items', ['ngRoute', 'ngclipboard'])
             })
             .when('/edit/:id', {
                 controller: 'editController',
-                templateUrl: __WEBPACK_IMPORTED_MODULE_13__html_edit_html___default.a,
+                template: __WEBPACK_IMPORTED_MODULE_13__html_edit_html___default.a,
                 resolve: {
                     itemObj: function ($route, api) {
                         let id = $route.current.params.id;
@@ -38835,26 +38838,32 @@ module.exports = select;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (itemsObj, productsObj, typesObj, $scope, $filter, $window) {
+/* harmony default export */ __webpack_exports__["a"] = (function (itemsObj, productsObj, typesObj, tagsObj, $scope, $filter, $window) {
     $scope.items = itemsObj.data;
 
     productsObj.data.forEach((product) => {
         $scope.products = $scope.products || [];
 
-        $scope.products.push(product.name)
+        $scope.products.push(product)
     });
 
     typesObj.data.forEach((type) => {
         $scope.types = $scope.types || [];
 
-        $scope.types.push(type.name)
+        $scope.types.push(type)
+    });
+
+    tagsObj.data.forEach((tag) => {
+        $scope.tags = $scope.tags || [];
+
+        $scope.tags.push(tag)
     });
 
     $scope.items.forEach((item) => {
         item.tags = item.tags || [];
 
-        item.tags.push(item.type.name);
-        item.tags.push(item.product.name);
+        item.tags.push(item.type);
+        item.product && item.tags.push(item.product);
     });
 
     $scope.sortType = 'id';
@@ -38998,8 +39007,8 @@ module.exports = select;
     $scope.item = itemObj.data[0];
 
     $scope.item.tags = $scope.item.tags || [];
-    $scope.item.tags.push($scope.item.type.name);
-    $scope.item.tags.push($scope.item.product.name);
+    $scope.item.tags.push($scope.item.type);
+    $scope.item.product && $scope.item.tags.push($scope.item.product);
 
     $scope.copied = function(e) {
         let btn;
@@ -39076,7 +39085,7 @@ module.exports = select;
 /* 15 */
 /***/ (function(module, exports) {
 
-module.exports = "<ul class=\"tags\">\n    <i class=\"icon icon-tag\" ng-if=\"icon\"></i>\n    <li class=\"tags-item\" ng-repeat=\"tag in ngModel\"><span>{{ tag }}</span></li>\n</ul>\n";
+module.exports = "<ul class=\"tags\">\n    <i class=\"icon icon-tag\" ng-if=\"icon\"></i>\n    <li class=\"tags-item\" ng-repeat=\"tag in ngModel\"><span>{{ tag.name }}</span></li>\n</ul>\n";
 
 /***/ }),
 /* 16 */
@@ -39349,7 +39358,7 @@ module.exports = "<div><textarea ng-model=\"ngModel\" ng-model-options=\"{ debou
 /* 20 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content\">\n    <div class=\"list\">\n        <div class=\"item\" ng-repeat=\"item in filterItems | startFromFilter: startingItem() | limitTo: itemsPerPage | filter: search | orderBy:sortType:sortReverse\">\n            <a class=\"item-open\" href=\"#/detail/{{ item.id }}\" title=\"Open detail\"><i class=\"icon icon-arrow icon-arrow-down\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h3 ng-if=\"item.title\">{{ item.title }}</h3>\n                    <p ng-if=\"item.caption\">{{ item.caption }}</p>\n                </div>\n            </div>\n\n            <div class=\"item-body\" ngclipboard data-clipboard-text=\"{{ item.data }}\" ngclipboard-success=\"copied(e)\">\n                <pre>{{ item.data }}</pre>\n                <button class=\"item-body-clipboard\">Copy</button>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"pagination\">\n    <button class=\"pagination-button pagination-button-prev\" ng-disabled=\"firstPage()\" ng-click=\"pageBack()\"><i class=\"icon icon-arrow icon-arrow-left\"></i></button>\n    <span class=\"pagination-pages\"><b>{{ currentPage+1 }}</b>/<b>{{ numberOfPages() }}</b></span>\n    <button class=\"pagination-button pagination-button-next\" ng-disabled=\"lastPage()\" ng-click=\"pageForward()\"><i class=\"icon icon-arrow icon-arrow-right\"></i></button>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-search\">\n            <div class=\"sidebar-group-header\">Search</div>\n            <div class=\"sidebar-group-body\">\n                <div class=\"search\">\n                    <input class=\"search-input\" ng-model=\"search\" type=\"text\" placeholder=\"whatever\">\n                    <label class=\"search-icon\"><i class=\"icon icon-search\"></i></label>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-apps\">\n            <div class=\"sidebar-group-header\">Apps</div>\n            <div class=\"sidebar-group-body\">\n                <ul class=\"tags\">\n                    <li class=\"tags-item\" ng-repeat=\"product in products\">\n                        <a ng-click=\"filterTag($event, product, 'product')\">\n                            {{ product }}\n                            <i class=\"icon icon-cross tags-item-icon\"></i>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-types\">\n            <div class=\"sidebar-group-header\">Types</div>\n            <div class=\"sidebar-group-body\">\n                <ul class=\"tags\">\n                    <li class=\"tags-item\" ng-repeat=\"type in types\">\n                        <a ng-click=\"filterTag($event, type, 'type')\">\n                            {{ type }}\n                            <i class=\"icon icon-cross tags-item-icon\"></i>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active\" ng-if=\"false\">\n            <div class=\"sidebar-group-header\">Tags</div>\n            <div class=\"sidebar-group-body\">\n                <tags class=\"sidebar-tags\" icon=\"false\" ng-model=\"tags\"></tags>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-top\" ng-if=\"false\">\n            <div class=\"sidebar-group-header\">Top</div>\n            <div class=\"sidebar-group-body\">\n                <div class=\"\">\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-view\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-new\" href=\"/#/edit/\">Cards</a>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-new\" href=\"/#/edit/\">Add new</a>\n            </div>\n        </div>\n    </div>\n    <div class=\"sidebar-footer\"></div>\n</div>\n";
+module.exports = "<div class=\"content\">\n    <div class=\"list\">\n        <div class=\"item\" ng-repeat=\"item in filterItems | startFromFilter: startingItem() | limitTo: itemsPerPage | filter: search | orderBy:sortType:sortReverse\">\n            <a class=\"item-open\" href=\"#/detail/{{ item.id }}\" title=\"Open detail\"><i class=\"icon icon-arrow icon-arrow-down\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h3 ng-if=\"item.title\">{{ item.title }}</h3>\n                    <p ng-if=\"item.caption\">{{ item.caption }}</p>\n                </div>\n            </div>\n\n            <div class=\"item-body\" ngclipboard data-clipboard-text=\"{{ item.data }}\" ngclipboard-success=\"copied(e)\">\n                <pre>{{ item.data }}</pre>\n                <button class=\"item-body-clipboard\">Copy</button>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"pagination\">\n    <button class=\"pagination-button pagination-button-prev\" ng-disabled=\"firstPage()\" ng-click=\"pageBack()\"><i class=\"icon icon-arrow icon-arrow-left\"></i></button>\n    <span class=\"pagination-pages\"><b>{{ currentPage+1 }}</b>/<b>{{ numberOfPages() }}</b></span>\n    <button class=\"pagination-button pagination-button-next\" ng-disabled=\"lastPage()\" ng-click=\"pageForward()\"><i class=\"icon icon-arrow icon-arrow-right\"></i></button>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-search\">\n            <div class=\"sidebar-group-header\">Search</div>\n            <div class=\"sidebar-group-body\">\n                <div class=\"search\">\n                    <input class=\"search-input\" ng-model=\"search\" type=\"text\" placeholder=\"whatever\">\n                    <label class=\"search-icon\"><i class=\"icon icon-search\"></i></label>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-apps\">\n            <div class=\"sidebar-group-header\">Apps</div>\n            <div class=\"sidebar-group-body\">\n                <ul class=\"tags\">\n                    <li class=\"tags-item\" ng-repeat=\"product in products\">\n                        <a ng-click=\"filterTag($event, product, 'product')\">\n                            {{ product.name }}\n                            <i class=\"icon icon-cross tags-item-icon\"></i>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-types\">\n            <div class=\"sidebar-group-header\">Types</div>\n            <div class=\"sidebar-group-body\">\n                <ul class=\"tags\">\n                    <li class=\"tags-item\" ng-repeat=\"type in types\">\n                        <a ng-click=\"filterTag($event, type, 'type')\">\n                            {{ type.name }}\n                            <i class=\"icon icon-cross tags-item-icon\"></i>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active\">\n            <div class=\"sidebar-group-header\">Tags</div>\n            <div class=\"sidebar-group-body\">\n                <ul class=\"tags\">\n                    <li class=\"tags-item\" ng-repeat=\"tag in tags\">\n                        <a ng-click=\"filterTag($event, tag)\">\n                            {{ tag.name }}\n                            <i class=\"icon icon-cross tags-item-icon\"></i>\n                        </a>\n                    </li>\n                </ul>\n                <!--<tags class=\"sidebar-tags\" icon=\"true\" ng-model=\"tags\"></tags>-->\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-top\" ng-if=\"false\">\n            <div class=\"sidebar-group-header\">Top</div>\n            <div class=\"sidebar-group-body\">\n                <div class=\"\">\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-view\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-new\" href=\"/#/edit/\">Cards</a>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-new\" href=\"/#/edit/\">Add new</a>\n            </div>\n        </div>\n    </div>\n    <div class=\"sidebar-footer\"></div>\n</div>\n";
 
 /***/ }),
 /* 21 */

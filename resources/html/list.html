@@ -47,7 +47,7 @@
                 <ul class="tags">
                     <li class="tags-item" ng-repeat="product in products">
                         <a ng-click="filterTag($event, product, 'product')">
-                            {{ product }}
+                            {{ product.name }}
                             <i class="icon icon-cross tags-item-icon"></i>
                         </a>
                     </li>
@@ -61,7 +61,7 @@
                 <ul class="tags">
                     <li class="tags-item" ng-repeat="type in types">
                         <a ng-click="filterTag($event, type, 'type')">
-                            {{ type }}
+                            {{ type.name }}
                             <i class="icon icon-cross tags-item-icon"></i>
                         </a>
                     </li>
@@ -69,10 +69,18 @@
             </div>
         </div>
 
-        <div class="sidebar-group sidebar-group-active" ng-if="false">
+        <div class="sidebar-group sidebar-group-active">
             <div class="sidebar-group-header">Tags</div>
             <div class="sidebar-group-body">
-                <tags class="sidebar-tags" icon="false" ng-model="tags"></tags>
+                <ul class="tags">
+                    <li class="tags-item" ng-repeat="tag in tags">
+                        <a ng-click="filterTag($event, tag)">
+                            {{ tag.name }}
+                            <i class="icon icon-cross tags-item-icon"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!--<tags class="sidebar-tags" icon="true" ng-model="tags"></tags>-->
             </div>
         </div>
 

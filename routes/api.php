@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(
     [
         'prefix' => '/items',
-//        'middleware' => ''
+        // 'middleware' => '' // @TODO middleware for private methods
     ],
     function () {
         Route::post('/{id?}/', 'ItemController@save');
@@ -41,5 +41,9 @@ Route::group(['prefix' => '/types'], function () {
 
 Route::group(['prefix' => '/products'], function () {
     Route::get('/{id?}/', 'ProductController@index');
+});
+
+Route::group(['prefix' => '/tags'], function () {
+    Route::get('/{id?}/', 'TagController@index');
 });
 

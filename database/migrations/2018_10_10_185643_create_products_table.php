@@ -16,7 +16,11 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->string('alias');
             $table->string('name');
+            $table->integer('order')->default(50);
+            $table->string('icon')->nullable();
+            $table->string('public_id')->nullable();
 
             $table->timestamps();
         });

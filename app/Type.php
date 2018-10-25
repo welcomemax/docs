@@ -9,7 +9,9 @@ class Type extends Model
     protected $table = 'types';
 
     protected $fillable = [
-        'name'
+        'alias',
+        'name',
+        'color'
     ];
 
     protected $dates = [

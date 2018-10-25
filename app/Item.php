@@ -11,9 +11,9 @@ class Item extends Model
     protected $fillable = [
         'title',
         'caption',
-        'data',
         'type_id',
-        'product_id',
+        'views_count',
+        'data'
     ];
 
     protected $dates = [
@@ -33,11 +33,11 @@ class Item extends Model
         return $this->belongsTo('App\Type');
     }
 
-    public function product() {
-        return $this->belongsTo('App\Product');
+    public function products() {
+        return $this->belongsToMany('App\Product');
     }
 
     public function tags() {
-        return $this->hasMany('App\Tag');
+        return $this->belongsToMany('App\Tag');
     }
 }
