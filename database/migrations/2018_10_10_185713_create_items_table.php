@@ -18,8 +18,6 @@ class CreateItemsTable extends Migration
 
             $table->string('title')->nullable();
             $table->string('caption')->nullable();
-            $table->integer('type_id')->unsigned();
-            $table->integer('views_count')->default(0);
             $table->mediumText('data');
 
             $table->timestamps();

@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ItemTag extends Model
+class ItemType extends Model
 {
-    protected $table = 'item_tag';
+    protected $table = 'item_type';
 
     protected $fillable = [
         'item_id',
-        'tag_id'
+        'type_id'
     ];
 
     protected $dates = [

@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class View extends Model
 {
-    protected $table = 'tags';
+    protected $table = 'views';
 
     protected $fillable = [
-        'alias',
-        'name'
+        'item_id'
     ];
 
     protected $dates = [
@@ -19,13 +18,7 @@ class Tag extends Model
     ];
 
     protected $hidden = [
-        'id',
         'created_at',
-        'updated_at',
-        'pivot'
+        'updated_at'
     ];
-
-    public function items() {
-        return $this->belongsToMany('App\Item');
-    }
 }

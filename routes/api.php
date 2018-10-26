@@ -31,19 +31,19 @@ Route::group(
 );
 
 Route::group(['prefix' => '/items'], function () {
-    Route::get('/{id?}/', 'ItemController@index');
+    Route::get('/{id?}', 'ItemController@index');
 });
 
 
 Route::group(['prefix' => '/types'], function () {
-    Route::get('/{id?}/', 'TypeController@index');
+    Route::get('/{id?}', 'TypeController@index');
 });
 
 Route::group(['prefix' => '/products'], function () {
-    Route::get('/{id?}/', 'ProductController@index');
+    Route::get('/{id?}', 'ProductController@index');
 });
 
 Route::group(['prefix' => '/tags'], function () {
-    Route::get('/{id?}/', 'TagController@index');
+    Route::get('/{id?}', 'TagController@index');
 });
 

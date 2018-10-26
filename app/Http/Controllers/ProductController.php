@@ -10,7 +10,7 @@ class ProductController extends Controller
     public function index($id = null)
     {
         $productsQuery = $id ? Product::where('id', $id) : Product::orderBy('id', 'asc');
-        $products = $productsQuery->get();
+        $products = $productsQuery->withCount('items')->havingRaw('items_count')->get();
 
         return [
             'status' => 1,

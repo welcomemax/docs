@@ -11,8 +11,6 @@ class Item extends Model
     protected $fillable = [
         'title',
         'caption',
-        'type_id',
-        'views_count',
         'data'
     ];
 
@@ -22,7 +20,9 @@ class Item extends Model
     ];
 
     protected $hidden = [
-        'created_at'
+        'id',
+        'created_at',
+        'pivot'
     ];
 
     protected $casts = [
@@ -39,5 +39,9 @@ class Item extends Model
 
     public function tags() {
         return $this->belongsToMany('App\Tag');
+    }
+
+    public function views() {
+        return $this->hasMany('App\View');
     }
 }

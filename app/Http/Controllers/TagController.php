@@ -10,7 +10,7 @@ class TagController extends Controller
     public function index($id = null)
     {
         $tagsQuery = $id ? Tag::where('id', $id) : Tag::orderBy('id', 'asc');
-        $tags = $tagsQuery->get();
+        $tags = $tagsQuery->withCount('items')->havingRaw('items_count')->get();
 
         return [
             'status' => 1,

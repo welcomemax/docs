@@ -22,8 +22,4 @@ class ItemProduct extends Model
         'created_at',
         'updated_at'
     ];
-
-    public function products() {
-        return $this->belongsToMany('App\Coupons', 'item_product', 'item_id', 'product_id');
-    }
 }

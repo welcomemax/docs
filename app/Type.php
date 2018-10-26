@@ -10,8 +10,7 @@ class Type extends Model
 
     protected $fillable = [
         'alias',
-        'name',
-        'color'
+        'name'
     ];
 
     protected $dates = [
@@ -20,7 +19,13 @@ class Type extends Model
     ];
 
     protected $hidden = [
+        'id',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'pivot'
     ];
+
+    public function items() {
+        return $this->belongsToMany('App\Item');
+    }
 }

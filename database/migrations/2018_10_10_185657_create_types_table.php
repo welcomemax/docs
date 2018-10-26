@@ -18,7 +18,6 @@ class CreateTypesTable extends Migration
 
             $table->string('alias');
             $table->string('name');
-            $table->string('color')->nullable();
 
             $table->timestamps();
         });

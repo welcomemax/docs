@@ -13,7 +13,7 @@ export default /** @ngInject */ function($injector) {
             let def = externalDef || this.$q.defer();
             let requestOptions = {
                 method: method,
-                url: this.apiBaseUrl + url.replace(/^\/|\/$/g, '') + '/',
+                url: this.apiBaseUrl + url.replace(/^\/|\/$/g, ''),
             };
 
             if (method.toLowerCase() === 'get') {
