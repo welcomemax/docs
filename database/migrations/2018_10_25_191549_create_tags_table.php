@@ -18,8 +18,6 @@ class CreateTagsTable extends Migration
 
             $table->string('alias');
             $table->string('name');
-
-            $table->timestamps();
         });
     }
 

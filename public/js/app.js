@@ -91,26 +91,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_route___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular_route__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ngclipboard__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ngclipboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_ngclipboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filters_raw_html_es6__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filters_start_from_es6__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_api_es6__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controllers_list_es6__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__controllers_detail_es6__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__controllers_edit_es6__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__directives_tags_es6__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__directives_editor_es6__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__html_list_html__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__html_list_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__html_list_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__html_detail_html__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__html_detail_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__html_detail_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__html_edit_html__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__html_edit_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__html_edit_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filters_trust_html_es6__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filters_trust_resource_es6__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__filters_start_from_es6__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_api_es6__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__controllers_list_es6__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__controllers_detail_es6__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__controllers_edit_es6__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__directives_tags_es6__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__directives_editor_es6__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__html_list_html__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__html_list_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__html_list_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__html_detail_html__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__html_detail_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__html_detail_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__html_edit_html__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__html_edit_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__html_edit_html__);
 // vendors
 
 
 
 
 // filters
+
 
 
 
@@ -132,19 +134,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 angular.module('items', ['ngRoute', 'ngclipboard'])
-    .factory('api', __WEBPACK_IMPORTED_MODULE_5__services_api_es6__["a" /* default */])
-    .controller('listController', __WEBPACK_IMPORTED_MODULE_6__controllers_list_es6__["a" /* default */])
-    .controller('detailController', __WEBPACK_IMPORTED_MODULE_7__controllers_detail_es6__["a" /* default */])
-    .controller('editController', __WEBPACK_IMPORTED_MODULE_8__controllers_edit_es6__["a" /* default */])
-    .directive('tags', __WEBPACK_IMPORTED_MODULE_9__directives_tags_es6__["a" /* default */])
-    .directive('editor', __WEBPACK_IMPORTED_MODULE_10__directives_editor_es6__["a" /* default */])
-    .filter('startFromFilter', __WEBPACK_IMPORTED_MODULE_4__filters_start_from_es6__["a" /* default */])
-    .filter('rawHtmlFilter', __WEBPACK_IMPORTED_MODULE_3__filters_raw_html_es6__["a" /* default */])
+    .factory('api', __WEBPACK_IMPORTED_MODULE_6__services_api_es6__["a" /* default */])
+    .controller('listController', __WEBPACK_IMPORTED_MODULE_7__controllers_list_es6__["a" /* default */])
+    .controller('detailController', __WEBPACK_IMPORTED_MODULE_8__controllers_detail_es6__["a" /* default */])
+    .controller('editController', __WEBPACK_IMPORTED_MODULE_9__controllers_edit_es6__["a" /* default */])
+    .directive('tags', __WEBPACK_IMPORTED_MODULE_10__directives_tags_es6__["a" /* default */])
+    .directive('editor', __WEBPACK_IMPORTED_MODULE_11__directives_editor_es6__["a" /* default */])
+    .filter('startFromFilter', __WEBPACK_IMPORTED_MODULE_5__filters_start_from_es6__["a" /* default */])
+    .filter('trustHtmlFilter', __WEBPACK_IMPORTED_MODULE_3__filters_trust_html_es6__["a" /* default */])
+    .filter('trustResourceFilter', __WEBPACK_IMPORTED_MODULE_4__filters_trust_resource_es6__["a" /* default */])
     .config(function($routeProvider) {
         $routeProvider
             .when('/', {
                 controller: 'listController',
-                template: __WEBPACK_IMPORTED_MODULE_11__html_list_html___default.a,
+                template: __WEBPACK_IMPORTED_MODULE_12__html_list_html___default.a,
                 resolve: {
                     itemsObj: function (api) {
                         return api.call('items');
@@ -162,7 +165,7 @@ angular.module('items', ['ngRoute', 'ngclipboard'])
             })
             .when('/detail/:id', {
                 controller: 'detailController',
-                template: __WEBPACK_IMPORTED_MODULE_12__html_detail_html___default.a,
+                template: __WEBPACK_IMPORTED_MODULE_13__html_detail_html___default.a,
                 resolve: {
                     itemObj: function ($route, api) {
                         let id = $route.current.params.id;
@@ -172,7 +175,7 @@ angular.module('items', ['ngRoute', 'ngclipboard'])
             })
             .when('/edit/:id', {
                 controller: 'editController',
-                template: __WEBPACK_IMPORTED_MODULE_13__html_edit_html___default.a,
+                template: __WEBPACK_IMPORTED_MODULE_14__html_edit_html___default.a,
                 resolve: {
                     itemObj: function ($route, api) {
                         let id = $route.current.params.id;
@@ -38707,18 +38710,7 @@ module.exports = select;
 });
 
 /***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function ($sce) {
-    return (html) => {
-        return $sce.trustAsHtml(html);
-    }
-});
-
-
-/***/ }),
+/* 8 */,
 /* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -38840,30 +38832,17 @@ module.exports = select;
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = (function (itemsObj, productsObj, typesObj, tagsObj, $scope, $filter, $window) {
     $scope.items = itemsObj.data;
-
-    productsObj.data.forEach((product) => {
-        $scope.products = $scope.products || [];
-
-        $scope.products.push(product)
-    });
-
-    typesObj.data.forEach((type) => {
-        $scope.types = $scope.types || [];
-
-        $scope.types.push(type)
-    });
-
-    tagsObj.data.forEach((tag) => {
-        $scope.tags = $scope.tags || [];
-
-        $scope.tags.push(tag)
-    });
+    $scope.products = productsObj.data;
+    $scope.types = typesObj.data;
+    $scope.tags = tagsObj.data;
 
     $scope.items.forEach((item) => {
         item.tags = item.tags || [];
 
-        item.tags.push(item.type);
-        item.product && item.tags.push(item.product);
+        item.type && item.tags.unshift(item.type);
+        item.products.length > 3 ?
+            item.tags.push({alias: 'many', name: 'Many Apps'}) :
+            item.tags = [...item.tags, ...item.products];
     });
 
     $scope.sortType = 'id';
@@ -39002,14 +38981,27 @@ module.exports = select;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (itemObj, api, $scope, $routeParams) {
+/* harmony default export */ __webpack_exports__["a"] = (function (itemObj, api, $scope, $routeParams, $httpParamSerializer) {
     $scope.id = $routeParams.id;
     $scope.item = itemObj.data[0];
 
     $scope.item.tags = $scope.item.tags || [];
 
-    $scope.item.type && $scope.item.tags.push($scope.item.type);
-    $scope.item.product && $scope.item.tags.push($scope.item.product);
+    $scope.item.type && $scope.item.tags.unshift($scope.item.type);
+    $scope.item.products.length > 3 ?
+        $scope.item.tags.push({alias: 'many', name: 'Many Apps'}) :
+        $scope.item.tags = [...$scope.item.tags, ...$scope.item.products];
+
+    $scope.currentProduct = $scope.item.products[0];
+
+    $scope.previewParams = $httpParamSerializer({
+        'product': $scope.currentProduct.name,
+        'platform': 'docs',
+        'templatesHide': true,
+        'installHide': true
+    });
+    $scope.previewUrl = `https://apps.elfsight.com/preview/${$scope.currentProduct.public_id}?${$scope.previewParams}`;
+    $scope.iconUrl = `/icons/apps/${$scope.currentProduct.alias}.svg`;
 
     $scope.copied = function(e) {
         let btn;
@@ -39365,7 +39357,7 @@ module.exports = "<div class=\"content\">\n    <div class=\"list\">\n        <di
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content\">\n    <div class=\"detail\">\n        <div class=\"item\">\n            <a class=\"item-close\" href=\"/#\" title=\"Back to list\"><i class=\"icon icon-arrow icon-arrow-up\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h2>{{ item.title }}</h2>\n                    <p>{{ item.caption }}</p>\n                </div>\n                <div class=\"item-header-tags\">\n                    <span ng-repeat=\"tag in item.tags\"></span>\n                </div>\n            </div>\n\n            <div class=\"item-body\">\n                <editor ng-model=\"item.data\" type=\"item.type\"></editor>\n                <button class=\"item-body-clipboard\" ngclipboard data-clipboard-text=\"{{ item.data }}\" ngclipboard-success=\"copied(e)\">Copy</button>\n            </div>\n\n            <div class=\"item-preview\" ng-class=\"showPreview ? 'item-preview-active' : ''\">\n                <button class=\"button item-preview-button\"\n                        ng-click=\"showPreview = !showPreview\"\n                        title=\"Toggle {{ item.product.name }} preview\">\n                    <i class=\"icon icon-eye\"></i>\n                </button>\n\n                <iframe ng-if=\"showPreview\"\n                    src=\"https://apps.elfsight.com/preview/a8d5792d-915e-4549-9b08-8ffcbc590b0c/?product=instagram-feed&platform=docs&templatesHide=true&installHide=true\"\n                    frameborder=\"0\" name=\"preview\"\n                    class=\"item-preview-iframe\"></iframe>\n\n                <!--<div class=\"item-preview-icon\" ng-include=\"item.product.icon\">-->\n                <div class=\"item-preview-icon\">\n                    <svg viewBox=\"0 0 520 520\" >\n                        <path d=\"M260,520C116.4,520,0,403.6,0,260c0-46.4,12.2-89.9,33.5-127.7c8.9-11.7,24.6-2.5,16,13.6\n                            c-18.4,34-28.9,72.9-28.9,114.1c0,132.2,107.2,239.4,239.4,239.4S499.4,392.2,499.4,260S392.2,20.6,260,20.6\n                            c-43.5,0-84.3,11.6-119.5,31.9c-17.9,10-24.9-8.6-14-15.7C165.6,13.5,211.2,0,260,0c143.6,0,260,116.4,260,260S403.6,520,260,520\n                            L260,520z\"></path>\n                        <path d=\"M101.5,114.7c0-0.6,0-4,0-11.7c0-10.2,0-23.2,0-23.2l0,0c0-0.1,0-0.1,0-0.2c0-7.8-4.9-14.7-12.2-18.7\n                            l0,0L89,60.7c-0.2-0.1-0.5-0.3-0.7-0.4L6,18.3l0,0c-0.6-0.3-1.3-0.5-2-0.5c-2.2,0-4,1.8-4,4c0,1.1,0.5,2.2,1.2,2.9l0,0\n                            c0,0,0,0,0.1,0c0.1,0.1,0.1,0.1,0.2,0.2c3.2,2.8,33.1,28.8,51.6,44.8c9.4,8.1,10.3,14.9,10.3,20.8l0,0c0.1,7.8,5.3,14.7,13.1,18.2\n                            l0,0l19.1,9.6l0,0c0.6,0.3,1.2,0.5,1.9,0.5C99.7,118.8,101.5,117,101.5,114.7C101.5,114.8,101.5,114.8,101.5,114.7z\"></path>\n                        <g>\n                            <circle cx=\"294.9\" cy=\"196\" r=\"11.2\"></circle>\n                            <path d=\"M244.1,196.1c-28,0-50.7,22.8-50.7,50.7s22.8,50.7,50.7,50.7s50.7-22.8,50.7-50.7\n                                S272.1,196.1,244.1,196.1z M244.1,275.8c-15.9,0-28.9-13-28.9-28.9s13-28.9,28.9-28.9s28.9,13,28.9,28.9S260,275.8,244.1,275.8z\"></path>\n                        </g>\n                        <path d=\"M295.7,147.7h-101c-26.8,0-48.7,21.9-48.7,48.7v101c0,26.8,21.9,48.7,48.7,48.7h101\n                            c26.8,0,48.7-21.9,48.7-48.7v-101C344.4,169.6,322.5,147.7,295.7,147.7z M323.9,295.1c0,16.7-13.7,30.4-30.4,30.4H197\n                            c-16.7,0-30.4-13.7-30.4-30.4v-96.4c0-16.7,13.7-30.4,30.4-30.4h96.4c16.7,0,30.4,13.7,30.4,30.4v96.4H323.9z\"></path>\n                        <path d=\"M363.4,196.3v42v48.2v48.2c0,16.7-13.7,30.4-30.4,30.4h-38h-58.4h-42c8.8,12.4,23.4,20.6,39.7,20.6\n                        h101c26.8,0,48.7-21.9,48.7-48.7V236C384,219.6,375.8,205.1,363.4,196.3z\"></path>\n                    </svg>\n                </div>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n                <span class=\"item-footer-date\">Last update: <b>{{ item.updated_at }}</b></span>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-edit\" href=\"/#/edit/{{ item.id }}\">Edit</a>\n                <a class=\"button button-new\" href=\"/#/edit/\">Add new</a>\n            </div>\n        </div>\n    </div>\n</div>\n";
+module.exports = "<div class=\"content\">\n    <div class=\"detail\">\n        <div class=\"item\">\n            <a class=\"item-close\" href=\"/#\" title=\"Back to list\"><i class=\"icon icon-arrow icon-arrow-up\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h2>{{ item.title }}</h2>\n                    <p>{{ item.caption }}</p>\n                </div>\n                <div class=\"item-header-tags\">\n                    <span ng-repeat=\"tag in item.tags\"></span>\n                </div>\n            </div>\n\n            <div class=\"item-body\">\n                <editor ng-model=\"item.data\" type=\"item.type\"></editor>\n                <button class=\"item-body-clipboard\" ngclipboard data-clipboard-text=\"{{ item.data }}\" ngclipboard-success=\"copied(e)\">Copy</button>\n            </div>\n\n            <div class=\"item-preview\" ng-class=\"showPreview ? 'item-preview-active' : ''\">\n                <button class=\"button item-preview-button\"\n                        ng-click=\"showPreview = !showPreview\"\n                        title=\"Toggle {{ item.product.name }} preview\">\n                    <i class=\"icon icon-eye\"></i>\n                </button>\n\n                <iframe ng-if=\"showPreview\"\n                        ng-src=\"{{ previewUrl | trustResourceFilter }}\"\n                        frameborder=\"0\" name=\"preview\"\n                        class=\"item-preview-iframe\"></iframe>\n\n                <div class=\"item-preview-icon\" ng-src=\"{{ iconUrl }}\">\n                <!--<div class=\"item-preview-icon\">-->\n                    <!--<svg viewBox=\"0 0 520 520\" >-->\n                        <!--<path d=\"M260,520C116.4,520,0,403.6,0,260c0-46.4,12.2-89.9,33.5-127.7c8.9-11.7,24.6-2.5,16,13.6-->\n                            <!--c-18.4,34-28.9,72.9-28.9,114.1c0,132.2,107.2,239.4,239.4,239.4S499.4,392.2,499.4,260S392.2,20.6,260,20.6-->\n                            <!--c-43.5,0-84.3,11.6-119.5,31.9c-17.9,10-24.9-8.6-14-15.7C165.6,13.5,211.2,0,260,0c143.6,0,260,116.4,260,260S403.6,520,260,520-->\n                            <!--L260,520z\"></path>-->\n                        <!--<path d=\"M101.5,114.7c0-0.6,0-4,0-11.7c0-10.2,0-23.2,0-23.2l0,0c0-0.1,0-0.1,0-0.2c0-7.8-4.9-14.7-12.2-18.7-->\n                            <!--l0,0L89,60.7c-0.2-0.1-0.5-0.3-0.7-0.4L6,18.3l0,0c-0.6-0.3-1.3-0.5-2-0.5c-2.2,0-4,1.8-4,4c0,1.1,0.5,2.2,1.2,2.9l0,0-->\n                            <!--c0,0,0,0,0.1,0c0.1,0.1,0.1,0.1,0.2,0.2c3.2,2.8,33.1,28.8,51.6,44.8c9.4,8.1,10.3,14.9,10.3,20.8l0,0c0.1,7.8,5.3,14.7,13.1,18.2-->\n                            <!--l0,0l19.1,9.6l0,0c0.6,0.3,1.2,0.5,1.9,0.5C99.7,118.8,101.5,117,101.5,114.7C101.5,114.8,101.5,114.8,101.5,114.7z\"></path>-->\n                        <!--<g>-->\n                            <!--<circle cx=\"294.9\" cy=\"196\" r=\"11.2\"></circle>-->\n                            <!--<path d=\"M244.1,196.1c-28,0-50.7,22.8-50.7,50.7s22.8,50.7,50.7,50.7s50.7-22.8,50.7-50.7-->\n                                <!--S272.1,196.1,244.1,196.1z M244.1,275.8c-15.9,0-28.9-13-28.9-28.9s13-28.9,28.9-28.9s28.9,13,28.9,28.9S260,275.8,244.1,275.8z\"></path>-->\n                        <!--</g>-->\n                        <!--<path d=\"M295.7,147.7h-101c-26.8,0-48.7,21.9-48.7,48.7v101c0,26.8,21.9,48.7,48.7,48.7h101-->\n                            <!--c26.8,0,48.7-21.9,48.7-48.7v-101C344.4,169.6,322.5,147.7,295.7,147.7z M323.9,295.1c0,16.7-13.7,30.4-30.4,30.4H197-->\n                            <!--c-16.7,0-30.4-13.7-30.4-30.4v-96.4c0-16.7,13.7-30.4,30.4-30.4h96.4c16.7,0,30.4,13.7,30.4,30.4v96.4H323.9z\"></path>-->\n                        <!--<path d=\"M363.4,196.3v42v48.2v48.2c0,16.7-13.7,30.4-30.4,30.4h-38h-58.4h-42c8.8,12.4,23.4,20.6,39.7,20.6-->\n                        <!--h101c26.8,0,48.7-21.9,48.7-48.7V236C384,219.6,375.8,205.1,363.4,196.3z\"></path>-->\n                    <!--</svg>-->\n                <!--</div>-->\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n                <span class=\"item-footer-date\">Last update: <b>{{ item.updated_at }}</b></span>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-edit\" href=\"/#/edit/{{ item.id }}\">Edit</a>\n                <a class=\"button button-new\" href=\"/#/edit/\">Add new</a>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ }),
 /* 22 */
@@ -39378,6 +39370,35 @@ module.exports = "<div class=\"content\">\n    <div class=\"edit\">\n        <di
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function ($sce) {
+    return (html) => {
+        return $sce.trustAsHtml(html);
+    }
+});
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function ($sce) {
+    return (url) => {
+        return $sce.trustAsResourceUrl(url);
+    };
+});
+
 
 /***/ })
 /******/ ]);

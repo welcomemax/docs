@@ -1,29 +1,16 @@
 export default /** @ngInject */ function (itemsObj, productsObj, typesObj, tagsObj, $scope, $filter, $window) {
     $scope.items = itemsObj.data;
-
-    productsObj.data.forEach((product) => {
-        $scope.products = $scope.products || [];
-
-        $scope.products.push(product)
-    });
-
-    typesObj.data.forEach((type) => {
-        $scope.types = $scope.types || [];
-
-        $scope.types.push(type)
-    });
-
-    tagsObj.data.forEach((tag) => {
-        $scope.tags = $scope.tags || [];
-
-        $scope.tags.push(tag)
-    });
+    $scope.products = productsObj.data;
+    $scope.types = typesObj.data;
+    $scope.tags = tagsObj.data;
 
     $scope.items.forEach((item) => {
         item.tags = item.tags || [];
 
-        item.tags.push(item.type);
-        item.product && item.tags.push(item.product);
+        item.type && item.tags.unshift(item.type);
+        item.products.length > 3 ?
+            item.tags.push({alias: 'many', name: 'Many Apps'}) :
+            item.tags = [...item.tags, ...item.products];
     });
 
     $scope.sortType = 'id';

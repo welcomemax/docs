@@ -4,7 +4,8 @@ import 'angular-route';
 import 'ngclipboard';
 
 // filters
-import rawHtmlFilter from './filters/raw-html.es6';
+import trustHtmlFilter from './filters/trust-html.es6';
+import trustResourceFilter from './filters/trust-resource.es6';
 import startFromFilter from './filters/start-from.es6';
 
 // services
@@ -32,7 +33,8 @@ angular.module('items', ['ngRoute', 'ngclipboard'])
     .directive('tags', tagsDirective)
     .directive('editor', editorDirective)
     .filter('startFromFilter', startFromFilter)
-    .filter('rawHtmlFilter', rawHtmlFilter)
+    .filter('trustHtmlFilter', trustHtmlFilter)
+    .filter('trustResourceFilter', trustResourceFilter)
     .config(function($routeProvider) {
         $routeProvider
             .when('/', {

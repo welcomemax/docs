@@ -13,17 +13,12 @@ class Tag extends Model
         'name'
     ];
 
-    protected $dates = [
-        'created_at',
-        'updated_at'
-    ];
-
     protected $hidden = [
         'id',
-        'created_at',
-        'updated_at',
         'pivot'
     ];
+
+    public $timestamps = false;
 
     public function items() {
         return $this->belongsToMany('App\Item');

@@ -21,12 +21,12 @@ class Item extends Model
     ];
 
     protected $hidden = [
-        'created_at',
         'pivot'
     ];
 
     protected $casts = [
-        'updated_at' => 'datetime:d.m.y H:00',
+        'created_at' => 'datetime:d.m.y H:00',
+        'updated_at' => 'datetime:d.m.y H:00'
     ];
 
     public function type() {
