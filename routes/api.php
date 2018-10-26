@@ -36,14 +36,17 @@ Route::group(['prefix' => '/items'], function () {
 
 
 Route::group(['prefix' => '/types'], function () {
+    Route::get('/used', 'TypeController@used');
     Route::get('/{id?}', 'TypeController@index');
 });
 
 Route::group(['prefix' => '/products'], function () {
+    Route::get('/used', 'ProductController@used');
     Route::get('/{id?}', 'ProductController@index');
 });
 
 Route::group(['prefix' => '/tags'], function () {
+    Route::get('/used', 'TagController@used');
     Route::get('/{id?}', 'TagController@index');
 });
 

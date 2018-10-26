@@ -150,13 +150,13 @@ angular.module('items', ['ngRoute', 'ngclipboard'])
                         return api.call('items');
                     },
                     productsObj: function (api) {
-                        return api.call('products');
+                        return api.call('products/used');
                     },
                     typesObj: function (api) {
-                        return api.call('types');
+                        return api.call('types/used');
                     },
                     tagsObj: function (api) {
-                        return api.call('tags');
+                        return api.call('tags/used');
                     }
                 }
             })
@@ -39007,7 +39007,8 @@ module.exports = select;
     $scope.item = itemObj.data[0];
 
     $scope.item.tags = $scope.item.tags || [];
-    $scope.item.tags.push($scope.item.type);
+
+    $scope.item.type && $scope.item.tags.push($scope.item.type);
     $scope.item.product && $scope.item.tags.push($scope.item.product);
 
     $scope.copied = function(e) {

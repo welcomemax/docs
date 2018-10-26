@@ -9,7 +9,8 @@ class View extends Model
     protected $table = 'views';
 
     protected $fillable = [
-        'item_id'
+        'item_id',
+        'user_id'
     ];
 
     protected $dates = [

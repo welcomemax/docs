@@ -4,6 +4,7 @@ use App\Item;
 use App\ItemTag;
 use App\ItemProduct;
 use App\ItemType;
+//use App\TypeItem;
 use App\Tag;
 use App\Product;
 use App\Type;
@@ -30,13 +31,16 @@ class ItemsTableSeeder extends Seeder
         ];
 
         foreach ($items_data as $data) {
-            $item = Item::updateOrCreate([
+            $item_data = [
                 'title' => $data['title'],
                 'caption' => $data['caption'],
                 'data' => $data['data']
-            ]);
+            ];
 
             $type = Type::where('alias', $data['type'])->first();
+            !empty($type) && $item_data['type_id'] = $type->id;
+
+            $item = Item::updateOrCreate($item_data);
 
             if (!empty($type)) {
                 ItemType::updateOrCreate([

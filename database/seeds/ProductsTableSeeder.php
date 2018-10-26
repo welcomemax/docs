@@ -58,7 +58,7 @@ class ProductsTableSeeder extends Seeder
                 'public_id' => '516db1ef-369a-4073-bf3f-2aa58d93e775'
             ],
             [
-                'alias' => 'social-media-icons',
+                'alias' => 'social-icons',
                 'name' => 'Social Media Icons',
                 'public_id' => '842986db-2adb-4c93-a453-8f6436f6ab8d'
             ],
@@ -82,6 +82,11 @@ class ProductsTableSeeder extends Seeder
                 'name' => 'Testimonials Slider',
                 'public_id' => '9bb8a85e-7339-490c-8781-2f5e560b1de1'
             ],
+            [
+                'alias' => 'twitter-feed',
+                'name' => 'Twitter Feed',
+                'public_id' => ''
+            ]
         ];
 
         foreach ($products_data as $product) {

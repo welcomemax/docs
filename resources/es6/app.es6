@@ -43,13 +43,13 @@ angular.module('items', ['ngRoute', 'ngclipboard'])
                         return api.call('items');
                     },
                     productsObj: function (api) {
-                        return api.call('products');
+                        return api.call('products/used');
                     },
                     typesObj: function (api) {
-                        return api.call('types');
+                        return api.call('types/used');
                     },
                     tagsObj: function (api) {
-                        return api.call('tags');
+                        return api.call('tags/used');
                     }
                 }
             })

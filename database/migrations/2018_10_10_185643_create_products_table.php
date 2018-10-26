@@ -18,7 +18,6 @@ class CreateProductsTable extends Migration
 
             $table->string('alias');
             $table->string('name');
-            $table->string('icon')->nullable();
             $table->string('public_id')->nullable();
 
             $table->timestamps();

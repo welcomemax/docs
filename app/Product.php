@@ -11,7 +11,6 @@ class Product extends Model
     protected $fillable = [
         'alias',
         'name',
-        'icon',
         'public_id'
     ];
 

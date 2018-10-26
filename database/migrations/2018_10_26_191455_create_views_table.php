@@ -16,7 +16,8 @@ class CreateViewsTable extends Migration
         Schema::create('views', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('item_id');
+            $table->integer('item_id')->unsigned();
+            // $table->integer('user_id')->unsigned();
 
             $table->timestamps();
         });

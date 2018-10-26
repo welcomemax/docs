@@ -16,10 +16,8 @@ class CreateItemProductTable extends Migration
         Schema::create('item_product', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('item_id');
-            $table->integer('product_id');
-
-            $table->timestamps();
+            $table->integer('item_id')->unsigned();
+            $table->integer('product_id')->unsigned();
         });
     }
 

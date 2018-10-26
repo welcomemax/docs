@@ -11,7 +11,8 @@ class Item extends Model
     protected $fillable = [
         'title',
         'caption',
-        'data'
+        'data',
+        'type_id'
     ];
 
     protected $dates = [
@@ -20,7 +21,6 @@ class Item extends Model
     ];
 
     protected $hidden = [
-        'id',
         'created_at',
         'pivot'
     ];

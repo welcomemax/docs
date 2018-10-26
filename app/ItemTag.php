@@ -13,13 +13,5 @@ class ItemTag extends Model
         'tag_id'
     ];
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
-
-    protected $hidden = [
-        'created_at',
-        'updated_at'
-    ];
+    public $timestamps = false;
 }
