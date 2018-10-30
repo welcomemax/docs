@@ -1,44 +1,63 @@
-import Jodit from 'jodit';
+// import Jodit from 'jodit';
 
 import template from '../../html/editor.html';
+// import templateEditor from '../../html/editor.html';
+// import templatePreview from '../../html/editor.html';
 
 export default /** @ngInject */  function() {
     return {
         require: '?ngModel',
         scope: {
             ngModel: '=',
-            type: '='
+            mode: '='
         },
         template: template,
         replace: false,
-        link: function () {
-
+        link: function ($scope) {
+            $scope.$watch('ngModel', (newValue, oldValue) => {
+                // if (newValue !== oldValue) {
+                    console.log($scope.ngModel)
+                // }
+            });
         },
         controller: function($scope, $element) {
-            let type = typeof $scope.type === 'string' ? $scope.type : $scope.type.name;
-            type = type.toLowerCase();
+            const bracketsRegExp = /\[\[(.*)\]\]/gm;
+            const editorMode = $scope.ngModel.type.alias.toLowerCase();
 
-            if (['css', 'js'].includes(type)) {
-                $scope.editor = new Jodit($element.find('textarea')[0], {
-                    "sourceEditorNativeOptions": {
-                        "mode": "ace/mode/" + type
-                    },
-                    "toolbar": false,
-                    "disablePlugins": "xpath,stat",
-                    "defaultMode": Jodit.MODE_SOURCE
-                });
-            } else {
+            let replaces = $scope.ngModel.data.match(bracketsRegExp);
 
-            }
+            $scope.params = {};
+            $scope.availParams = replaces.map((replacer) => {
+                let type = replacer.replace(bracketsRegExp, '$1');
+                let param = {
+                    name: type,
+                    type: type,
+                    value: ''
+                };
 
-
-            $scope.editor.events.on('afterInit', function () {
-                $scope.editor.value = $scope.ngModel || '';
+                if (type === 'app') {
+                    param.values = [...$scope.ngModel.products].map((app) => {
+                        return {
+                            name: app.name,
+                            value: app.alias
+                        }
+                    });
+                    $scope.params.app = $scope.ngModel.products[0].alias; // @temp
+                }
+                return param;
             });
-            $scope.editor.events.on('change', () => {
-                $scope.ngModel = $scope.editor.value;
-                $scope.$apply();
-            });
+
+            
+
+            $scope.copied = (e) => {
+                let isBtn = e.trigger.tagName === 'BUTTON';
+                let btn = isBtn ? angular.element(e.trigger) : angular.element(e.trigger).find('button');
+
+                btn.text('Copied');
+                setTimeout(() => {
+                    btn.text('Copy');
+                }, 5000)
+            };
         }
     }
 }

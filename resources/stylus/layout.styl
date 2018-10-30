@@ -37,6 +37,7 @@ main
     flex-direction column
     overflow-x visible
     overflow-y auto
+    transition opacity .3s, visibility .3s
 
     &::-webkit-scrollbar-track
         background-color #f0f0f0
@@ -107,3 +108,7 @@ main
 
                     &:hover
                         text-decoration underline
+
+.hidden
+    visibility hidden
+    opacity 0

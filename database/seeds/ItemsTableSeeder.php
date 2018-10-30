@@ -23,7 +23,7 @@ class ItemsTableSeeder extends Seeder
             [
                 'title' => 'Widget Title',
                 'caption' => 'Customize widget title',
-                'data' => '.[[app]]-widget-title{\\r\\n color: [[color]];\\r\\n}',
+                'data' => '.[[app]]-widget-title{'.PHP_EOL.'    color: [[color]];'.PHP_EOL.'}',
                 'type' => 'css',
                 'tags' => ['custom', 'hot'],
                 'products' => ['instagram-feed', 'testimonials-slider', 'faq']

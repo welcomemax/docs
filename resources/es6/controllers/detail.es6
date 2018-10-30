@@ -18,20 +18,5 @@ export default /** @ngInject */ function (itemObj, api, $scope, $routeParams, $h
         'installHide': true
     });
     $scope.previewUrl = `https://apps.elfsight.com/preview/${$scope.currentProduct.public_id}?${$scope.previewParams}`;
-    $scope.iconUrl = `/icons/apps/${$scope.currentProduct.alias}.svg`;
-
-    $scope.copied = function(e) {
-        let btn;
-
-        if (e.trigger.tagName === 'BUTTON') {
-            btn = angular.element(e.trigger);
-        } else {
-            btn = angular.element(e.trigger).find('button');
-        }
-
-        btn.text('Copied');
-        setTimeout(() => {
-            btn.text('Copy');
-        }, 5000)
-    };
+    $scope.icon = `/img/icons/apps/${$scope.currentProduct.alias}.svg`;
 }

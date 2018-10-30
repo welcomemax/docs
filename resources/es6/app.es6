@@ -19,19 +19,25 @@ import editController from './controllers/edit.es6';
 // directives
 import tagsDirective from './directives/tags.es6';
 import editorDirective from './directives/editor.es6';
+import controlDirective from './directives/control.es6';
+import controlRadioDirective from './directives/controls/radio.es6';
+import controlTextDirective from './directives/controls/text.es6';
 
 // templates
 import listTemplate from './../html/list.html';
 import detailTemplate from './../html/detail.html';
 import editTemplate from './../html/edit.html';
 
-angular.module('items', ['ngRoute', 'ngclipboard'])
+angular.module('app', ['ngRoute', 'ngclipboard'])
     .factory('api', apiService)
     .controller('listController', listController)
     .controller('detailController', detailController)
     .controller('editController', editController)
     .directive('tags', tagsDirective)
     .directive('editor', editorDirective)
+    .directive('control', controlDirective)
+    .directive('controlRadio', controlRadioDirective)
+    .directive('controlText', controlTextDirective)
     .filter('startFromFilter', startFromFilter)
     .filter('trustHtmlFilter', trustHtmlFilter)
     .filter('trustResourceFilter', trustResourceFilter)

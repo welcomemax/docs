@@ -1,0 +1,70 @@
+.editor
+    display flex
+    justify-content space-between
+
+    &-params
+        width 33%
+        padding-left 20px
+        box-sizing border-box
+
+    &-code
+        position relative
+        width 100%
+
+        pre
+        textarea
+            font 12px/normal monospace
+            border-radius 3px
+            padding 12px
+            background #38393a
+            color #fff
+            width 100%
+            border none
+            outline none
+            margin 0
+            box-sizing border-box
+
+            .item-body:hover &
+                box-shadow 0 0 1px 1px rgba(0,0,0,.15)
+
+        pre
+            max-height 100px
+            overflow-y auto
+
+            &::-webkit-scrollbar-track
+                background-color #f0f0f0
+
+            &::-webkit-scrollbar
+                width 6px
+
+            &::-webkit-scrollbar-thumb
+                background-color #888
+
+        textarea
+            min-height 100px
+            resize none
+
+        &-clipboard
+            text-decoration none
+            border none
+            border-radius 2px
+            outline none
+            font-size 12px
+            color #38393a
+            background #ffffff
+            padding 2px 6px
+            position absolute
+            right 16px
+            top 12px
+            cursor pointer
+            z-index 1
+            opacity .4
+            transition opacity .3s, transform .3s
+
+            .editor-code:hover &
+                transform scale(1.05)
+                opacity .7
+
+            &:hover
+                transform scale(1.05)
+                opacity 1

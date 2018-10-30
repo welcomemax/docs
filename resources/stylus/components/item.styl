@@ -17,23 +17,44 @@
         width 100%
         transition background .3s
 
-    &-close
     &-open
+        cursor pointer
+        right 0
+        top 0
+        width 80px
+        height 100%
+        position absolute
+        z-index 1
+        color #38393a
+        background linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.05) 100%)
+
+        &:hover .icon
+            transform translateX(2px)
+
+        & .icon
+            width 32px
+            height 32px
+            top 50%
+            margin-top -16px
+            right 20px
+            position absolute
+            transition transform .3s
+
+    &-close
         cursor pointer
         right 20px
         top 20px
         position absolute
         z-index 1
-
-        .icon
-            width 32px
-            height 32px
-
-    &-close
         color #E91E63
 
-    &-open
-        color #38393a
+        &:hover .icon
+            transform translateY(-2px)
+
+        & .icon
+            width 32px
+            height 32px
+            transition transform .3s
 
     &-header
         &-info
@@ -50,65 +71,6 @@
     &-body
         margin 12px 0
         position relative
-
-        pre
-        textarea
-            font 12px/normal monospace
-            border-radius 3px
-            padding 12px
-            background #38393a
-            color #fff
-            width 100%
-            border none
-            outline none
-            margin 0
-            box-sizing border-box
-
-            .item-body:hover &
-                box-shadow 0 0 1px 1px rgba(0,0,0,.15)
-
-        pre
-            max-height 100px
-            overflow-y auto
-
-            &::-webkit-scrollbar-track
-                background-color #f0f0f0
-
-            &::-webkit-scrollbar
-                width 6px
-
-            &::-webkit-scrollbar-thumb
-                background-color #888
-
-        textarea
-            min-height 100px
-            resize none
-
-
-        &-clipboard
-            text-decoration none
-            border none
-            border-radius 2px
-            outline none
-            font-size 12px
-            color #38393a
-            background #ffffff
-            padding 2px 6px
-            position absolute
-            right 16px
-            top 12px
-            cursor pointer
-            z-index 1
-            opacity .4
-            transition opacity .3s, transform .3s
-
-            .item-body:hover &
-                transform scale(1.05)
-                opacity .7
-
-            &:hover
-                transform scale(1.05)
-                opacity 1
 
     &-preview
         display flex
@@ -127,20 +89,37 @@
             max-height 600px
 
         &-button
-            top 40px
-            right 50%
+            top 0
+            right 0
             position absolute
-            width 40px
-            margin-right -20px
-            transition all .3s
+            height 100%
+            width 100%
+            color #232526
+            cursor pointer
+
+            &:hover
+                & .icon
+                    border-radius 75% 15%
 
             & .icon
-                color #fff
+                position absolute
+                top 50%
+                left 50%
+                width 40px
+                height 40px
+                margin-top -20px
+                margin-left -20px
 
             .item-preview-active &
                 margin-right 0
                 top 20px
                 right 20px
+                height 40px
+                width 40px
+
+                & .icon
+                    width 20px
+                    height 20px
 
         &-iframe
             width 100%
@@ -153,8 +132,8 @@
             bottom -16px
             right -16px
 
-            & svg
-                fill #fff
+            & *
+                fill #fff !important
 
     &-footer
         display flex

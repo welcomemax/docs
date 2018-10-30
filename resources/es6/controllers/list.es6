@@ -72,16 +72,6 @@ export default /** @ngInject */ function (itemsObj, productsObj, typesObj, tagsO
         $scope.currentPage += $scope.currentPage;
     };
 
-    $scope.copied = (e) => {
-        let isBtn = e.trigger.tagName === 'BUTTON';
-        let btn = isBtn ? angular.element(e.trigger) : angular.element(e.trigger).find('button');
-
-        btn.text('Copied');
-        setTimeout(() => {
-            btn.text('Copy');
-        }, 5000)
-    };
-
     $scope.filterTag = ($event, tag, type) => {
         let $tagItem = angular.element($event.currentTarget).parent();
 
