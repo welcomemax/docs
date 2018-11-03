@@ -1,13 +1,11 @@
 <div class="editor" ng-if="mode === 'editor'">
     <div class="editor-code">
-        <textarea ng-model="ngModel.data" ng-model-options="{ debounce: 300 }"></textarea>
-        <button class="editor-code-clipboard" ngclipboard data-clipboard-text="{{ ngModel.data }}" ngclipboard-success="copied(e)">Copy</button>
+        <textarea ng-model="data" ng-model-options="{ debounce: 300 }"></textarea>
+        <button class="editor-code-clipboard" ngclipboard data-clipboard-text="{{ data }}" ngclipboard-success="copied(e)">Copy</button>
     </div>
 
-    <div class="editor-params" ng-if="availParams">
-        <div ng-repeat="param in availParams">
-            <control ng-model="param"></control>
-        </div>
+    <div class="editor-params" ng-if="params">
+        <control class="control" ng-repeat="param in params"></control>
     </div>
 </div>
 

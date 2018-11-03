@@ -1,10 +1,6 @@
-// import Jodit from 'jodit';
-
 import template from '../../html/editor.html';
-// import templateEditor from '../../html/editor.html';
-// import templatePreview from '../../html/editor.html';
 
-export default /** @ngInject */  function() {
+export default /** @ngInject */  function($compile) {
     return {
         require: '?ngModel',
         scope: {
@@ -12,42 +8,59 @@ export default /** @ngInject */  function() {
             mode: '='
         },
         template: template,
-        replace: false,
-        link: function ($scope) {
-            $scope.$watch('ngModel', (newValue, oldValue) => {
-                // if (newValue !== oldValue) {
-                    console.log($scope.ngModel)
-                // }
-            });
+        link: function () {
+
         },
         controller: function($scope, $element) {
             const bracketsRegExp = /\[\[(.*)\]\]/gm;
-            const editorMode = $scope.ngModel.type.alias.toLowerCase();
+            // const editorMode = $scope.ngModel.type.alias.toLowerCase();
 
-            let replaces = $scope.ngModel.data.match(bracketsRegExp);
+            $scope.getMatches = (data) => {
+                return data.match(bracketsRegExp);
+            };
 
-            $scope.params = {};
-            $scope.availParams = replaces.map((replacer) => {
-                let type = replacer.replace(bracketsRegExp, '$1');
-                let param = {
-                    name: type,
-                    type: type,
-                    value: ''
-                };
+            // $scope.wrapMatches = (data, matches) => {
+            //     matches.forEach(match => {
+            //         let wrap = `<span class="editor-wrap">${match}</span>`;
+            //         data = data.replace(match, wrap);
+            //     });
+            //
+            //     return data
+            // };
 
-                if (type === 'app') {
-                    param.values = [...$scope.ngModel.products].map((app) => {
-                        return {
+            $scope.setParams = (matches) => {
+                return matches.map(match => {
+                    let alias = match.replace(bracketsRegExp, '$1');
+                    let param = {
+                        match: match,
+                        name: alias, // @temp -> load from Model
+                        alias: alias,
+                        value: null
+                    };
+
+                    if (alias === 'app') {
+                        param.values = [...$scope.ngModel.products].map(app => ({
                             name: app.name,
                             value: app.alias
-                        }
-                    });
-                    $scope.params.app = $scope.ngModel.products[0].alias; // @temp
-                }
-                return param;
-            });
+                        }));
+                    }
 
-            
+                    return param;
+                });
+            };
+
+            $scope.setParamsValues = (params) => {
+                return params.reduce((params, param) => {
+                    params[param.match] = param.value;
+                    return params;
+                }, {});
+            };
+
+            $scope.processData = (data, paramsValues) => {
+                return data.replace(bracketsRegExp, (match) => {
+                    return paramsValues[match] || match;
+                });
+            };
 
             $scope.copied = (e) => {
                 let isBtn = e.trigger.tagName === 'BUTTON';
@@ -58,6 +71,22 @@ export default /** @ngInject */  function() {
                     btn.text('Copy');
                 }, 5000)
             };
+
+
+            $scope.dataRaw = $scope.ngModel.data;
+            $scope.dataRaw = $scope.ngModel.data;
+            $scope.dataMatches = $scope.getMatches($scope.dataRaw);
+            $scope.params = $scope.setParams($scope.dataMatches);
+
+            // console.log($scope)
+
+            $scope.$watch('params', (n, o) => {
+                if (!angular.equals(n, o)) {
+                    $scope.paramsValues = $scope.setParamsValues($scope.params);
+                    $scope.data = $scope.processData($scope.dataRaw, $scope.paramsValues);
+                    // $scope.title = $scope.processData($scope.titleRaw, $scope.paramsValues);
+                }
+            }, true);
         }
     }
 }

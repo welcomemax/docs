@@ -17,19 +17,8 @@
                 <editor ng-model="item" mode="'editor'"></editor>
             </div>
 
-            <div class="item-preview" ng-class="showPreview ? 'item-preview-active' : ''">
-                <div class="item-preview-button"
-                        ng-click="showPreview = !showPreview"
-                        title="Toggle {{ item.currentProduct.name }} preview">
-                    <i class="icon icon-eye"></i>
-                </div>
-
-                <iframe ng-if="showPreview"
-                        ng-src="{{ previewUrl | trustResourceFilter }}"
-                        frameborder="0" name="preview"
-                        class="item-preview-iframe"></iframe>
-
-                <div class="item-preview-icon" ng-include="icon"></div>
+            <div class="item-preview">
+                <preview app="item.currentProduct"></preview>
             </div>
 
             <div class="item-footer">

@@ -1,0 +1,10 @@
+<div class="preview" ng-class="{'preview-active': show}">
+    <div class="preview-button"
+         ng-click="show = !show"
+         title="Open {{ app.name }} preview">
+        <i class="icon icon-eye"></i>
+    </div>
+
+    <div class="preview-icon" ng-include="icon"></div>
+    <div class="preview-loader loader"><div class="loader-inner"></div></div>
+</div>

@@ -1,25 +1,33 @@
 export default /** @ngInject */  function($compile) {
     return {
-        require: '?ngModel',
-        scope: {
-            ngModel: '=',
-        },
         replace: true,
-        link: function ($scope, element) {
+        link: function (scope, element, atts) {
+            if (!scope.param.value && scope.param.values) {
+                let firstValue = scope.param.values[0];
+                scope.param.value = angular.isObject(firstValue) ? firstValue.value : firstValue;
+            }
+
+            scope.param.name = scope.param.name || scope.param.alias;
+
             const controls = {
-                app: 'radio'
+                app: 'select',
+                color: 'input'
             };
 
-            if (!$scope.ngModel.control) {
-                $scope.ngModel.control = controls[$scope.ngModel.type];
+            if (!scope.param.control) {
+                scope.param.control = controls[scope.param.alias];
             }
 
-            if ($scope.ngModel.control) {
-                let controlTpl = '<control-#type#></control-#type#>';
-                let newElement = angular.element(controlTpl.replace('#type#', $scope.ngModel.control));
+            if (scope.param.control) {
+                let controlTpl = `<control-${scope.param.control} class="${atts.class}"></control-${scope.param.control}>`;
 
-                element.replaceWith($compile(newElement)($scope));
+                element.replaceWith($compile(angular.element(controlTpl))(scope));
             }
+        },
+        controller: /** @ngInject */ function($scope) {
+            $scope.setValue = (value) => {
+                $scope.param.value = angular.isObject(value) ? value.value : value;
+            };
         }
     }
 }

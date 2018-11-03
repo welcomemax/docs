@@ -25,8 +25,6 @@
 </head>
 <body>
     <div class="container" ng-app="app">
-        <div class="loader" ng-class="{'loader-visible': !loaded}"><div class="loader-inner"></div></div>
-
         <header class="header">
             <h1 class="header-title">Elfsight Docs</h1>
             <p class="header-caption">DB of customizations and hacks</p>

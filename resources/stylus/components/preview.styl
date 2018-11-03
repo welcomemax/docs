@@ -1,0 +1,79 @@
+.preview
+    display flex
+    flex-direction column
+    position relative
+    min-height 110px
+    max-height 110px
+    height 600px
+    margin 12px -20px 12px -20px
+    background-image url('data:image/png;base64,/9j/4AAQSkZJRgABAgAAZABkAAD/7AARRHVja3kAAQAEAAAAUAAA/+4AJkFkb2JlAGTAAAAAAQMAFQQDBgoNAAABpgAAAccAAAIDAAACMP/bAIQAAgICAgICAgICAgMCAgIDBAMCAgMEBQQEBAQEBQYFBQUFBQUGBgcHCAcHBgkJCgoJCQwMDAwMDAwMDAwMDAwMDAEDAwMFBAUJBgYJDQsJCw0PDg4ODg8PDAwMDAwPDwwMDAwMDA8MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8IAEQgAFAAUAwERAAIRAQMRAf/EAH8AAAMBAQAAAAAAAAAAAAAAAAIDBAEIAQEAAAAAAAAAAAAAAAAAAAAAEAACAwEAAAAAAAAAAAAAAAAAATARMRARAQAAAAAAAAAAAAAAAAAAADASAQAAAAAAAAAAAAAAAAAAADATAAEEAwEAAAAAAAAAAAAAAAEAEDAx8BGxYf/aAAwDAQACEQMRAAAB7kHhgCzCgnBP/9oACAEBAAEFAhYUjC3x6f/aAAgBAgABBQKH/9oACAEDAAEFAof/2gAIAQICBj8CH//aAAgBAwIGPwIf/9oACAEBAQY/Ah//2gAIAQEDAT8hVTeSJJaFL2a5v//aAAgBAgMBPyGH/9oACAEDAwE/IYf/2gAMAwEAAhEDEQAAEBBJBB//2gAIAQEDAT8QXV1sRKOD6CgsQDcXG//aAAgBAgMBPxCH/9oACAEDAwE/EIf/2Q==')
+    transition max-height .3s
+    overflow hidden
+
+    &.preview-active
+        max-height 600px
+
+    &-button
+        top 0
+        right 0
+        position absolute
+        height 100%
+        width 100%
+        color #232526
+        cursor pointer
+
+        &:hover
+            & .icon:before
+                transform scale(1.2)
+
+        & .icon
+            position absolute
+            top 50%
+            left 50%
+            width 40px
+            height 40px
+            margin-top -20px
+            margin-left -20px
+
+        .preview-active &
+            margin-right 0
+            top 20px
+            right 20px
+            height 40px
+            width 40px
+
+            & .icon
+                width 20px
+                height 20px
+
+    &-iframe
+        width 100%
+        height 100%
+        opacity 0
+        transition opacity .6s
+        border none
+
+        .preview-loaded &
+            opacity 1
+
+    &-loader
+        visibility hidden
+        opacity 0
+
+        .preview-active &
+            visibility visible
+            opacity 1
+
+        .preview-loaded &
+            visibility hidden
+            opacity 0
+
+    &-icon
+        width 88px
+        height 88px
+        position absolute
+        bottom -16px
+        right -16px
+
+        & *
+            fill #fff !important

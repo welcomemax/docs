@@ -76,7 +76,7 @@ module.exports = angular;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(2);
-module.exports = __webpack_require__(24);
+module.exports = __webpack_require__(27);
 
 
 /***/ }),
@@ -100,15 +100,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__controllers_edit_es6__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__directives_tags_es6__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__directives_editor_es6__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__directives_control_es6__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__directives_controls_radio_es6__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__directives_controls_text_es6__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__html_list_html__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__html_list_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__html_list_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__html_detail_html__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__html_detail_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__html_detail_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__html_edit_html__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__html_edit_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__html_edit_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__directives_preview_es6__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__directives_control_es6__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__directives_controls_select_es6__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__directives_controls_input_es6__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__html_list_html__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__html_list_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__html_list_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__html_detail_html__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__html_detail_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__html_detail_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__html_edit_html__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__html_edit_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__html_edit_html__);
 // vendors
 
 
@@ -134,6 +135,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
 // templates
 
 
@@ -146,9 +148,10 @@ angular.module('app', ['ngRoute', 'ngclipboard'])
     .controller('editController', __WEBPACK_IMPORTED_MODULE_9__controllers_edit_es6__["a" /* default */])
     .directive('tags', __WEBPACK_IMPORTED_MODULE_10__directives_tags_es6__["a" /* default */])
     .directive('editor', __WEBPACK_IMPORTED_MODULE_11__directives_editor_es6__["a" /* default */])
-    .directive('control', __WEBPACK_IMPORTED_MODULE_12__directives_control_es6__["a" /* default */])
-    .directive('controlRadio', __WEBPACK_IMPORTED_MODULE_13__directives_controls_radio_es6__["a" /* default */])
-    .directive('controlText', __WEBPACK_IMPORTED_MODULE_14__directives_controls_text_es6__["a" /* default */])
+    .directive('preview', __WEBPACK_IMPORTED_MODULE_12__directives_preview_es6__["a" /* default */])
+    .directive('control', __WEBPACK_IMPORTED_MODULE_13__directives_control_es6__["a" /* default */])
+    .directive('controlSelect', __WEBPACK_IMPORTED_MODULE_14__directives_controls_select_es6__["a" /* default */])
+    .directive('controlInput', __WEBPACK_IMPORTED_MODULE_15__directives_controls_input_es6__["a" /* default */])
     .filter('startFromFilter', __WEBPACK_IMPORTED_MODULE_5__filters_start_from_es6__["a" /* default */])
     .filter('trustHtmlFilter', __WEBPACK_IMPORTED_MODULE_3__filters_trust_html_es6__["a" /* default */])
     .filter('trustResourceFilter', __WEBPACK_IMPORTED_MODULE_4__filters_trust_resource_es6__["a" /* default */])
@@ -156,7 +159,7 @@ angular.module('app', ['ngRoute', 'ngclipboard'])
         $routeProvider
             .when('/', {
                 controller: 'listController',
-                template: __WEBPACK_IMPORTED_MODULE_15__html_list_html___default.a,
+                template: __WEBPACK_IMPORTED_MODULE_16__html_list_html___default.a,
                 resolve: {
                     itemsObj: function (api) {
                         return api.call('items');
@@ -174,7 +177,7 @@ angular.module('app', ['ngRoute', 'ngclipboard'])
             })
             .when('/detail/:id', {
                 controller: 'detailController',
-                template: __WEBPACK_IMPORTED_MODULE_16__html_detail_html___default.a,
+                template: __WEBPACK_IMPORTED_MODULE_17__html_detail_html___default.a,
                 resolve: {
                     itemObj: function ($route, api) {
                         let id = $route.current.params.id;
@@ -184,7 +187,7 @@ angular.module('app', ['ngRoute', 'ngclipboard'])
             })
             .when('/edit/:id', {
                 controller: 'editController',
-                template: __WEBPACK_IMPORTED_MODULE_17__html_edit_html___default.a,
+                template: __WEBPACK_IMPORTED_MODULE_18__html_edit_html___default.a,
                 resolve: {
                     itemObj: function ($route, api) {
                         let id = $route.current.params.id;
@@ -39003,7 +39006,7 @@ module.exports = select;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (itemObj, api, $scope, $routeParams, $httpParamSerializer) {
+/* harmony default export */ __webpack_exports__["a"] = (function (itemObj, api, $scope, $routeParams) {
     $scope.id = $routeParams.id;
     $scope.item = itemObj.data[0];
 
@@ -39014,16 +39017,7 @@ module.exports = select;
         $scope.item.tags.push({alias: 'many', name: 'Many Apps'}) :
         $scope.item.tags = [...$scope.item.tags, ...$scope.item.products];
 
-    $scope.currentProduct = $scope.item.products[0];
-
-    $scope.previewParams = $httpParamSerializer({
-        'product': $scope.currentProduct.name,
-        'platform': 'docs',
-        'templatesHide': true,
-        'installHide': true
-    });
-    $scope.previewUrl = `https://apps.elfsight.com/preview/${$scope.currentProduct.public_id}?${$scope.previewParams}`;
-    $scope.icon = `/img/icons/apps/${$scope.currentProduct.alias}.svg`;
+    $scope.item.currentProduct = $scope.item.products[0];
 });
 
 
@@ -39071,7 +39065,7 @@ module.exports = select;
         },
         template: __WEBPACK_IMPORTED_MODULE_0__html_tags_html___default.a,
         replace: false,
-        link: function($scope, $element) {
+        link: function(scope, element) {
 
         },
         controller: /** @ngInject */ function($scope) {
@@ -39092,15 +39086,11 @@ module.exports = "<ul class=\"tags\">\n    <i class=\"icon icon-tag\" ng-if=\"ic
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_editor_html__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_editor_html__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_editor_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__html_editor_html__);
-// import Jodit from 'jodit';
 
 
-// import templateEditor from '../../html/editor.html';
-// import templatePreview from '../../html/editor.html';
-
-/* harmony default export */ __webpack_exports__["a"] = (function() {
+/* harmony default export */ __webpack_exports__["a"] = (function($compile) {
     return {
         require: '?ngModel',
         scope: {
@@ -39108,42 +39098,59 @@ module.exports = "<ul class=\"tags\">\n    <i class=\"icon icon-tag\" ng-if=\"ic
             mode: '='
         },
         template: __WEBPACK_IMPORTED_MODULE_0__html_editor_html___default.a,
-        replace: false,
-        link: function ($scope) {
-            $scope.$watch('ngModel', (newValue, oldValue) => {
-                // if (newValue !== oldValue) {
-                    console.log($scope.ngModel)
-                // }
-            });
+        link: function () {
+
         },
         controller: function($scope, $element) {
             const bracketsRegExp = /\[\[(.*)\]\]/gm;
-            const editorMode = $scope.ngModel.type.alias.toLowerCase();
+            // const editorMode = $scope.ngModel.type.alias.toLowerCase();
 
-            let replaces = $scope.ngModel.data.match(bracketsRegExp);
+            $scope.getMatches = (data) => {
+                return data.match(bracketsRegExp);
+            };
 
-            $scope.params = {};
-            $scope.availParams = replaces.map((replacer) => {
-                let type = replacer.replace(bracketsRegExp, '$1');
-                let param = {
-                    name: type,
-                    type: type,
-                    value: ''
-                };
+            // $scope.wrapMatches = (data, matches) => {
+            //     matches.forEach(match => {
+            //         let wrap = `<span class="editor-wrap">${match}</span>`;
+            //         data = data.replace(match, wrap);
+            //     });
+            //
+            //     return data
+            // };
 
-                if (type === 'app') {
-                    param.values = [...$scope.ngModel.products].map((app) => {
-                        return {
+            $scope.setParams = (matches) => {
+                return matches.map(match => {
+                    let alias = match.replace(bracketsRegExp, '$1');
+                    let param = {
+                        match: match,
+                        name: alias, // @temp -> load from Model
+                        alias: alias,
+                        value: null
+                    };
+
+                    if (alias === 'app') {
+                        param.values = [...$scope.ngModel.products].map(app => ({
                             name: app.name,
                             value: app.alias
-                        }
-                    });
-                    $scope.params.app = $scope.ngModel.products[0].alias; // @temp
-                }
-                return param;
-            });
+                        }));
+                    }
 
-            
+                    return param;
+                });
+            };
+
+            $scope.setParamsValues = (params) => {
+                return params.reduce((params, param) => {
+                    params[param.match] = param.value;
+                    return params;
+                }, {});
+            };
+
+            $scope.processData = (data, paramsValues) => {
+                return data.replace(bracketsRegExp, (match) => {
+                    return paramsValues[match] || match;
+                });
+            };
 
             $scope.copied = (e) => {
                 let isBtn = e.trigger.tagName === 'BUTTON';
@@ -39154,104 +39161,120 @@ module.exports = "<ul class=\"tags\">\n    <i class=\"icon icon-tag\" ng-if=\"ic
                     btn.text('Copy');
                 }, 5000)
             };
+
+
+            $scope.dataRaw = $scope.ngModel.data;
+            $scope.dataRaw = $scope.ngModel.data;
+            $scope.dataMatches = $scope.getMatches($scope.dataRaw);
+            $scope.params = $scope.setParams($scope.dataMatches);
+
+            // console.log($scope)
+
+            $scope.$watch('params', (n, o) => {
+                if (!angular.equals(n, o)) {
+                    $scope.paramsValues = $scope.setParamsValues($scope.params);
+                    $scope.data = $scope.processData($scope.dataRaw, $scope.paramsValues);
+                    // $scope.title = $scope.processData($scope.titleRaw, $scope.paramsValues);
+                }
+            }, true);
         }
     }
 });
 
 
 /***/ }),
-/* 18 */,
-/* 19 */,
-/* 20 */
+/* 18 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"editor\" ng-if=\"mode === 'editor'\">\n    <div class=\"editor-code\">\n        <textarea ng-model=\"ngModel.data\" ng-model-options=\"{ debounce: 300 }\"></textarea>\n        <button class=\"editor-code-clipboard\" ngclipboard data-clipboard-text=\"{{ ngModel.data }}\" ngclipboard-success=\"copied(e)\">Copy</button>\n    </div>\n\n    <div class=\"editor-params\" ng-if=\"availParams\">\n        <div ng-repeat=\"param in availParams\">\n            <control ng-model=\"param\"></control>\n        </div>\n    </div>\n</div>\n\n<div class=\"editor\" ng-if=\"mode === 'preview'\">\n    <div class=\"editor-code\" ngclipboard data-clipboard-text=\"{{ ngModel.data }}\" ngclipboard-success=\"copied(e)\">\n        <pre>{{ ngModel.data }}</pre>\n        <button class=\"editor-code-clipboard\">Copy</button>\n    </div>\n</div>\n";
+module.exports = "<div class=\"editor\" ng-if=\"mode === 'editor'\">\n    <div class=\"editor-code\">\n        <textarea ng-model=\"data\" ng-model-options=\"{ debounce: 300 }\"></textarea>\n        <button class=\"editor-code-clipboard\" ngclipboard data-clipboard-text=\"{{ data }}\" ngclipboard-success=\"copied(e)\">Copy</button>\n    </div>\n\n    <div class=\"editor-params\" ng-if=\"params\">\n        <control class=\"control\" ng-repeat=\"param in params\"></control>\n    </div>\n</div>\n\n<div class=\"editor\" ng-if=\"mode === 'preview'\">\n    <div class=\"editor-code\" ngclipboard data-clipboard-text=\"{{ ngModel.data }}\" ngclipboard-success=\"copied(e)\">\n        <pre>{{ ngModel.data }}</pre>\n        <button class=\"editor-code-clipboard\">Copy</button>\n    </div>\n</div>\n";
 
 /***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"content\">\n    <div class=\"list\">\n        <div class=\"item\" ng-repeat=\"item in filterItems | startFromFilter: startingItem() | limitTo: itemsPerPage | filter: search | orderBy:sortType:sortReverse\">\n            <a class=\"item-open\" href=\"#/detail/{{ item.id }}\" title=\"Open detail\"><i class=\"icon icon-arrow icon-arrow-right\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h3 ng-if=\"item.title\">{{ item.title }}</h3>\n                    <p ng-if=\"item.caption\">{{ item.caption }}</p>\n                </div>\n            </div>\n\n            <div class=\"item-body\" >\n                <editor ng-model=\"item\" mode=\"'preview'\"></editor>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"pagination\">\n    <button class=\"pagination-button pagination-button-prev\" ng-disabled=\"firstPage()\" ng-click=\"pageBack()\"><i class=\"icon icon-arrow icon-arrow-left\"></i></button>\n    <span class=\"pagination-pages\"><b>{{ currentPage+1 }}</b>/<b>{{ numberOfPages() }}</b></span>\n    <button class=\"pagination-button pagination-button-next\" ng-disabled=\"lastPage()\" ng-click=\"pageForward()\"><i class=\"icon icon-arrow icon-arrow-right\"></i></button>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-search\">\n            <div class=\"sidebar-group-header\">Search</div>\n            <div class=\"sidebar-group-body\">\n                <div class=\"search\">\n                    <input class=\"search-input\" ng-model=\"search\" type=\"text\" placeholder=\"whatever\">\n                    <label class=\"search-icon\"><i class=\"icon icon-search\"></i></label>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-apps\">\n            <div class=\"sidebar-group-header\">Apps</div>\n            <div class=\"sidebar-group-body\">\n                <ul class=\"tags\">\n                    <li class=\"tags-item\" ng-repeat=\"product in products\">\n                        <a ng-click=\"filterTag($event, product, 'product')\">\n                            {{ product.name }}\n                            <i class=\"icon icon-cross tags-item-icon\"></i>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-types\">\n            <div class=\"sidebar-group-header\">Types</div>\n            <div class=\"sidebar-group-body\">\n                <ul class=\"tags\">\n                    <li class=\"tags-item\" ng-repeat=\"type in types\">\n                        <a ng-click=\"filterTag($event, type, 'type')\">\n                            {{ type.name }}\n                            <i class=\"icon icon-cross tags-item-icon\"></i>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active\">\n            <div class=\"sidebar-group-header\">Tags</div>\n            <div class=\"sidebar-group-body\">\n                <ul class=\"tags\">\n                    <li class=\"tags-item\" ng-repeat=\"tag in tags\">\n                        <a ng-click=\"filterTag($event, tag)\">\n                            {{ tag.name }}\n                            <i class=\"icon icon-cross tags-item-icon\"></i>\n                        </a>\n                    </li>\n                </ul>\n                <!--<tags class=\"sidebar-tags\" icon=\"true\" ng-model=\"tags\"></tags>-->\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-top\" ng-if=\"false\">\n            <div class=\"sidebar-group-header\">Top</div>\n            <div class=\"sidebar-group-body\">\n                <div class=\"\">\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-view\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-new\" href=\"/#/edit/\">Cards</a>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-new\" href=\"/#/edit/\">Add new</a>\n            </div>\n        </div>\n    </div>\n    <div class=\"sidebar-footer\"></div>\n</div>\n";
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"content\">\n    <div class=\"detail\">\n        <div class=\"item\">\n            <a class=\"item-close\" href=\"/#\" title=\"Back to list\"><i class=\"icon icon-arrow icon-arrow-up\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h2>{{ item.title }}</h2>\n                    <p>{{ item.caption }}</p>\n                </div>\n                <div class=\"item-header-tags\">\n                    <span ng-repeat=\"tag in item.tags\"></span>\n                </div>\n            </div>\n\n            <div class=\"item-body\">\n                <editor ng-model=\"item\" mode=\"'editor'\"></editor>\n            </div>\n\n            <div class=\"item-preview\" ng-class=\"showPreview ? 'item-preview-active' : ''\">\n                <div class=\"item-preview-button\"\n                        ng-click=\"showPreview = !showPreview\"\n                        title=\"Toggle {{ item.currentProduct.name }} preview\">\n                    <i class=\"icon icon-eye\"></i>\n                </div>\n\n                <iframe ng-if=\"showPreview\"\n                        ng-src=\"{{ previewUrl | trustResourceFilter }}\"\n                        frameborder=\"0\" name=\"preview\"\n                        class=\"item-preview-iframe\"></iframe>\n\n                <div class=\"item-preview-icon\" ng-include=\"icon\"></div>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n                <span class=\"item-footer-date\">Last update: <b>{{ item.updated_at }}</b></span>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-edit\" href=\"/#/edit/{{ item.id }}\">Edit</a>\n                <a class=\"button button-new\" href=\"/#/edit/\">Add new</a>\n            </div>\n        </div>\n    </div>\n</div>\n";
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"content\">\n    <div class=\"edit\">\n        <div class=\"item\">\n            <a class=\"item-close\" href=\"/#/detail/{{ item.id }}\"><i class=\"icon icon-arrow icon-arrow-up\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <label><input ng-model=\"item.title\">{{ item.title }}</label>\n                    <label><input ng-model=\"item.caption\">{{ item.caption }}</label>\n                </div>\n                <div class=\"item-header-tags\">\n                    <span ng-repeat=\"tag in item.tags\"></span>\n                </div>\n            </div>\n\n            <div class=\"item-body\">\n                <editor ng-model=\"item.data\" type=\"item.type\"></editor>\n                <button class=\"item-body-clipboard\" ngclipboard data-clipboard-text=\"{{ item.data }}\" ngclipboard-success=\"copied(e)\">Copy</button>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n                <span class=\"item-footer-date\">Last update: <b>{{ item.updated_at }}</b></span>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <button class=\"button button-save\" href=\"/#/detail/{{ item.id }}\">Save</button>\n                <button class=\"button button-save-new\" href=\"/#/edit/\">Save and add new</button>\n                <button class=\"button button-delete\" href=\"/\">Delete</button>\n            </div>\n        </div>\n    </div>\n</div>\n";
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = (function($compile) {
     return {
-        require: '?ngModel',
-        scope: {
-            ngModel: '=',
-        },
         replace: true,
-        link: function ($scope, element) {
+        link: function (scope, element, atts) {
+            if (!scope.param.value && scope.param.values) {
+                let firstValue = scope.param.values[0];
+                scope.param.value = angular.isObject(firstValue) ? firstValue.value : firstValue;
+            }
+
+            scope.param.name = scope.param.name || scope.param.alias;
+
             const controls = {
-                app: 'radio'
+                app: 'select',
+                color: 'input'
             };
 
-            if (!$scope.ngModel.control) {
-                $scope.ngModel.control = controls[$scope.ngModel.type];
+            if (!scope.param.control) {
+                scope.param.control = controls[scope.param.alias];
             }
 
-            if ($scope.ngModel.control) {
-                let controlTpl = '<control-#type#></control-#type#>';
-                let newElement = angular.element(controlTpl.replace('#type#', $scope.ngModel.control));
+            if (scope.param.control) {
+                let controlTpl = `<control-${scope.param.control} class="${atts.class}"></control-${scope.param.control}>`;
 
-                element.replaceWith($compile(newElement)($scope));
+                element.replaceWith($compile(angular.element(controlTpl))(scope));
             }
+        },
+        controller: /** @ngInject */ function($scope) {
+            $scope.setValue = (value) => {
+                $scope.param.value = angular.isObject(value) ? value.value : value;
+            };
         }
     }
 });
 
 
 /***/ }),
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"content\">\n    <div class=\"list\">\n        <div class=\"item\" ng-repeat=\"item in filterItems | startFromFilter: startingItem() | limitTo: itemsPerPage | filter: search | orderBy:sortType:sortReverse\">\n            <a class=\"item-open\" href=\"#/detail/{{ item.id }}\" title=\"Open detail\"><i class=\"icon icon-arrow icon-arrow-right\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h3 ng-if=\"item.title\">{{ item.title }}</h3>\n                    <p ng-if=\"item.caption\">{{ item.caption }}</p>\n                </div>\n            </div>\n\n            <div class=\"item-body\" >\n                <editor ng-model=\"item\" mode=\"'preview'\"></editor>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"pagination\">\n    <button class=\"pagination-button pagination-button-prev\" ng-disabled=\"firstPage()\" ng-click=\"pageBack()\"><i class=\"icon icon-arrow icon-arrow-left\"></i></button>\n    <span class=\"pagination-pages\"><b>{{ currentPage+1 }}</b>/<b>{{ numberOfPages() }}</b></span>\n    <button class=\"pagination-button pagination-button-next\" ng-disabled=\"lastPage()\" ng-click=\"pageForward()\"><i class=\"icon icon-arrow icon-arrow-right\"></i></button>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-search\">\n            <div class=\"sidebar-group-header\">Search</div>\n            <div class=\"sidebar-group-body\">\n                <div class=\"search\">\n                    <input class=\"search-input\" ng-model=\"search\" type=\"text\" placeholder=\"whatever\">\n                    <label class=\"search-icon\"><i class=\"icon icon-search\"></i></label>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-apps\">\n            <div class=\"sidebar-group-header\">Apps</div>\n            <div class=\"sidebar-group-body\">\n                <ul class=\"tags\">\n                    <li class=\"tags-item\" ng-repeat=\"product in products\">\n                        <a ng-click=\"filterTag($event, product, 'product')\">\n                            {{ product.name }}\n                            <i class=\"icon icon-cross tags-item-icon\"></i>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-types\">\n            <div class=\"sidebar-group-header\">Types</div>\n            <div class=\"sidebar-group-body\">\n                <ul class=\"tags\">\n                    <li class=\"tags-item\" ng-repeat=\"type in types\">\n                        <a ng-click=\"filterTag($event, type, 'type')\">\n                            {{ type.name }}\n                            <i class=\"icon icon-cross tags-item-icon\"></i>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-active\">\n            <div class=\"sidebar-group-header\">Tags</div>\n            <div class=\"sidebar-group-body\">\n                <ul class=\"tags\">\n                    <li class=\"tags-item\" ng-repeat=\"tag in tags\">\n                        <a ng-click=\"filterTag($event, tag)\">\n                            {{ tag.name }}\n                            <i class=\"icon icon-cross tags-item-icon\"></i>\n                        </a>\n                    </li>\n                </ul>\n                <!--<tags class=\"sidebar-tags\" icon=\"true\" ng-model=\"tags\"></tags>-->\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-top\" ng-if=\"false\">\n            <div class=\"sidebar-group-header\">Top</div>\n            <div class=\"sidebar-group-body\">\n                <div class=\"\">\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-view\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-new\" href=\"/#/edit/\">Cards</a>\n            </div>\n        </div>\n\n        <div class=\"sidebar-group sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-new\" href=\"/#/edit/\">Add new</a>\n            </div>\n        </div>\n    </div>\n    <div class=\"sidebar-footer\"></div>\n</div>\n";
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"content\">\n    <div class=\"detail\">\n        <div class=\"item\">\n            <a class=\"item-close\" href=\"/#\" title=\"Back to list\"><i class=\"icon icon-arrow icon-arrow-up\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <h2>{{ item.title }}</h2>\n                    <p>{{ item.caption }}</p>\n                </div>\n                <div class=\"item-header-tags\">\n                    <span ng-repeat=\"tag in item.tags\"></span>\n                </div>\n            </div>\n\n            <div class=\"item-body\">\n                <editor ng-model=\"item\" mode=\"'editor'\"></editor>\n            </div>\n\n            <div class=\"item-preview\">\n                <preview app=\"item.currentProduct\"></preview>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n                <span class=\"item-footer-date\">Last update: <b>{{ item.updated_at }}</b></span>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <a class=\"button button-edit\" href=\"/#/edit/{{ item.id }}\">Edit</a>\n                <a class=\"button button-new\" href=\"/#/edit/\">Add new</a>\n            </div>\n        </div>\n    </div>\n</div>\n";
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"content\">\n    <div class=\"edit\">\n        <div class=\"item\">\n            <a class=\"item-close\" href=\"/#/detail/{{ item.id }}\"><i class=\"icon icon-arrow icon-arrow-up\"></i></a>\n\n            <div class=\"item-header\">\n                <div class=\"item-header-info\">\n                    <label><input ng-model=\"item.title\">{{ item.title }}</label>\n                    <label><input ng-model=\"item.caption\">{{ item.caption }}</label>\n                </div>\n                <div class=\"item-header-tags\">\n                    <span ng-repeat=\"tag in item.tags\"></span>\n                </div>\n            </div>\n\n            <div class=\"item-body\">\n                <editor ng-model=\"item.data\" type=\"item.type\"></editor>\n                <button class=\"item-body-clipboard\" ngclipboard data-clipboard-text=\"{{ item.data }}\" ngclipboard-success=\"copied(e)\">Copy</button>\n            </div>\n\n            <div class=\"item-footer\">\n                <tags class=\"item-header-tags\" icon=\"true\" ng-model=\"item.tags\"></tags>\n                <span class=\"item-footer-date\">Last update: <b>{{ item.updated_at }}</b></span>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"sidebar\">\n    <div class=\"sidebar-header\"></div>\n    <div class=\"sidebar-body\">\n        <div class=\"sidebar-group sidebar-group-active sidebar-group-controls\">\n            <div class=\"sidebar-group-header\">Controls</div>\n            <div class=\"sidebar-group-body\">\n                <button class=\"button button-save\" href=\"/#/detail/{{ item.id }}\">Save</button>\n                <button class=\"button button-save-new\" href=\"/#/edit/\">Save and add new</button>\n                <button class=\"button button-delete\" href=\"/\">Delete</button>\n            </div>\n        </div>\n    </div>\n</div>\n";
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 28 */,
+/* 29 */,
+/* 30 */,
 /* 31 */,
 /* 32 */,
 /* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_controls_radio_html__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_controls_radio_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__html_controls_radio_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_controls_select_html__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_controls_select_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__html_controls_select_html__);
 
 
 /* harmony default export */ __webpack_exports__["a"] = (function() {
     return {
-        // require: '?ngModel',
-        // scope: {
-        //     ngModel: '='
-        // },
-        template: __WEBPACK_IMPORTED_MODULE_0__html_controls_radio_html___default.a,
-        replace: true,
+        template: __WEBPACK_IMPORTED_MODULE_0__html_controls_select_html___default.a,
         controller: /** @ngInject */ function($scope) {
-            $scope.setValue = (value) => {
-                console.log(value)
-                $scope.ngModel.value = value;
-            }
+
         }
     }
 });
@@ -39259,24 +39282,17 @@ module.exports = "<div class=\"content\">\n    <div class=\"edit\">\n        <di
 
 /***/ }),
 /* 34 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"control\">\n    <label class=\"control-label\">\n        {{ ngModel.type }}\n    </label>\n\n    <div class=\"control-radio\">\n        <div class=\"control-radio-item\"\n             ng-repeat=\"value in ngModel.values\"\n             ng-click=\"setValue(value.value)\">\n            {{ value.name }}\n        </div>\n    </div>\n</div>\n";
-
-/***/ }),
-/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_controls_text_html__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_controls_text_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__html_controls_text_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_controls_input_html__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_controls_input_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__html_controls_input_html__);
 
 
 /* harmony default export */ __webpack_exports__["a"] = (function($rootScope) {
     return {
-        template: __WEBPACK_IMPORTED_MODULE_0__html_controls_text_html___default.a,
-        replace: true,
-        controller: /** @ngInject */ function($scope, $rootScope) {
+        template: __WEBPACK_IMPORTED_MODULE_0__html_controls_input_html___default.a,
+        controller: /** @ngInject */ function($scope, $element) {
 
         }
     }
@@ -39284,10 +39300,84 @@ module.exports = "<div class=\"control\">\n    <label class=\"control-label\">\n
 
 
 /***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"control-inner\">\n    <label class=\"control-label\">\n        {{ param.name }}\n    </label>\n\n    <div class=\"control-select\" ng-class=\"{'control-dropdown': !!param.values}\">\n        <div class=\"control-select-current\">{{ param.value }}</div>\n        <div class=\"control-dropdown-options\">\n            <div class=\"control-dropdown-options-item\"\n                 ng-repeat=\"value in param.values\"\n                 ng-click=\"setValue(value)\">\n                {{ value.name }}\n            </div>\n        </div>\n    </div>\n</div>\n";
+
+/***/ }),
 /* 36 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"control\">\n    <label class=\"control-label\">\n        {{ ngModel.type }}\n    </label>\n\n    <div class=\"control-input\"><input value=\"{{ ngModel.value }}\"></div>\n</div>\n";
+module.exports = "<div class=\"control-inner\">\n    <label class=\"control-label\">\n        {{ param.name }}\n    </label>\n\n    <div class=\"control-input\"><input ng-model=\"param.value\"></div>\n</div>\n";
+
+/***/ }),
+/* 37 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_directives_preview_html__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_directives_preview_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__html_directives_preview_html__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = (function($httpParamSerializer) {
+    return {
+        scope: {
+            app: '='
+        },
+        template: __WEBPACK_IMPORTED_MODULE_0__html_directives_preview_html___default.a,
+        replace: true,
+        link: function(scope) {
+            scope.show = false;
+            scope.params = $httpParamSerializer({
+                'product': scope.app.name,
+                'platform': 'docs',
+                'templatesHide': true,
+                'installHide': true
+            });
+            scope.url = `https://apps.elfsight.com/preview/${scope.app.public_id}?${scope.params}`;
+            scope.icon = `/img/icons/apps/${scope.app.alias}.svg`;
+        },
+        controller: /** @ngInject */ function($scope, $element) {
+            $scope.previewCreate = () => {
+                let preview = document.createElement('iframe');
+
+                preview.src = $scope.url;
+                preview.classList.add('preview-iframe');
+                preview.onload = () => {
+                    $element.addClass('preview-loaded')
+                };
+
+                $element.append(preview);
+
+                return angular.element(preview);
+            };
+
+            $scope.previewDestroy = () => {
+                $scope.preview.detach();
+                $element.removeClass('preview-loaded');
+                $scope.preview = null;
+            };
+
+            $scope.$watch('show', (show) => {
+                if (show) {
+                    if (!$scope.preview) {
+                        $scope.preview = $scope.previewCreate();
+                    }
+                } else {
+                    $scope.preview && $scope.previewDestroy();
+                }
+            });
+        }
+    }
+});
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"preview\" ng-class=\"{'preview-active': show}\">\n    <div class=\"preview-button\"\n         ng-click=\"show = !show\"\n         title=\"Open {{ app.name }} preview\">\n        <i class=\"icon icon-eye\"></i>\n    </div>\n\n    <div class=\"preview-icon\" ng-include=\"icon\"></div>\n    <div class=\"preview-loader loader\"><div class=\"loader-inner\"></div></div>\n</div>\n";
 
 /***/ })
 /******/ ]);

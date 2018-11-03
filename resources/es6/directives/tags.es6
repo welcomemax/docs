@@ -8,7 +8,7 @@ export default /** @ngInject */  function() {
         },
         template: template,
         replace: false,
-        link: function($scope, $element) {
+        link: function(scope, element) {
 
         },
         controller: /** @ngInject */ function($scope) {
