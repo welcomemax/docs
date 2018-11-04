@@ -4,7 +4,6 @@ use App\Item;
 use App\ItemTag;
 use App\ItemProduct;
 use App\ItemType;
-//use App\TypeItem;
 use App\Tag;
 use App\Product;
 use App\Type;
@@ -21,12 +20,76 @@ class ItemsTableSeeder extends Seeder
     {
         $items_data = [
             [
-                'title' => 'Widget Title',
-                'caption' => 'Customize widget title',
-                'data' => '.[[app]]-widget-title{'.PHP_EOL.'    color: [[color]];'.PHP_EOL.'}',
+                'title' => 'Widget Font',
+                'caption' => 'Customize widget font family',
+                'data' => '.eapps-[[app]]{'.PHP_EOL.'    font-family: [[font-family]];'.PHP_EOL.'}',
                 'type' => 'css',
                 'tags' => ['custom', 'hot'],
-                'products' => ['instagram-feed', 'testimonials-slider', 'faq']
+                'products' => ['any']
+            ],
+            [
+                'title' => 'Widget Title color',
+                'caption' => 'Customize widget title color',
+                'data' => '.eapps-[[app]] .eui-widget-title{'.PHP_EOL.'    color: [[color]];'.PHP_EOL.'}',
+                'type' => 'css',
+                'tags' => ['custom', 'hot'],
+                'products' => ['testimonials-slider', 'faq', 'twitter-feed']
+            ],
+            [
+                'title' => 'Widget Title font family',
+                'caption' => 'Customize widget title font family',
+                'data' => '.eapps-[[app]] .eui-widget-title{'.PHP_EOL.'    font-family: [[font-family]];'.PHP_EOL.'}',
+                'type' => 'css',
+                'tags' => ['custom', 'hot'],
+                'products' => ['testimonials-slider', 'faq', 'twitter-feed']
+            ],
+            [
+                'title' => 'Widget edges',
+                'caption' => 'Make the edges of your widget sharp',
+                'data' => '.eapps-[[app]]-inner{'.PHP_EOL.'    border-radius: 0px !important;'.PHP_EOL.'}',
+                'type' => 'css',
+                'tags' => ['custom'],
+                'products' => ['facebook-feed', 'twitter-feed']
+            ],
+            [
+                'title' => 'Instagram Feed Widget Title',
+                'caption' => 'Customize Instagram Feed widget title color (temporary, widget title class will be changed to common)',
+                'data' => '.eapps-[[app]] .eapps-[[app]]-title{'.PHP_EOL.'    color: [[color]];'.PHP_EOL.'}',
+                'type' => 'css',
+                'tags' => ['custom', 'hot'],
+                'products' => ['instagram-feed']
+            ],
+            [
+                'title' => 'Instagram Feed Widget Title',
+                'caption' => 'Customize Instagram Feed widget title font family (temporary, widget title class will be changed to common)',
+                'data' => '.eapps-[[app]] .eapps-[[app]]-title{'.PHP_EOL.'    font-family: [[font-family]];'.PHP_EOL.'}',
+                'type' => 'css',
+                'tags' => ['custom', 'hot'],
+                'products' => ['instagram-feed']
+            ],
+            [
+                'title' => 'Youtube Gallery menu navigation padding fix',
+                'caption' => '',
+                'data' => 'li.yottie-widget-nav-list-item a{'.PHP_EOL.'    padding: 18px 16px 26px !important;'.PHP_EOL.'}',
+                'type' => 'css',
+                'tags' => ['fix'],
+                'products' => ['youtube-gallery']
+            ],
+            [
+                'title' => 'Instagram Widget profile picture fix',
+                'caption' => '',
+                'data' => '.instalink-header-pic{'.PHP_EOL.'    width: 34px !important;'.PHP_EOL.'}',
+                'type' => 'css',
+                'tags' => ['fix'],
+                'products' => ['instagram-widget']
+            ],
+            [
+                'title' => 'Instagram Feed disable hover effects',
+                'caption' => '',
+                'data' => '.eapps-instagram-feed-posts-item:hover.eapps-instagram-feed-posts-item-template-tile .eapps-instagram-feed-posts-item-overlay{'.PHP_EOL.'    visibility: hidden !important;'.PHP_EOL.'}'.PHP_EOL.'.eapps-instagram-feed-posts-item:hover.eapps-instagram-feed-posts-item-template-tile .eapps-instagram-feed-posts-item-image {'.PHP_EOL.'    transform: scale(1) translate(-50%, -50%) !important;'.PHP_EOL.'    transform-origin: 0 0 !important;'.PHP_EOL.'    filter: grayscale(0) !important;'.PHP_EOL.'}',
+                'type' => 'css',
+                'tags' => ['custom'],
+                'products' => ['instagram-feed']
             ]
         ];
 

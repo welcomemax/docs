@@ -50,3 +50,5 @@ Route::group(['prefix' => '/tags'], function () {
     Route::get('/{id?}', 'TagController@index');
 });
 
+Route::get('/view/{id}', 'ViewController@view');
+

@@ -1,7 +1,18 @@
-<div class="control-inner">
-    <label class="control-label">
+<div class="control" ng-class="{'control-setted': !!param.value}">
+    <label class="control-label" for="control-{{param.alias}}">
         {{ param.name }}
     </label>
 
-    <div class="control-input"><input ng-model="param.value"></div>
+    <div class="control-inner" ng-class="{'control-dropdown': isDropdown}">
+        <input class="control-input" id="control-{{param.alias}}" ng-model="param.value"/>
+
+        <div class="control-dropdown-options" ng-if="isDropdown">
+            <div class="control-dropdown-options-item"
+                 ng-repeat="value in param.values"
+                 ng-class="{'control-dropdown-options-item-selected': param.value === value.value}"
+                 ng-click="setValue(value)">
+                {{ value.name }}
+            </div>
+        </div>
+    </div>
 </div>

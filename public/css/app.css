@@ -769,7 +769,6 @@ p.header-caption {
 }
 .control {
   display: block;
-  font-size: 13px;
   margin: 12px 0;
 }
 .control:first-child {
@@ -780,12 +779,27 @@ p.header-caption {
 }
 .control-label {
   display: block;
-  font-size: 15px;
+  font-size: 13px;
   text-transform: uppercase;
   margin-bottom: 4px;
 }
-.control-select-current {
-  font-size: 15px;
+.control-input {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 4px 24px 4px 8px;
+  margin: 0;
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid rgba(153,153,153,0.4);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
+  font-size: 13px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.control-input:focus {
+  border-color: rgba(153,153,153,0.6);
 }
 .control-dropdown {
   position: relative;
@@ -796,7 +810,7 @@ p.header-caption {
   width: 0;
   height: 0;
   top: 50%;
-  right: 12px;
+  right: 8px;
   margin-top: -2px;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
@@ -805,11 +819,14 @@ p.header-caption {
   transition: border 0.3s;
 }
 .control-dropdown-options {
+  z-index: 1;
   position: absolute;
   width: 100%;
   height: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   top: 100%;
-  margin-top: 8px;
+  margin-top: 4px;
   left: 0;
   background: #fff;
   border-radius: 3px;
@@ -826,9 +843,22 @@ p.header-caption {
 .control-dropdown-options-item {
   font-size: 13px;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 4px 24px 4px 8px;
   -webkit-transition: background-color 0.3s;
   transition: background-color 0.3s;
+}
+.control-dropdown-options-item-selected:after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 8px;
+  width: 8px;
+  height: 4px;
+  opacity: 0.8;
+  border-bottom: 1px solid currentColor;
+  border-left: 1px solid currentColor;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
 }
 .control-dropdown-options-item:hover {
   background-color: #ececec;

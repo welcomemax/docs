@@ -1,6 +1,6 @@
 import template from '../../html/editor.html';
 
-export default /** @ngInject */  function($compile) {
+export default /** @ngInject */  function(api) {
     return {
         require: '?ngModel',
         scope: {
@@ -11,7 +11,9 @@ export default /** @ngInject */  function($compile) {
         link: function () {
 
         },
-        controller: function($scope, $element) {
+        controller: function($scope, $location) {
+            api.call('items');
+
             const bracketsRegExp = /\[\[(.*)\]\]/gm;
             // const editorMode = $scope.ngModel.type.alias.toLowerCase();
 
@@ -51,14 +53,16 @@ export default /** @ngInject */  function($compile) {
 
             $scope.setParamsValues = (params) => {
                 return params.reduce((params, param) => {
-                    params[param.match] = param.value;
+                    let alias = param.match.replace(bracketsRegExp, '$1');
+                    params[alias] = param.value;
                     return params;
                 }, {});
             };
 
             $scope.processData = (data, paramsValues) => {
                 return data.replace(bracketsRegExp, (match) => {
-                    return paramsValues[match] || match;
+                    let alias = match.replace(bracketsRegExp, '$1');
+                    return paramsValues[alias] || match;
                 });
             };
 
@@ -72,18 +76,36 @@ export default /** @ngInject */  function($compile) {
                 }, 5000)
             };
 
+            $scope.setUrlFromParams = (paramsValues) => {
+                angular.forEach(paramsValues, (value, key) => {
+                    $location.search(key, value || null);
+                });
+            };
 
-            $scope.dataRaw = $scope.ngModel.data;
+            $scope.setParamsFromUrl = () => {
+                angular.forEach($location.search(), (value, key) => {
+                    $scope.params.forEach((param, i) => {
+                        if (param.alias === key) {
+                            $scope.params[i].value = value;
+                        }
+                    });
+                });
+            };
+
             $scope.dataRaw = $scope.ngModel.data;
             $scope.dataMatches = $scope.getMatches($scope.dataRaw);
             $scope.params = $scope.setParams($scope.dataMatches);
+            $scope.setParamsFromUrl();
 
-            // console.log($scope)
+            $scope.$on('$locationChangeSuccess', function() {
+                $scope.setParamsFromUrl();
+            });
 
             $scope.$watch('params', (n, o) => {
                 if (!angular.equals(n, o)) {
                     $scope.paramsValues = $scope.setParamsValues($scope.params);
                     $scope.data = $scope.processData($scope.dataRaw, $scope.paramsValues);
+                    $scope.setUrlFromParams($scope.paramsValues);
                     // $scope.title = $scope.processData($scope.titleRaw, $scope.paramsValues);
                 }
             }, true);

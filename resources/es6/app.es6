@@ -48,6 +48,7 @@ angular.module('app', ['ngRoute', 'ngclipboard'])
             .when('/', {
                 controller: 'listController',
                 template: listTemplate,
+                reloadOnSearch: false,
                 resolve: {
                     itemsObj: function (api) {
                         return api.call('items');
@@ -66,6 +67,7 @@ angular.module('app', ['ngRoute', 'ngclipboard'])
             .when('/detail/:id', {
                 controller: 'detailController',
                 template: detailTemplate,
+                reloadOnSearch: false,
                 resolve: {
                     itemObj: function ($route, api) {
                         let id = $route.current.params.id;
@@ -76,6 +78,7 @@ angular.module('app', ['ngRoute', 'ngclipboard'])
             .when('/edit/:id', {
                 controller: 'editController',
                 template: editTemplate,
+                reloadOnSearch: false,
                 resolve: {
                     itemObj: function ($route, api) {
                         let id = $route.current.params.id;

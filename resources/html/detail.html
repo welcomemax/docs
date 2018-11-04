@@ -17,7 +17,7 @@
                 <editor ng-model="item" mode="'editor'"></editor>
             </div>
 
-            <div class="item-preview">
+            <div class="item-preview" ng-if="!!item.app.public_id">
                 <preview app="item.currentProduct"></preview>
             </div>
 

@@ -10,7 +10,7 @@ export default /** @ngInject */  function($compile) {
             scope.param.name = scope.param.name || scope.param.alias;
 
             const controls = {
-                app: 'select',
+                app: 'input',
                 color: 'input'
             };
 

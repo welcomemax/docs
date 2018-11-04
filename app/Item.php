@@ -41,6 +41,11 @@ class Item extends Model
         return $this->belongsToMany('App\Tag');
     }
 
+    public function params() {
+//        return $this->belongsToMany('App\Param');
+        return $this->hasMany('App\ItemParam');
+    }
+
     public function views() {
         return $this->hasMany('App\View');
     }

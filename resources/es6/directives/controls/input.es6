@@ -1,9 +1,13 @@
 import template from '../../../html/controls/input.html';
 
-export default /** @ngInject */  function($rootScope) {
+export default /** @ngInject */  function() {
     return {
         template: template,
-        controller: /** @ngInject */ function($scope, $element) {
+        replace: true,
+        link: function (scope) {
+            scope.isDropdown = !!scope.param.values && !!scope.param.values.length;
+        },
+        controller: /** @ngInject */ function() {
 
         }
     }
