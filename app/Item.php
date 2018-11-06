@@ -42,8 +42,7 @@ class Item extends Model
     }
 
     public function params() {
-//        return $this->belongsToMany('App\Param');
-        return $this->hasMany('App\ItemParam');
+        return $this->belongsToMany('App\Param');
     }
 
     public function views() {

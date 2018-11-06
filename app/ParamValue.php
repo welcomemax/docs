@@ -15,7 +15,8 @@ class ParamValue extends Model
     ];
 
     protected $hidden = [
-        'id'
+        'id',
+        'param_id'
     ];
 
     public $timestamps = false;

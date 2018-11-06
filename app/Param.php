@@ -15,7 +15,8 @@ class Param extends Model
     ];
 
     protected $hidden = [
-        'id'
+        'id',
+        'pivot'
     ];
 
     public $timestamps = false;

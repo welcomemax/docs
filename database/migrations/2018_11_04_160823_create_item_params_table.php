@@ -13,7 +13,7 @@ class CreateItemParamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('item_params', function (Blueprint $table) {
+        Schema::create('item_param', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('item_id')->unsigned();
@@ -28,6 +28,6 @@ class CreateItemParamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_params');
+        Schema::dropIfExists('item_param');
     }
 }

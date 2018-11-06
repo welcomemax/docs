@@ -4,9 +4,11 @@ use App\Item;
 use App\ItemTag;
 use App\ItemProduct;
 use App\ItemType;
+use App\ItemParam;
 use App\Tag;
 use App\Product;
 use App\Type;
+use App\Param;
 use Illuminate\Database\Seeder;
 
 class ItemsTableSeeder extends Seeder
@@ -131,6 +133,21 @@ class ItemsTableSeeder extends Seeder
                         'item_id' => $item->id,
                         'product_id' => $product->id
                     ]);
+                }
+            }
+
+            preg_match_all('#\[\[(.*?)\]\]#m', $data['data'], $matches);
+
+            if (!empty($matches) && $matches[1]) {
+                foreach ($matches[1] as $match) {
+                    $param = Param::where('alias', $match)->first();
+
+                    if (!empty($param)) {
+                        ItemParam::updateOrCreate([
+                            'item_id' => $item->id,
+                            'param_id' => $param->id
+                        ]);
+                    }
                 }
             }
         }
