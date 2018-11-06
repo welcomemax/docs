@@ -13,10 +13,6 @@ class ItemController extends Controller
         $itemsQuery = $id ? Item::where('id', $id) : Item::orderBy('id', 'asc');
         $items = $itemsQuery->with(['type', 'products', 'tags', 'params.values'])->withCount('views')->get();
 
-        foreach($items as $item) {
-            // @TODO format products, tags and type
-        }
-
         return [
             'status' => 1,
             'data' => $items

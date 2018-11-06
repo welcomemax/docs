@@ -18,13 +18,11 @@ class ParamsTableSeeder extends Seeder
             [
                 'alias' => 'app',
                 'name' => 'App',
-                'default_value' => '',
                 'values' => []
             ],
             [
                 'alias' => 'color',
                 'name' => 'Font Color',
-                'default_value' => 'red',
                 'values' => [
                     [
                         'name' => 'Red',
@@ -39,22 +37,29 @@ class ParamsTableSeeder extends Seeder
             [
                 'alias' => 'font-family',
                 'name' => 'Font Family',
-                'default_value' => 'apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";',
                 'values' => [
                     [
-                        'name' => 'System',
-                        'value' => 'apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";'
+                        'name' => 'Helvetica',
+                        'value' => 'Helvetica'
+                    ],
+                    [
+                        'name' => 'Arial',
+                        'value' => 'Arial'
                     ]
                 ]
             ]
         ];
 
         foreach ($params_data as $data) {
-            $param = Param::updateOrCreate([
+            $param_data = [
                 'alias' => $data['alias'],
-                'name' => $data['name'],
-                'default_value' => $data['default_value']
-            ]);
+                'name' => $data['name']
+            ];
+
+            isset($data['default']) && $param_data['default'] = $data['default'];
+            isset($data['control']) && $param_data['control'] = $data['control'];
+
+            $param = Param::updateOrCreate($param_data);
 
             if ($data['alias'] === 'app') {
                 $products = Product::get();

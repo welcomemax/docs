@@ -18,7 +18,8 @@ class CreateParamsTable extends Migration
 
             $table->string('alias');
             $table->string('name');
-            $table->string('default_value');
+            $table->string('default')->nullable();
+            $table->string('control')->default('input');
         });
     }
 

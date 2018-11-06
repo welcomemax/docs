@@ -14,10 +14,6 @@ class ProductsTableSeeder extends Seeder
     {
         $products_data = [
             [
-                'alias' => 'any',
-                'name' => 'Any'
-            ],
-            [
                 'alias' => 'instagram-feed',
                 'name' => 'Instagram Feed',
                 'public_id' => 'a8d5792d-915e-4549-9b08-8ffcbc590b0c'

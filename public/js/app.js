@@ -39094,7 +39094,7 @@ module.exports = "<ul class=\"tags\">\n    <i class=\"icon icon-tag\" ng-if=\"ic
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_editor_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__html_editor_html__);
 
 
-/* harmony default export */ __webpack_exports__["a"] = (function(api) {
+/* harmony default export */ __webpack_exports__["a"] = (function() {
     return {
         require: '?ngModel',
         scope: {
@@ -39106,14 +39106,12 @@ module.exports = "<ul class=\"tags\">\n    <i class=\"icon icon-tag\" ng-if=\"ic
 
         },
         controller: function($scope, $location) {
-            api.call('items');
-
             const bracketsRegExp = /\[\[(.*)\]\]/gm;
             // const editorMode = $scope.ngModel.type.alias.toLowerCase();
 
-            $scope.getMatches = (data) => {
-                return data.match(bracketsRegExp);
-            };
+            // $scope.getMatches = (data) => {
+            //     return data.match(bracketsRegExp);
+            // };
 
             // $scope.wrapMatches = (data, matches) => {
             //     matches.forEach(match => {
@@ -39124,31 +39122,35 @@ module.exports = "<ul class=\"tags\">\n    <i class=\"icon icon-tag\" ng-if=\"ic
             //     return data
             // };
 
-            $scope.setParams = (matches) => {
-                return matches.map(match => {
-                    let alias = match.replace(bracketsRegExp, '$1');
-                    let param = {
-                        match: match,
-                        name: alias, // @temp -> load from Model
-                        alias: alias,
-                        value: null
-                    };
+            // $scope.getParams = (matches) => {
+            //     return matches.map(match => {
+            //         let alias = match.replace(bracketsRegExp, '$1');
+            //         let param = {
+            //             match: match,
+            //             name: alias, // @temp -> load from Model
+            //             alias: alias,
+            //             value: null
+            //         };
+            //
+            //         if (alias === 'app') {
+            //             param.values = [...$scope.ngModel.products].map(app => ({
+            //                 name: app.name,
+            //                 value: app.alias
+            //             }));
+            //         }
+            //
+            //         return param;
+            //     });
+            // };
 
-                    if (alias === 'app') {
-                        param.values = [...$scope.ngModel.products].map(app => ({
-                            name: app.name,
-                            value: app.alias
-                        }));
-                    }
-
-                    return param;
-                });
+            $scope.formatParams = (params) => {
+                // @TODO filter apps
+                return params;
             };
 
-            $scope.setParamsValues = (params) => {
+            $scope.getParamsValues = (params) => {
                 return params.reduce((params, param) => {
-                    let alias = param.match.replace(bracketsRegExp, '$1');
-                    params[alias] = param.value;
+                    params[param.alias] = param.value;
                     return params;
                 }, {});
             };
@@ -39187,8 +39189,9 @@ module.exports = "<ul class=\"tags\">\n    <i class=\"icon icon-tag\" ng-if=\"ic
             };
 
             $scope.dataRaw = $scope.ngModel.data;
-            $scope.dataMatches = $scope.getMatches($scope.dataRaw);
-            $scope.params = $scope.setParams($scope.dataMatches);
+            // $scope.dataMatches = $scope.getMatches($scope.dataRaw);
+            // $scope.params = $scope.formatParams($scope.dataMatches);
+            $scope.params = $scope.formatParams($scope.ngModel.params);
             $scope.setParamsFromUrl();
 
             $scope.$on('$locationChangeSuccess', function() {
@@ -39197,7 +39200,7 @@ module.exports = "<ul class=\"tags\">\n    <i class=\"icon icon-tag\" ng-if=\"ic
 
             $scope.$watch('params', (n, o) => {
                 if (!angular.equals(n, o)) {
-                    $scope.paramsValues = $scope.setParamsValues($scope.params);
+                    $scope.paramsValues = $scope.getParamsValues($scope.params);
                     $scope.data = $scope.processData($scope.dataRaw, $scope.paramsValues);
                     $scope.setUrlFromParams($scope.paramsValues);
                     // $scope.title = $scope.processData($scope.titleRaw, $scope.paramsValues);
@@ -39291,27 +39294,13 @@ module.exports = "<div class=\"preview\" ng-class=\"{'preview-active': show}\">\
     return {
         replace: true,
         link: function (scope, element, atts) {
+            const controlTpl = `<control-${scope.param.control} class="${atts.class}"></control-${scope.param.control}>`;
+
             if (!scope.param.value && scope.param.values) {
-                let firstValue = scope.param.values[0];
-                scope.param.value = angular.isObject(firstValue) ? firstValue.value : firstValue;
+                scope.param.value = scope.param.values && scope.param.values[0] ? scope.param.values[0].value : scope.param.default;
             }
 
-            scope.param.name = scope.param.name || scope.param.alias;
-
-            const controls = {
-                app: 'input',
-                color: 'input'
-            };
-
-            if (!scope.param.control) {
-                scope.param.control = controls[scope.param.alias];
-            }
-
-            if (scope.param.control) {
-                let controlTpl = `<control-${scope.param.control} class="${atts.class}"></control-${scope.param.control}>`;
-
-                element.replaceWith($compile(angular.element(controlTpl))(scope));
-            }
+            element.replaceWith($compile(angular.element(controlTpl))(scope));
         },
         controller: /** @ngInject */ function($scope) {
             $scope.setValue = (value) => {

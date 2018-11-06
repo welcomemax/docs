@@ -2,27 +2,13 @@ export default /** @ngInject */  function($compile) {
     return {
         replace: true,
         link: function (scope, element, atts) {
+            const controlTpl = `<control-${scope.param.control} class="${atts.class}"></control-${scope.param.control}>`;
+
             if (!scope.param.value && scope.param.values) {
-                let firstValue = scope.param.values[0];
-                scope.param.value = angular.isObject(firstValue) ? firstValue.value : firstValue;
+                scope.param.value = scope.param.values && scope.param.values[0] ? scope.param.values[0].value : scope.param.default;
             }
 
-            scope.param.name = scope.param.name || scope.param.alias;
-
-            const controls = {
-                app: 'input',
-                color: 'input'
-            };
-
-            if (!scope.param.control) {
-                scope.param.control = controls[scope.param.alias];
-            }
-
-            if (scope.param.control) {
-                let controlTpl = `<control-${scope.param.control} class="${atts.class}"></control-${scope.param.control}>`;
-
-                element.replaceWith($compile(angular.element(controlTpl))(scope));
-            }
+            element.replaceWith($compile(angular.element(controlTpl))(scope));
         },
         controller: /** @ngInject */ function($scope) {
             $scope.setValue = (value) => {

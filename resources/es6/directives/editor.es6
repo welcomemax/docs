@@ -1,6 +1,6 @@
 import template from '../../html/editor.html';
 
-export default /** @ngInject */  function(api) {
+export default /** @ngInject */  function() {
     return {
         require: '?ngModel',
         scope: {
@@ -12,14 +12,12 @@ export default /** @ngInject */  function(api) {
 
         },
         controller: function($scope, $location) {
-            api.call('items');
-
             const bracketsRegExp = /\[\[(.*)\]\]/gm;
             // const editorMode = $scope.ngModel.type.alias.toLowerCase();
 
-            $scope.getMatches = (data) => {
-                return data.match(bracketsRegExp);
-            };
+            // $scope.getMatches = (data) => {
+            //     return data.match(bracketsRegExp);
+            // };
 
             // $scope.wrapMatches = (data, matches) => {
             //     matches.forEach(match => {
@@ -30,31 +28,35 @@ export default /** @ngInject */  function(api) {
             //     return data
             // };
 
-            $scope.setParams = (matches) => {
-                return matches.map(match => {
-                    let alias = match.replace(bracketsRegExp, '$1');
-                    let param = {
-                        match: match,
-                        name: alias, // @temp -> load from Model
-                        alias: alias,
-                        value: null
-                    };
+            // $scope.getParams = (matches) => {
+            //     return matches.map(match => {
+            //         let alias = match.replace(bracketsRegExp, '$1');
+            //         let param = {
+            //             match: match,
+            //             name: alias, // @temp -> load from Model
+            //             alias: alias,
+            //             value: null
+            //         };
+            //
+            //         if (alias === 'app') {
+            //             param.values = [...$scope.ngModel.products].map(app => ({
+            //                 name: app.name,
+            //                 value: app.alias
+            //             }));
+            //         }
+            //
+            //         return param;
+            //     });
+            // };
 
-                    if (alias === 'app') {
-                        param.values = [...$scope.ngModel.products].map(app => ({
-                            name: app.name,
-                            value: app.alias
-                        }));
-                    }
-
-                    return param;
-                });
+            $scope.formatParams = (params) => {
+                // @TODO filter apps
+                return params;
             };
 
-            $scope.setParamsValues = (params) => {
+            $scope.getParamsValues = (params) => {
                 return params.reduce((params, param) => {
-                    let alias = param.match.replace(bracketsRegExp, '$1');
-                    params[alias] = param.value;
+                    params[param.alias] = param.value;
                     return params;
                 }, {});
             };
@@ -93,8 +95,9 @@ export default /** @ngInject */  function(api) {
             };
 
             $scope.dataRaw = $scope.ngModel.data;
-            $scope.dataMatches = $scope.getMatches($scope.dataRaw);
-            $scope.params = $scope.setParams($scope.dataMatches);
+            // $scope.dataMatches = $scope.getMatches($scope.dataRaw);
+            // $scope.params = $scope.formatParams($scope.dataMatches);
+            $scope.params = $scope.formatParams($scope.ngModel.params);
             $scope.setParamsFromUrl();
 
             $scope.$on('$locationChangeSuccess', function() {
@@ -103,7 +106,7 @@ export default /** @ngInject */  function(api) {
 
             $scope.$watch('params', (n, o) => {
                 if (!angular.equals(n, o)) {
-                    $scope.paramsValues = $scope.setParamsValues($scope.params);
+                    $scope.paramsValues = $scope.getParamsValues($scope.params);
                     $scope.data = $scope.processData($scope.dataRaw, $scope.paramsValues);
                     $scope.setUrlFromParams($scope.paramsValues);
                     // $scope.title = $scope.processData($scope.titleRaw, $scope.paramsValues);

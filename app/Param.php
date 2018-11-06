@@ -11,7 +11,8 @@ class Param extends Model
     protected $fillable = [
         'alias',
         'name',
-        'default_value'
+        'default',
+        'control'
     ];
 
     protected $hidden = [

@@ -27,7 +27,7 @@ class ItemsTableSeeder extends Seeder
                 'data' => '.eapps-[[app]]{'.PHP_EOL.'    font-family: [[font-family]];'.PHP_EOL.'}',
                 'type' => 'css',
                 'tags' => ['custom', 'hot'],
-                'products' => ['any']
+                'products' => 'any'
             ],
             [
                 'title' => 'Widget Title color',
@@ -114,25 +114,40 @@ class ItemsTableSeeder extends Seeder
                 ]);
             }
 
-            foreach ($data['tags'] as $tag_alias) {
-                $tag = Tag::where('alias', $tag_alias)->first();
+            if (!empty($data['tags'])) {
+                foreach ($data['tags'] as $tag_alias) {
+                    $tag = Tag::where('alias', $tag_alias)->first();
 
-                if (!empty($tag)) {
-                    ItemTag::updateOrCreate([
-                        'item_id' => $item->id,
-                        'tag_id' => $tag->id
-                    ]);
+                    if (!empty($tag)) {
+                        ItemTag::updateOrCreate([
+                            'item_id' => $item->id,
+                            'tag_id' => $tag->id
+                        ]);
+                    }
                 }
             }
 
-            foreach ($data['products'] as $product_alias) {
-                $product = Product::where('alias', $product_alias)->first();
+            if (!empty($data['products'])) {
+                if ($data['products'] === 'any') {
+                    $products = Product::get();
 
-                if (!empty($product)) {
-                    ItemProduct::updateOrCreate([
-                        'item_id' => $item->id,
-                        'product_id' => $product->id
-                    ]);
+                    foreach ($products as $product) {
+                        ItemProduct::updateOrCreate([
+                            'item_id' => $item->id,
+                            'product_id' => $product->id
+                        ]);
+                    }
+                } else {
+                    foreach ($data['products'] as $product_alias) {
+                        $product = Product::where('alias', $product_alias)->first();
+
+                        if (!empty($product)) {
+                            ItemProduct::updateOrCreate([
+                                'item_id' => $item->id,
+                                'product_id' => $product->id
+                            ]);
+                        }
+                    }
                 }
             }
 
